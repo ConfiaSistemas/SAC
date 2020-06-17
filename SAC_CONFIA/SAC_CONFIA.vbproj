@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{32740244-D3DB-4EF6-AFDA-B361D6894186}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>SAC_CONFIA.My.MyApplication</StartupObject>
+    <RootNamespace>SAC_CONFIA</RootNamespace>
+    <AssemblyName>SAC_CONFIA</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>SAC_CONFIA.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>SAC_CONFIA.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>lconfia.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Controls">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow">
+      <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>C:\DLL JAIRO\Bunifu_UI_v1.5.3.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit">
+      <HintPath>C:\DLL JAIRO\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Encryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Encryption.dll</HintPath>
+    </Reference>
+    <Reference Include="MadMilkman.Ini, Version=1.0.6.0, Culture=neutral, PublicKeyToken=4e0b5157a7ffbb74, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MadMilkman\MadMilkman.Ini\Bin\MadMilkman.Ini.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Zeroit.Framework.Metro">
+      <HintPath>C:\DLL JAIRO\Zeroit.Framework.Metro.1.0.0\lib\Zeroit.Framework.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AplicarDescuento.Designer.vb">
+      <DependentUpon>AplicarDescuento.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AplicarDescuento.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Autorizacion.designer.vb">
+      <DependentUpon>Autorizacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Autorizacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarCredito.Designer.vb">
+      <DependentUpon>BuscarCredito.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarCredito.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cargando.designer.vb">
+      <DependentUpon>Cargando.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cargando.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Class1.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Class2.vb" />
+    <Compile Include="Class3.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CobroExtra.Designer.vb">
+      <DependentUpon>CobroExtra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CobroExtra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuraciones.designer.vb">
+      <DependentUpon>Configuraciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Configuraciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Creditos_Autorizados.Designer.vb">
+      <DependentUpon>Creditos_Autorizados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Creditos_Autorizados.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetalleCaja.Designer.vb">
+      <DependentUpon>DetalleCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetallePago.vb" />
+    <Compile Include="editarperfil.designer.vb">
+      <DependentUpon>editarperfil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="editarperfil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresas.designer.vb">
+      <DependentUpon>Empresas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Empresas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_adm.designer.vb">
+      <DependentUpon>frm_adm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm_adm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="inicio.designer.vb">
+      <DependentUpon>inicio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="inicio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Liquidaciones.Designer.vb">
+      <DependentUpon>Liquidaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Liquidaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LiquidacionInsoluto.Designer.vb">
+      <DependentUpon>LiquidacionInsoluto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LiquidacionInsoluto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.designer.vb">
+      <DependentUpon>login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Module1.vb" />
+    <Compile Include="modulo resize.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="NumLetra.vb" />
+    <Compile Include="perfilalt.designer.vb">
+      <DependentUpon>perfilalt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="perfilalt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintesClass.vb" />
+    <Compile Include="RealizarRetrio.Designer.vb">
+      <DependentUpon>RealizarRetrio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RealizarRetrio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.designer.vb">
+      <DependentUpon>Reportes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tickets.Designer.vb">
+      <DependentUpon>Tickets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tickets.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ticket_impresion.Designer.vb">
+      <DependentUpon>Ticket_impresion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket_impresion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ticket_Comision.Designer.vb">
+      <DependentUpon>Ticket_Comision.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket_Comision.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="webcam.designer.vb">
+      <DependentUpon>webcam.vb</DependentUpon>
+    </Compile>
+    <Compile Include="webcam.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AplicarDescuento.resx">
+      <DependentUpon>AplicarDescuento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Autorizacion.resx">
+      <DependentUpon>Autorizacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuscarCredito.resx">
+      <DependentUpon>BuscarCredito.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cargando.resx">
+      <DependentUpon>Cargando.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class3.resx">
+      <DependentUpon>Class3.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CobroExtra.resx">
+      <DependentUpon>CobroExtra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuraciones.resx">
+      <DependentUpon>Configuraciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Creditos_Autorizados.resx">
+      <DependentUpon>Creditos_Autorizados.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetalleCaja.resx">
+      <DependentUpon>DetalleCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editarperfil.resx">
+      <DependentUpon>editarperfil.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresas.resx">
+      <DependentUpon>Empresas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_adm.resx">
+      <DependentUpon>frm_adm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="inicio.resx">
+      <DependentUpon>inicio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Liquidaciones.resx">
+      <DependentUpon>Liquidaciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiquidacionInsoluto.resx">
+      <DependentUpon>LiquidacionInsoluto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="perfilalt.resx">
+      <DependentUpon>perfilalt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealizarRetrio.resx">
+      <DependentUpon>RealizarRetrio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tickets.resx">
+      <DependentUpon>Tickets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ticket_impresion.resx">
+      <DependentUpon>Ticket_impresion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ticket_Comision.resx">
+      <DependentUpon>Ticket_Comision.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="webcam.resx">
+      <DependentUpon>webcam.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reporte-png-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reproductor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuario agregar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuarionegro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuarios.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\87578.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\109846.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\196766-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\875781.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\23782214_1949735195350343_1299272425_n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\configu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\contraseña.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\empresa-azul.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grupos agregar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icono_producto-hogar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\impuestos mas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lconfia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo dando vueltas.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mas1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mas2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu-alt-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\modificar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mostrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mostrar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mostrar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_seo2-38-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ocultar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ocultar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ojochico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proveedores.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SAC.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\75804849-ccc1-40d0-b0aa-672e22556ad5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16fc2b28-6980-4eaa-af5f-2105ebb20039.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icono reportes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icono cerrar empresa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lconfia.ico" />
+    <None Include="Resources\357-3573518_notebook-and-pencil-vector-icono-de-libreta-png.png" />
+    <None Include="Resources\86114.png" />
+    <None Include="Resources\kisspng-cash-register-computer-icons-trade-download-encaps-5af27779dcbb22.9139403915258397379041.jpg" />
+    <None Include="Resources\png-transparent-cash-register-cash-register-payment-monochrome-black-thumbnail.png" />
+    <None Include="Resources\kisspng-cash-register-computer-icons-money-point-of-sale-p-cash-register-5acb56ea4b58f1.1050905315232754983086.jpg" />
+    <None Include="Resources\descarga.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
