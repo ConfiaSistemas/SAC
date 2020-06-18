@@ -31,10 +31,10 @@ Public Class Tickets
         Dim cajaConsultar As String
         Select Case ComboFiltro.Text
             Case "Todas"
-                consulta = "select Ticket.id,Ticket.Recibido,Ticket.IdCredito,Ticket.Fecha,Ticket.hora,Ticket.total,tipodoc.Nombre as tipo,Ticket.concepto,Ticket.caja from Ticket  inner join TipoDoc on Ticket.tipodoc = TipoDoc.id where Ticket.fecha >= convert(date,'" & fechainserciondesde & "',102) and Ticket.fecha <= convert(date,'" & fechainsercionhasta & "',102)  order by Ticket.fecha,Ticket.hora asc "
+                consulta = "select Ticket.id,Ticket.Recibido,Ticket.IdCredito,Ticket.Fecha,Ticket.hora,Ticket.total,tipodoc.Nombre as tipo,Ticket.concepto,Ticket.caja,ticket.estado from Ticket  inner join TipoDoc on Ticket.tipodoc = TipoDoc.id where Ticket.fecha >= convert(date,'" & fechainserciondesde & "',102) and Ticket.fecha <= convert(date,'" & fechainsercionhasta & "',102)  order by Ticket.fecha,Ticket.hora asc "
             Case Else
                 cajaConsultar = ComboFiltro.Text
-                consulta = "select Ticket.id,Ticket.Recibido,Ticket.IdCredito,Ticket.Fecha,Ticket.hora,Ticket.total,tipodoc.Nombre as tipo,Ticket.concepto,Ticket.caja from Ticket  inner join TipoDoc on Ticket.tipodoc = TipoDoc.id where Ticket.fecha >= convert(date,'" & fechainserciondesde & "',102) and Ticket.fecha <= convert(date,'" & fechainsercionhasta & "',102) and ticket.caja = '" & cajaConsultar & "'  order by Ticket.fecha,Ticket.hora asc "
+                consulta = "select Ticket.id,Ticket.Recibido,Ticket.IdCredito,Ticket.Fecha,Ticket.hora,Ticket.total,tipodoc.Nombre as tipo,Ticket.concepto,Ticket.caja,ticket.estado from Ticket  inner join TipoDoc on Ticket.tipodoc = TipoDoc.id where Ticket.fecha >= convert(date,'" & fechainserciondesde & "',102) and Ticket.fecha <= convert(date,'" & fechainsercionhasta & "',102) and ticket.caja = '" & cajaConsultar & "'  order by Ticket.fecha,Ticket.hora asc "
 
         End Select
 
@@ -84,14 +84,14 @@ Public Class Tickets
             If recibido > totalPago Then
                 Select Case reader("tipo")
                     Case "Convenio"
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case "Legal"
 
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case "Extra"
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), reader("concepto"), reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), reader("concepto"), reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case Else
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("Total"), reader("Fecha"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                 End Select
 
 
@@ -100,14 +100,14 @@ Public Class Tickets
                 Select Case reader("tipo")
 
                     Case "Convenio"
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case "Legal"
 
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case "Extra"
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), reader("concepto"), reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), reader("concepto"), reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                     Case Else
-                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"))
+                        dtdatos.Rows.Add(reader("id"), reader("idcredito"), nombrecredito, reader("recibido"), Convert.ToDateTime(reader("Fecha")).ToString("yyyy-MM-dd"), reader("hora"), reader("tipo"), reader("Caja"), reader("estado"))
                 End Select
 
 
@@ -122,7 +122,7 @@ Public Class Tickets
         Dim afecta As Boolean
         For Each row As DataGridViewRow In dtdatos.Rows
             afecta = AfectaCaja(row.Cells(6).Value)
-            If afecta Then
+            If afecta And row.Cells(8).Value = "A" Then
                 total = total + row.Cells(3).Value
             Else
 
