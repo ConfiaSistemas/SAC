@@ -214,28 +214,13 @@ Public Class login
 
 
     Private Sub login_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        txtusr.Select()
-        txtusr.Focus()
 
-
-        If bloqueado Then
-
-        Else
-            Timer1.Enabled = True
-            AddHandler txtusr.KeyPress, AddressOf keypressed
-        End If
+        Timer1.Enabled = True
+        AddHandler txtusr.KeyPress, AddressOf keypressed
 
 
     End Sub
 
-
-
-
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        Timer1.Interval = 1
-        Timer1.Start()
-
-    End Sub
 
     Private Sub MonoFlat_TextBox1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
 
@@ -297,5 +282,11 @@ Public Class login
         End If
     End Sub
 
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
+    End Sub
+
+    Private Sub login_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        SendKeys.Send("{TAB}")
+    End Sub
 End Class

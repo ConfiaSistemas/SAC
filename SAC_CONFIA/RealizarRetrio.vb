@@ -90,16 +90,17 @@ Public Class RealizarRetrio
             .AlignCenter()
             .RTL = False
             .AlignCenter()
-            .GotoSixth(3)
+            .Gotox(1050)
             .PrintLogo()
             .GotoSixth(1)
             .NormalFont()
+            .FontSize = 8
             .WriteLine("Retiro")
             .WriteLine("")
 
             .DrawLine()
             .GotoSixth(1)
-            .FontSize = 6
+            .FontSize = 7.3
             .Bold = True
             .WriteChars("ID:")
             .Bold = False
@@ -142,7 +143,7 @@ Public Class RealizarRetrio
             .WriteChars("FECHA Y HORA:")
             .Bold = False
             .GotoSixth(3)
-            .WriteChars("  " & fechaRetiro & " - " & tiempo)
+            .WriteChars(fechaRetiro & " - " & tiempo)
 
             .WriteLine("")
 
