@@ -125,6 +125,12 @@
     <Compile Include="Autorizacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BuscarEmpeño.Designer.vb">
+      <DependentUpon>BuscarEmpeño.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarEmpeño.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="BuscarCredito.Designer.vb">
       <DependentUpon>BuscarCredito.vb</DependentUpon>
     </Compile>
@@ -192,6 +198,12 @@
       <DependentUpon>frm_adm.vb</DependentUpon>
     </Compile>
     <Compile Include="frm_adm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CobroEmpeño.designer.vb">
+      <DependentUpon>CobroEmpeño.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CobroEmpeño.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="inicio.designer.vb">
@@ -287,6 +299,9 @@
     <EmbeddedResource Include="Autorizacion.resx">
       <DependentUpon>Autorizacion.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BuscarEmpeño.resx">
+      <DependentUpon>BuscarEmpeño.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscarCredito.resx">
       <DependentUpon>BuscarCredito.vb</DependentUpon>
     </EmbeddedResource>
@@ -320,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_adm.resx">
       <DependentUpon>frm_adm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CobroEmpeño.resx">
+      <DependentUpon>CobroEmpeño.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="inicio.resx">
       <DependentUpon>inicio.vb</DependentUpon>

@@ -133,9 +133,7 @@ Public Class Tickets
         lbltotal.Text = FormatCurrency(total)
     End Sub
 
-    Private Sub MonoFlat_HeaderLabel3_Click(sender As Object, e As EventArgs) Handles lbltotal.Click
 
-    End Sub
 
     Private Sub BackgroundCajas_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundCajas.DoWork
         iniciarconexionempresa()
