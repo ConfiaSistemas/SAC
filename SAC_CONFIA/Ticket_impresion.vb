@@ -1245,7 +1245,6 @@ Public Class Ticket_impresion
 
                                                 .WriteChars("FECHA Y HORA DE PAGO:  ")
                                                 .Bold = False
-                                                .GotoSixth(3)
                                                 .WriteChars("  " & fechadePago & " - " & horadepago)
 
                                                 .WriteLine("")
@@ -1983,7 +1982,6 @@ Public Class Ticket_impresion
                                                 .Bold = True
                                                 .WriteChars("FECHA Y HORA DE PAGO:  ")
                                                 .Bold = False
-                                                .GotoSixth(3)
                                                 .WriteChars("  " & fechadePago & " - " & horadepago)
 
                                                 .WriteLine("")
@@ -2283,7 +2281,6 @@ Public Class Ticket_impresion
 
                                                     .WriteChars("FECHA Y HORA DE PAGO:  ")
                                                     .Bold = False
-                                                    .GotoSixth(3)
                                                     .WriteChars("  " & fechadePago & " - " & horadepago)
 
                                                     .WriteLine("")
