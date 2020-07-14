@@ -127,7 +127,7 @@ Public Class Ticket_impresion
                                                                           Dim interesesAcumulado As Double
                                                                           Dim readerinteresesacumulado As SqlDataReader
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -159,7 +159,7 @@ Public Class Ticket_impresion
 
 
 
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -187,7 +187,7 @@ Public Class Ticket_impresion
                                                                           Dim consultaintereses As String
                                                                           Dim interesesAcumulado As Double
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           If IsDBNull(comandointeres.ExecuteScalar) Then
@@ -240,7 +240,7 @@ Public Class Ticket_impresion
                                                                           Dim comandoAbono As SqlCommand
                                                                           comandoAbono = New SqlCommand
                                                                           Dim consultaAbonar As String
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -332,7 +332,7 @@ Public Class Ticket_impresion
                                                                       Dim interesesAcumulado As Double
                                                                       Dim readerinteresesacumulado As SqlDataReader
                                                                       comandointeres = New SqlCommand
-                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                       comandointeres.Connection = conexionempresa
                                                                       comandointeres.CommandText = consultaintereses
                                                                       'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -366,7 +366,7 @@ Public Class Ticket_impresion
                                                                       Dim comandoAbono As SqlCommand
                                                                       comandoAbono = New SqlCommand
                                                                       Dim consultaAbonar As String
-                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                       Dim totalAbonado As String
                                                                       comandoAbono.Connection = conexionempresa
                                                                       comandoAbono.CommandText = consultaAbonar
@@ -815,7 +815,7 @@ Public Class Ticket_impresion
                                                                           Dim interesesAcumulado As Double
                                                                           Dim readerinteresesacumulado As SqlDataReader
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado= 'A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -847,7 +847,7 @@ Public Class Ticket_impresion
 
 
 
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -875,7 +875,7 @@ Public Class Ticket_impresion
                                                                           Dim consultaintereses As String
                                                                           Dim interesesAcumulado As Double
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           If IsDBNull(comandointeres.ExecuteScalar) Then
@@ -928,7 +928,7 @@ Public Class Ticket_impresion
                                                                           Dim comandoAbono As SqlCommand
                                                                           comandoAbono = New SqlCommand
                                                                           Dim consultaAbonar As String
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -1020,7 +1020,7 @@ Public Class Ticket_impresion
                                                                       Dim interesesAcumulado As Double
                                                                       Dim readerinteresesacumulado As SqlDataReader
                                                                       comandointeres = New SqlCommand
-                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                       comandointeres.Connection = conexionempresa
                                                                       comandointeres.CommandText = consultaintereses
                                                                       'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -1054,7 +1054,7 @@ Public Class Ticket_impresion
                                                                       Dim comandoAbono As SqlCommand
                                                                       comandoAbono = New SqlCommand
                                                                       Dim consultaAbonar As String
-                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                       Dim totalAbonado As String
                                                                       comandoAbono.Connection = conexionempresa
                                                                       comandoAbono.CommandText = consultaAbonar
@@ -1566,7 +1566,7 @@ Public Class Ticket_impresion
                                                                           Dim interesesAcumulado As Double
                                                                           Dim readerinteresesacumulado As SqlDataReader
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado ='A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -1598,7 +1598,7 @@ Public Class Ticket_impresion
 
 
 
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado ='A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -1626,7 +1626,7 @@ Public Class Ticket_impresion
                                                                           Dim consultaintereses As String
                                                                           Dim interesesAcumulado As Double
                                                                           comandointeres = New SqlCommand
-                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           comandointeres.Connection = conexionempresa
                                                                           comandointeres.CommandText = consultaintereses
                                                                           If IsDBNull(comandointeres.ExecuteScalar) Then
@@ -1679,7 +1679,7 @@ Public Class Ticket_impresion
                                                                           Dim comandoAbono As SqlCommand
                                                                           comandoAbono = New SqlCommand
                                                                           Dim consultaAbonar As String
-                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                           Dim totalAbonado As String
                                                                           comandoAbono.Connection = conexionempresa
                                                                           comandoAbono.CommandText = consultaAbonar
@@ -1771,7 +1771,7 @@ Public Class Ticket_impresion
                                                                       Dim interesesAcumulado As Double
                                                                       Dim readerinteresesacumulado As SqlDataReader
                                                                       comandointeres = New SqlCommand
-                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado ='A'"
                                                                       comandointeres.Connection = conexionempresa
                                                                       comandointeres.CommandText = consultaintereses
                                                                       'readerinteresesacumulado = comandointeres.ExecuteReader
@@ -1805,7 +1805,7 @@ Public Class Ticket_impresion
                                                                       Dim comandoAbono As SqlCommand
                                                                       comandoAbono = New SqlCommand
                                                                       Dim consultaAbonar As String
-                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "'"
+                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and tipodoc = '" & tipoDoc & "' and estado = 'A'"
                                                                       Dim totalAbonado As String
                                                                       comandoAbono.Connection = conexionempresa
                                                                       comandoAbono.CommandText = consultaAbonar
