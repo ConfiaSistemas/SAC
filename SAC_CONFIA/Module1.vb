@@ -736,7 +736,7 @@ ByVal maximumWorkingSetSize As Integer) As Integer
 
                     .WriteChars("FECHA Y HORA DE PAGO: ")
                     .Bold = False
-                    '.GotoSixth(3)
+
                     .WriteChars("  " & fechadepago & " - " & horastring)
 
                     .WriteLine("")

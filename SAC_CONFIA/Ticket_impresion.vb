@@ -572,7 +572,7 @@ Public Class Ticket_impresion
                                                 '.FontSize = 
                                                 .WriteChars("FECHA Y HORA DE PAGO:  ")
                                                 .Bold = False
-                                                '.GotoSixth(3)
+
                                                 .WriteChars("  " & fechadePago & " - " & horadepago)
 
                                                 .WriteLine("")
