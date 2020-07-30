@@ -181,7 +181,7 @@ Partial Class BuscarEmpeño
         'BackgroundWorker1
         '
         '
-        'BuscarCredito
+        'BuscarEmpeño
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -192,8 +192,8 @@ Partial Class BuscarEmpeño
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.dtimpuestos)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "BuscarCredito"
-        Me.Text = "BuscarCredito"
+        Me.Name = "BuscarEmpeño"
+        Me.Text = "Buscar Empeño"
         CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()

@@ -29,6 +29,10 @@ Public Class Ticket_impresion
     Public autorizado As Boolean
     Public Concepto As String
     Dim abono As Boolean = False
+    Public interesEmpeño As Double
+    Public capitalEmpeño As Double
+    Public pendienteEmpeño As Double
+    Public abonadoEmpeño As Double
 
     Private Sub Ticket_Comision_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtTotal.Text = total
@@ -1442,7 +1446,15 @@ Public Class Ticket_impresion
 
         ElseIf GetNombreDoc(tipoDoc) = "Renovación Insoluto" Then
             ImprimeTicketLiquidacionInsolutoAsync()
+        ElseIf GetNombreDoc(tipoDoc) = "Refrendo" Then
+            ImprimeTicketEmpeño()
+        ElseIf GetNombreDoc(tipoDoc) = "Comisión por avalúo" Then
+            ImprimeTicketEmpeño()
+        ElseIf GetNombreDoc(tipoDoc) = "Desempeño" Then
+            ImprimeTicketEmpeño()
         Else
+
+
 
 
 
@@ -2749,4 +2761,358 @@ Public Class Ticket_impresion
                                     End Sub)
 
     End Sub
+
+    Private Async Sub ImprimeTicketEmpeño()
+        Await Task.Factory.StartNew(Sub()
+                                        Dim NumeroLetra As New NumLetra
+                                        Dim tiempo As String = TimeOfDay.ToString("HH:mm:ss")
+                                        If recibido < totalApagar Then
+                                            Cargando.TopMost = False
+                                            Cargando.SendToBack()
+                                            Me.TopMost = False
+                                            Dim result As DialogResult = MessageBox.Show("El pago recibido es menor al total a pagar, en el pago de un empeño el monto recibido no puede ser menor al monto total a pagar",
+                                                          "SAC",
+                                                          MessageBoxButtons.OK)
+
+
+                                        Else
+                                            Cargando.Show()
+                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                            Cargando.TopMost = True
+                                            Dim comandoNumeroRefrendo As SqlCommand
+                                            Dim consultaNumeroRefrendo As String
+                                            Dim noRefrendo As String
+                                            consultaNumeroRefrendo = "Select top 1 concepto from ticket where idcredito = '" & idCreditoRecibo & "' and tipodoc= '" & tipoDoc & "' order by concepto desc"
+                                            comandoNumeroRefrendo = New SqlCommand
+                                            comandoNumeroRefrendo.Connection = conexionempresa
+                                            comandoNumeroRefrendo.CommandText = consultaNumeroRefrendo
+                                            noRefrendo = comandoNumeroRefrendo.ExecuteScalar + 1
+                                            Dim comandoRecibo As SqlCommand
+                                            Dim consultarecibo As String
+                                            iniciarconexionempresa()
+                                            Dim fechainsercionhasta As String
+                                            fechainsercionhasta = Now.Date
+                                            If interesEmpeño = 0 Then
+                                                noRefrendo = ""
+                                            Else
+
+                                                If GetNombreDoc(tipoDoc) = "Comisión por avalúo" Then
+                                                    noRefrendo = ""
+                                                End If
+
+                                            End If
+                                            Dim fechasqlhasta As Date
+                                            fechasqlhasta = fechainsercionhasta
+                                            fechainsercionhasta = Format(fechasqlhasta, "yyyy-MM-dd")
+                                            consultarecibo = "Insert into ticket values('" & totalApagar & "','" & recibido & "','" & txtCambio.Text & "','" & fechainsercionhasta & "','" & tiempo & "','" & idCreditoRecibo & "','" & capitalEmpeño & "','" & interesEmpeño & "','" & tipoDoc & "','" & noRefrendo & "','" & nmusr & "','" & noCaja & "','" & descuentoAticket & "','A','" & nm_completeusr & "','" & total & "') SELECT SCOPE_IDENTITY()"
+                                            comandoRecibo = New SqlCommand
+                                            comandoRecibo.Connection = conexionempresa
+                                            comandoRecibo.CommandText = consultarecibo
+                                            'comandoRecibo.ExecuteNonQuery()
+                                            idRecibo = comandoRecibo.ExecuteScalar
+                                            fechadePago = Format(fechasqlhasta, "dd/MM/yyyy")
+                                            horadepago = tiempo
+
+                                            ' Dim comandoIdRecibo As OleDb.OleDbCommand
+                                            'Dim consultaIdRecibo As String
+                                            ' consultaIdRecibo = "Select top 1 idRecibo from recibos order by idRecibo desc "
+                                            ' comandoIdRecibo = New OleDb.OleDbCommand
+                                            ' comandoIdRecibo.Connection = conexionempresa
+                                            ' comandoIdRecibo.CommandText = consultaIdRecibo
+                                            'idRecibo = comandoIdRecibo.ExecuteScalar
+
+
+                                            ' Dim pagados As String
+
+
+                                            '  saldo = total
+                                            ' Dim interesrecibo As Double = MultasLiquidacion
+                                            ' Dim pagonormalrecibo As Double = MontoLiquidacionSmultas
+                                            ' a = New DetallePago(0, 0, MontoLiquidacionSmultas, MultasLiquidacion, 0, 0, MontoLiquidacionSmultas, "Liquidación", txtRecibido.Text, descuentoApago)
+                                            ' array.Add(a)
+                                            ' saldo = total
+                                            ' Dim interesrecibo As Double = 0
+                                            ' Dim pagonormalrecibo As Double = 0
+
+
+
+                                            '  Dim ComandoActRecibo As SqlCommand
+                                            '  Dim consultaActRecibo As String
+                                            '  ComandoActRecibo = New SqlCommand
+
+                                            ' consultaActRecibo = "update ticket set intereses = '" & interesrecibo & "',pagonormal = '" & pagonormalrecibo & "' where id = '" & idRecibo & "'"
+                                            ' ComandoActRecibo.Connection = conexionempresa
+                                            ' ComandoActRecibo.CommandText = consultaActRecibo
+                                            ' ComandoActRecibo.ExecuteNonQuery()
+                                            ' MessageBox.Show("listo")
+                                            'Principal.BackgroundWorker1.RunWorkerAsync()
+                                            '  Me.Close()
+
+
+                                            Dim comandoActEmpeño As SqlCommand
+                                            Dim consultaActEmpeño As String
+                                            If pendienteEmpeño = 0 Then
+                                                consultaActEmpeño = "update empeños set pendiente = '" & pendienteEmpeño & "', abonado = '" & abonadoEmpeño & "',fechaultimopago = '" & Now.Date.ToString("yyyy-MM-dd") & "', estado = 'T' where id = '" & idCreditoRecibo & "'"
+
+                                            Else
+                                                consultaActEmpeño = "update empeños set pendiente = '" & pendienteEmpeño & "', abonado = '" & abonadoEmpeño & "',fechaultimopago = '" & Now.Date.ToString("yyyy-MM-dd") & "' where id = '" & idCreditoRecibo & "'"
+
+                                            End If
+                                            comandoActEmpeño = New SqlCommand
+                                            comandoActEmpeño.Connection = conexionempresa
+                                            comandoActEmpeño.CommandText = consultaActEmpeño
+                                            comandoActEmpeño.ExecuteNonQuery()
+
+
+
+
+
+
+                                            Dim P As New PrinterClass(Impresora, Application.StartupPath, False)
+                                            For copy As Integer = 1 To 2
+                                                With P
+
+                                                    .AlignCenter()
+                                                    .RTL = False
+                                                    .AlignCenter()
+                                                    .Gotox(1085)
+                                                    .PrintLogo()
+                                                    .GotoSixth(1)
+                                                    .NormalFont()
+                                                    .WriteLine(NombreEmpresa)
+                                                    .WriteLine("")
+                                                    .WriteLine(RFCEmpresa)
+                                                    .FontSize = 8
+                                                    .WriteLine("")
+                                                    .WriteChars("Calle  " & CalleEmpresa & "  No. " & NumeroEmpresa)
+
+
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .WriteChars("Colonia" & " " & ColEmpresa)
+
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .WriteChars("C.P." & " " & CPEmpresa & " " & CiudadEmpresa & " " & EstadoEmpresa)
+
+
+                                                    .WriteLine("")
+
+                                                    .DrawLine()
+                                                    .GotoSixth(1)
+                                                    .FontSize = 7.3
+                                                    .Bold = True
+                                                    .WriteChars("TICKET:")
+                                                    .Bold = False
+                                                    .GotoSixth(3)
+                                                    .WriteChars(idRecibo)
+                                                    .WriteLine("")
+                                                    .Bold = True
+                                                    .GotoSixth(1)
+                                                    .WriteChars("CAJA:")
+                                                    .Bold = False
+                                                    .GotoSixth(3)
+                                                    .WriteChars(noCaja)
+                                                    .WriteLine("")
+                                                    .Bold = True
+                                                    .GotoSixth(1)
+                                                    .WriteChars("ATENDIDO POR:")
+                                                    .Bold = False
+                                                    .GotoSixth(3)
+                                                    .WriteChars(nm_completeusr)
+                                                    .WriteLine("")
+                                                    .Bold = True
+                                                    .GotoSixth(1)
+                                                    .WriteChars("EMPEÑO NO.:")
+                                                    .Bold = False
+                                                    .GotoSixth(3)
+                                                    .WriteChars(idCreditoRecibo)
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .Bold = True
+                                                    .FontSize = 6.3
+                                                    .WriteChars("MONTO DEL EMPEÑO:")
+                                                    .Bold = False
+                                                    .FontSize = 7.3
+                                                    .GotoSixth(3)
+                                                    .WriteChars((montocredito).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .Bold = True
+                                                    .WriteChars("CLIENTE:")
+                                                    .GotoSixth(3)
+                                                    .Bold = False
+                                                    .FontSize = 6.5
+                                                    .WriteChars(nombre_credito)
+                                                    .FontSize = 7.3
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+
+
+                                                    .Bold = True
+                                                    .WriteChars("FECHA Y HORA DE PAGO:  ")
+                                                    .Bold = False
+                                                    .WriteChars("  " & fechadePago & " - " & horadepago)
+
+                                                    .WriteLine("")
+                                                    .DrawLine()
+
+                                                    .GotoSixth(1)
+                                                    .Bold = True
+
+                                                    .WriteChars("DESCRIPCIÓN")
+                                                    .GotoSixth(5)
+                                                    .WriteChars("MONTO")
+
+                                                    .WriteLine("")
+
+                                                    .DrawLine()
+
+
+                                                    Dim subtotal16 As Double = 0
+                                                    Dim totalpago As Double = 0
+                                                    If GetNombreDoc(tipoDoc) = "Comisión por avalúo" Then
+                                                        .GotoSixth(1)
+
+                                                        .WriteChars("Comisión por avalúo ")
+                                                        .GotoSixth(5)
+                                                        .WriteChars((interesEmpeño).ToString("$ ##,##00.00"))
+
+
+                                                        .WriteLine("")
+                                                    Else
+                                                        If interesEmpeño <> 0 Then
+                                                            .GotoSixth(1)
+
+                                                            .WriteChars("Pago de refrendo no. " & noRefrendo)
+                                                            .GotoSixth(5)
+                                                            .WriteChars((interesEmpeño).ToString("$ ##,##00.00"))
+
+
+                                                            .WriteLine("")
+                                                        End If
+
+                                                        'subtotal16 = subtotal16 + s.GenInteres(pcmil)
+
+
+                                                        If capitalEmpeño <> 0 Then
+                                                            .GotoSixth(1)
+                                                            .WriteChars("Abono a capital")
+
+                                                            .GotoSixth(5)
+                                                            .WriteChars((capitalEmpeño).ToString("$ ##,##00.00"))
+
+                                                            .WriteLine("")
+                                                        End If
+
+
+                                                    End If
+
+                                                    .DrawLine()
+
+                                                    .GotoSixth(1)
+                                                    .WriteChars("Subtotal Tasa 16%")
+
+                                                    .GotoSixth(5)
+                                                    .WriteChars((interesEmpeño / 1.16).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .WriteChars("I.V.A")
+
+
+                                                    .GotoSixth(5)
+                                                    .WriteChars(((interesEmpeño / 1.16) * 0.16).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+
+                                                    .DrawLine()
+
+                                                    .GotoSixth(1)
+                                                    .WriteChars("SubTotal")
+                                                    .GotoSixth(5)
+                                                    .WriteChars((total).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+
+                                                    .WriteChars("Descuento")
+                                                    .GotoSixth(5)
+                                                    .WriteChars((descuentoAticket).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+
+                                                    .WriteChars("Total")
+                                                    .GotoSixth(5)
+                                                    .WriteChars((totalApagar).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .WriteChars("Recibido")
+                                                    .GotoSixth(5)
+                                                    Dim recibido As Double
+                                                    recibido = Convert.ToDouble(txtRecibido.Text)
+                                                    .WriteChars((recibido).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .WriteChars("Cambio")
+                                                    .GotoSixth(5)
+                                                    Dim cambio As Double
+                                                    If txtCambio.Text = "" Then
+                                                        cambio = 0
+                                                    Else
+                                                        cambio = Convert.ToDouble(txtCambio.Text)
+                                                    End If
+                                                    .WriteChars((cambio).ToString("$ ##,##00.00"))
+                                                    .WriteLine("")
+                                                    .GotoSixth(1)
+                                                    .DrawLine()
+                                                    .GotoSixth(1)
+                                                    Dim StringNumeroLetra As String
+                                                    StringNumeroLetra = (NumeroLetra.Convertir(totalApagar.ToString, True))
+                                                    Dim StringNumeroLetraPartido() As String = Split(StringNumeroLetra)
+                                                    Dim i As Integer = 0
+                                                    Dim nuevostring As String = ""
+                                                    Dim siguientestring As String = ""
+                                                    For Palabras As Integer = 0 To StringNumeroLetraPartido.Length - 1
+                                                        i += StringNumeroLetraPartido(Palabras).Length + 1
+                                                        .AlignCenter()
+                                                        If i < 56 Then
+                                                            nuevostring = nuevostring & StringNumeroLetraPartido(Palabras) & " "
+                                                        Else
+                                                            siguientestring = siguientestring & StringNumeroLetraPartido(Palabras) & " "
+                                                        End If
+                                                    Next
+                                                    .WriteLine(nuevostring)
+                                                    If siguientestring <> "" Then
+                                                        .WriteLine(siguientestring)
+                                                    End If
+                                                    .WriteLine("")
+                                                    If pendienteEmpeño = 0 Then
+                                                        .Bold = True
+                                                        .GotoSixth(1)
+                                                        .WriteLine("CUENTA LIQUIDADA")
+
+                                                    End If
+
+                                                    .GotoSixth(1)
+                                                    .Bold = False
+                                                    .WriteLine("RÉGIMEN GENERAL DE LEY PERSONAS MORALES")
+                                                    .CutPaper()
+                                                    .EndDoc()
+
+                                                End With
+
+                                            Next
+                                            Me.Invoke(Sub()
+                                                          ' Principal.idAnterior = idCreditoRecibo
+                                                          CobroEmpeño.BackgroundWorker1.RunWorkerAsync()
+                                                      End Sub)
+                                            ' PanelConsultando.Visible = False
+                                            'FlatButton1.Enabled = True
+                                            Cargando.Close()
+                                            Me.Close()
+                                        End If
+
+                                    End Sub)
+
+    End Sub
+
+
 End Class

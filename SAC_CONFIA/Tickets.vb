@@ -68,6 +68,15 @@ Public Class Tickets
                     comandonombre.Connection = conexionempresa
                     comandonombre.CommandText = consultaNombre
                     nombrecredito = comandonombre.ExecuteScalar
+                Case "Refrendo", "Comisión por avalúo", "Desempeño"
+                    Dim comandonombre As SqlCommand
+                    comandonombre = New SqlCommand
+
+                    Dim consultaNombre As String
+                    consultaNombre = "select nombre from empeños  where id = '" & reader("idcredito") & "'"
+                    comandonombre.Connection = conexionempresa
+                    comandonombre.CommandText = consultaNombre
+                    nombrecredito = comandonombre.ExecuteScalar
                 Case Else
                     Dim comandonombre As SqlCommand
                     comandonombre = New SqlCommand

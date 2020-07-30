@@ -4,7 +4,7 @@ Imports System.Data.SqlClient
 Public Class CobroEmpeño
     Dim ClienteOcredito As String
     Dim idCredito, nombreCredito, estadoCredito As String
-    Dim montoCredito, interesCredito, pagoIndividualCredito As Double
+    Dim montoCredito, interesCredito, pagoIndividualCredito, interesPendiente, porcentajerefrendo, PendienteEmpeño, abonadoEmpeño As Double
     Dim plazo As Integer
     Dim existe As Boolean
     Dim total As Double
@@ -21,13 +21,16 @@ Public Class CobroEmpeño
     Public idConsultado As Integer
     Dim tipoCredito As String
     Dim widthLiquidacion As Integer = 0
-    Dim fechaPrimerPago, FechaEntrega, FechaUltimoPago As Date
+    Dim fechaPrimerPago, FechaEntrega, FechaUltimoPago, fechaDefault As Date
 
     Private Sub inicio_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        PanelLiquidacion.Width = 0
+
         FlushMemory()
+
         DoubleBuffered = True
+
         'If frm_adm.BunifuImageButton1.Width + frm_adm.panelusuarios.Width + frm_adm.Panelconfiguracion.Width + frm_adm.Panel3.Width + frm_adm.Panel4.Width + frm_adm.notificaciones.Width + frm_adm.imgperfil.Width + 30 > frm_adm.Panel1.Width Then
+        fechaDefault = #01/01/1900#
 
 
         CheckForIllegalCrossThreadCalls = False
@@ -65,28 +68,27 @@ Public Class CobroEmpeño
 
     End Sub
 
+    Private Sub txtid_OnValueChanged(sender As Object, e As EventArgs) Handles txtid.OnValueChanged
+
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         BuscarEmpeño.tipoCredito = tipoCredito
         BuscarEmpeño.Show()
     End Sub
 
-    Private Sub BunifuMaterialTextbox1_OnValueChanged(sender As Object, e As EventArgs) Handles txtid.OnValueChanged
 
-    End Sub
 
-    Private Sub dtimpuestos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtimpuestos.CellContentClick
-        Totalizar()
-    End Sub
 
     Private Sub BunifuMaterialTextbox1_KeyDown(sender As Object, e As KeyEventArgs) Handles txtid.KeyDown
         If e.KeyCode = Keys.F2 Then
-            BuscarCredito.tipoCredito = tipoCredito
-            BuscarCredito.Show()
+            BuscarEmpeño.tipoCredito = tipoCredito
+            BuscarEmpeño.Show()
 
         End If
         If e.KeyCode = Keys.Enter Then
-            dtimpuestos.Rows.Clear()
-            dtimpuestos.ScrollBars = ScrollBars.None
+            'dtimpuestos.Rows.Clear()
+            'dtimpuestos.ScrollBars = ScrollBars.None
             txtid.Enabled = False
             Cargando.Show()
             Cargando.MonoFlat_Label1.Text = "Buscando datos"
@@ -95,9 +97,40 @@ Public Class CobroEmpeño
         End If
         If e.KeyCode = Keys.F5 Then
             If CanCobrar Then
-                SubCobrar()
+                If total = 0 Then
+                    MessageBox.Show("El empeño ha pagado todos sus intereses hasta el día de hoy")
+                Else
+                    If FechaUltimoPago = fechaDefault Then
+                        Ticket_impresion.tipoDoc = ObtenerTipoDoc("Comisión por avalúo")
+                        Ticket_impresion.idCreditoRecibo = idCredito
+                        Ticket_impresion.interesEmpeño = FormatNumber(total, 2)
+                        Ticket_impresion.capitalEmpeño = 0
+                        Ticket_impresion.montocredito = montoCredito
+                        Ticket_impresion.pendienteEmpeño = PendienteEmpeño
+
+                        Ticket_impresion.nombre_credito = nombreCredito
+                        Ticket_impresion.total = FormatNumber(total, 2)
+                        Ticket_impresion.Show()
+                        Ticket_impresion.TopMost = True
+                    Else
+                        Ticket_impresion.tipoDoc = ObtenerTipoDoc("Refrendo")
+                        Ticket_impresion.idCreditoRecibo = idCredito
+                        Ticket_impresion.interesEmpeño = FormatNumber(total * 1.16, 2)
+                        Ticket_impresion.capitalEmpeño = 0
+                        Ticket_impresion.montocredito = montoCredito
+                        Ticket_impresion.pendienteEmpeño = PendienteEmpeño
+                        Ticket_impresion.abonadoEmpeño = abonadoEmpeño
+                        Ticket_impresion.nombre_credito = nombreCredito
+                        Ticket_impresion.total = FormatNumber(total * 1.16, 2)
+                        Ticket_impresion.Show()
+                        Ticket_impresion.TopMost = True
+                    End If
+
+                End If
+
             Else
-                MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
+                MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
+
             End If
 
         End If
@@ -108,35 +141,96 @@ Public Class CobroEmpeño
         End If
     End Sub
 
-    Private Sub SwitchTipo_CheckedChanged(sender As Object, e As EventArgs) Handles SwitchTipo.CheckedChanged
-        If SwitchTipo.Checked Then
-            lblTipoCredito.Text = "Normal"
-            tipoCredito = "Normal"
+    Private Sub txtRefrendo_Click(sender As Object, e As EventArgs) Handles txtRefrendo.Click
+        If CanCobrar Then
+            If total = 0 Then
+                MessageBox.Show("El empeño ha pagado todos sus intereses hasta el día de hoy")
+            Else
+                If FechaUltimoPago = fechaDefault Then
+                    Ticket_impresion.tipoDoc = ObtenerTipoDoc("Comisión por avalúo")
+                    Ticket_impresion.idCreditoRecibo = idCredito
+                    Ticket_impresion.interesEmpeño = FormatNumber(total, 2)
+                    Ticket_impresion.capitalEmpeño = 0
+                    Ticket_impresion.montocredito = montoCredito
+                    Ticket_impresion.pendienteEmpeño = PendienteEmpeño
+
+                    Ticket_impresion.nombre_credito = nombreCredito
+                    Ticket_impresion.total = FormatNumber(total, 2)
+                    Ticket_impresion.Show()
+                    Ticket_impresion.TopMost = True
+                Else
+                    Ticket_impresion.tipoDoc = ObtenerTipoDoc("Refrendo")
+                    Ticket_impresion.idCreditoRecibo = idCredito
+                    Ticket_impresion.interesEmpeño = FormatNumber(total * 1.16, 2)
+                    Ticket_impresion.capitalEmpeño = 0
+                    Ticket_impresion.montocredito = montoCredito
+                    Ticket_impresion.pendienteEmpeño = PendienteEmpeño
+                    Ticket_impresion.abonadoEmpeño = abonadoEmpeño
+                    Ticket_impresion.nombre_credito = nombreCredito
+                    Ticket_impresion.total = FormatNumber(total * 1.16, 2)
+                    Ticket_impresion.Show()
+                    Ticket_impresion.TopMost = True
+                End If
+
+            End If
+
         Else
-            lblTipoCredito.Text = "Legal"
-            tipoCredito = "Legal"
+            MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
+
+        End If
+
+
+    End Sub
+
+    Private Sub txtOtraCantidad_Click(sender As Object, e As EventArgs) Handles txtOtraCantidad.Click
+        OtraCantidadEmpeño.idempeño = idCredito
+        OtraCantidadEmpeño.abonado = abonadoEmpeño
+        OtraCantidadEmpeño.pendiente = PendienteEmpeño
+        OtraCantidadEmpeño.interesEmpeño = FormatNumber(total * 1.16, 2)
+        OtraCantidadEmpeño.montoEmpeño = montoCredito
+        OtraCantidadEmpeño.nombreCredito = nombreCredito
+
+        OtraCantidadEmpeño.ShowDialog()
+
+    End Sub
+
+    Private Sub txtDesempeño_Click(sender As Object, e As EventArgs) Handles txtDesempeño.Click
+        If CanCobrar Then
+
+            If FechaUltimoPago = fechaDefault Then
+                    MessageBox.Show("No se puede desempeñar, no se ha cobrado la comisión por avalúo")
+                Else
+                    Ticket_impresion.tipoDoc = ObtenerTipoDoc("Desempeño")
+                    Ticket_impresion.idCreditoRecibo = idCredito
+                    Ticket_impresion.interesEmpeño = FormatNumber(total * 1.16, 2)
+                    Ticket_impresion.capitalEmpeño = PendienteEmpeño
+                    Ticket_impresion.montocredito = montoCredito
+                    Ticket_impresion.pendienteEmpeño = PendienteEmpeño - PendienteEmpeño
+                    Ticket_impresion.abonadoEmpeño = abonadoEmpeño + PendienteEmpeño
+                    Ticket_impresion.nombre_credito = nombreCredito
+                Ticket_impresion.total = FormatNumber((total * 1.16) + PendienteEmpeño, 2)
+                Ticket_impresion.Show()
+                    Ticket_impresion.TopMost = True
+                End If
+
+
+        Else
+            MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
+
         End If
     End Sub
 
-    Private Sub TimerLiquidación_Tick(sender As Object, e As EventArgs) Handles TimerLiquidación.Tick
-        If widthLiquidacion <= 141 Then
-            PanelLiquidacion.Width = widthLiquidacion
-            widthLiquidacion += 20
-        Else
-            TimerLiquidación.Stop()
-            TimerLiquidación.Enabled = False
-        End If
 
-    End Sub
 
-    Private Sub btn_actualizar_Click(sender As Object, e As EventArgs) Handles btn_actualizar.Click
-        Liquidaciones.idcredito = idCredito
-        Liquidaciones.Show()
-    End Sub
+
+
+
+
+
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        dtimpuestos.Rows.Clear()
-        PanelLiquidacion.Width = 0
+        'dtimpuestos.Rows.Clear()
+
         iniciarconexionempresa()
         Dim comandoDatos As SqlCommand
         Dim consultaDatos As String
@@ -159,16 +253,22 @@ Public Class CobroEmpeño
 
                 plazo = readerDatos("plazoRefrendo")
 
-
+                abonadoEmpeño = readerDatos("Abonado")
 
                 estadoCredito = readerDatos("Estado")
-                    interesCredito = readerDatos("interesdiario")
-                    pagoIndividualCredito = readerDatos("MontoRefrendo")
-                    If IsDBNull(readerDatos("montoPrestado")) Then
-                        montoCredito = 0
-                    Else
-                        montoCredito = readerDatos("montoPrestado")
-                    End If
+                interesCredito = readerDatos("interesdiario")
+                pagoIndividualCredito = readerDatos("MontoRefrendo")
+                fechaPrimerPago = readerDatos("fechaprimerpago")
+                FechaUltimoPago = readerDatos("fechaultimopago")
+                FechaEntrega = readerDatos("fechaentrega")
+                porcentajerefrendo = readerDatos("porcentajerefrendo") / 7
+
+                PendienteEmpeño = readerDatos("pendiente")
+                If IsDBNull(readerDatos("montoPrestado")) Then
+                    montoCredito = 0
+                Else
+                    montoCredito = readerDatos("montoPrestado")
+                End If
 
 
 
@@ -189,94 +289,12 @@ Public Class CobroEmpeño
             Dim readerPagos As SqlDataReader
             Select Case estadoCredito
                 Case "A"
-                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Estado from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
-
-                        End While
+                    If FechaUltimoPago = fechaDefault Then
+                        total = pagoIndividualCredito
+                    Else
+                        interesPendiente = (porcentajerefrendo / 100) * PendienteEmpeño
+                        total = interesPendiente * DateDiff(DateInterval.Day, FechaUltimoPago, Now.Date)
                     End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
-
-                        End While
-                    End If
-                    tipoDoc = 1
-                Case "C"
-                    consultaPagos = "select calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where conveniossac.idcredito = '" & idCredito & "' and calendarioconveniossac.estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
-                            convenioCredito = readerPagos("idconvenio")
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where   calendarioconveniossac.estado = 'P' and conveniossac.idcredito  = '" & idCredito & "' order by calendarioconveniossac.fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
-                            convenioCredito = readerPagosProximos("idconvenio")
-                        End While
-                    End If
-                    tipoDoc = ObtenerTipoDoc("Convenio")
-                Case "L"
-                    Dim ComandoLegal As SqlCommand
-                    Dim ConsultaLegal As String
-                    Dim ReaderLegal As SqlDataReader
-                    ConsultaLegal = "Select id, montoconvenio, plazo, from legales"
-                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where idcredito = '" & idCredito & "' and estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), 0)
-
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where   estado = 'P' and idcredito  = '" & idCredito & "' order by fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), 0)
-
-                        End While
-                    End If
-
-                    tipoDoc = ObtenerTipoDoc("Legal")
                 Case Else
                     MessageBox.Show("El crédito no se encuentra activo por lo tanto no puedes cobrarle")
             End Select
@@ -287,18 +305,56 @@ Public Class CobroEmpeño
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+        If existe Then
+            BunifuTransition1.HideSync(txtPrestado)
+            BunifuTransition2.HideSync(txtDesempeño)
+            BunifuTransition3.HideSync(txtUltimoPago)
+            BunifuTransition4.HideSync(txtInteresDiario)
+            BunifuTransition5.HideSync(txtRefrendo)
+            BunifuTransition6.HideSync(txtOtraCantidad)
+            If FechaUltimoPago = fechaDefault Then
+                txtPrestado.Text = FormatCurrency(montoCredito, 2)
+                txtDesempeño.Text = FormatCurrency((total) + PendienteEmpeño, 2)
+                txtUltimoPago.Text = FechaUltimoPago
+                txtInteresDiario.Text = FormatCurrency(interesPendiente, 2)
+                txtRefrendo.Text = FormatCurrency(total, 2)
+            Else
+                txtPrestado.Text = FormatCurrency(montoCredito, 2)
+                txtDesempeño.Text = FormatCurrency((total * 1.16) + PendienteEmpeño, 2)
+                txtUltimoPago.Text = FechaUltimoPago
+                txtInteresDiario.Text = FormatCurrency(interesPendiente * 1.16, 2)
+                txtRefrendo.Text = FormatCurrency(total * 1.16, 2)
 
-        dtimpuestos.ScrollBars = ScrollBars.Both
-        total = 0
-
-        For Each row As DataGridViewRow In dtimpuestos.Rows
-            If row.Cells(0).Value = 1 Then
-                total = total + row.Cells(7).Value
             End If
 
 
-        Next
-        lblpago.Text = FormatCurrency(total, 2)
+            BunifuTransition1.ShowSync(txtPrestado)
+            BunifuTransition2.ShowSync(txtDesempeño)
+            BunifuTransition3.ShowSync(txtUltimoPago)
+            BunifuTransition4.ShowSync(txtInteresDiario)
+            BunifuTransition5.ShowSync(txtRefrendo)
+            BunifuTransition6.ShowSync(txtOtraCantidad)
+        Else
+            BunifuTransition1.HideSync(txtPrestado)
+            BunifuTransition2.HideSync(txtDesempeño)
+            BunifuTransition3.HideSync(txtUltimoPago)
+            BunifuTransition4.HideSync(txtInteresDiario)
+            BunifuTransition5.HideSync(txtRefrendo)
+            BunifuTransition6.HideSync(txtOtraCantidad)
+
+        End If
+        'dtimpuestos.ScrollBars = ScrollBars.Both
+        '        total = 0
+
+        '   For Each row As DataGridViewRow In 'dtimpuestos.Rows
+        'If row.Cells(0).Value = 1 Then
+        'total = total + row.Cells(7).Value
+        'End If
+
+
+        '  Next
+
+        ' lblpago.Text = FormatCurrency(total, 2)
         lblnombre.Text = nombreCredito
         txtid.Enabled = True
         txtid.Select()
@@ -307,43 +363,16 @@ Public Class CobroEmpeño
         Cargando.Close()
         FlushMemory()
         widthLiquidacion = 0
-        If estadoCredito = "A" Then
-            TimerLiquidación.Enabled = True
-        End If
+        'If estadoCredito = "A" Then
+        'TimerLiquidación.Enabled = True
+        'End If
     End Sub
-    Public Sub Totalizar()
-        Dim total2 As Double = 0
-        For Each row As DataGridViewRow In dtimpuestos.Rows
-            Dim c As Boolean
-            c = Convert.ToBoolean(row.Cells(0).GetEditedFormattedValue(row.Index, 1))
 
-            If c Then
-                total2 = total2 + row.Cells(7).Value
-            Else
-
-            End If
-        Next
-
-
-        total = total2
-
-        lblpago.Text = FormatCurrency(total, 2)
-    End Sub
     Public Sub SubCobrar()
         If CanCobrar Then
 
 
-            Dim nombredoc As String
-            nombredoc = GetNombreDoc(tipoDoc)
-            If nombredoc = "Liquidación Insoluto" Or nombredoc = "Renovación Insoluto" Then
-                Ticket_impresion.total = totalLiquidacion
-                Ticket_impresion.MultasLiquidacion = multasLiquidacion
-                Ticket_impresion.MontoLiquidacionSmultas = MontoliquidacionSmultas
-            Else
 
-                Ticket_impresion.total = lblpago.Text
-
-            End If
             Ticket_impresion.idCreditoRecibo = idCredito
 
             Ticket_impresion.montocredito = montoCredito
@@ -363,5 +392,19 @@ Public Class CobroEmpeño
 
 
 
+    End Sub
+
+    Private Sub BunifuMetroTextbox2_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub BunifuMetroTextbox2_MouseDown(sender As Object, e As MouseEventArgs)
+        If e.Button = MouseButtons.Left Then
+            MessageBox.Show("Holaaaa")
+        End If
+    End Sub
+
+    Private Sub BunifuMetroTextbox2_GotFocus(sender As Object, e As EventArgs)
+        MessageBox.Show("Haols")
     End Sub
 End Class

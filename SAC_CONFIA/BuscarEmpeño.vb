@@ -15,7 +15,7 @@ Public Class BuscarEmpeño
         Dim consultaCreditos As String
         Dim readerCreditos As SqlDataReader
         'If tipoCredito = "Normal" Then
-        consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,montoprestado,Plazo from Empeños order by nombre asc"
+        consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,montoprestado,Plazorefrendo from Empeños order by nombre asc"
         ' Else
         'consultaCreditos = "Select id,format(FechaConvenio,'dd/MM/yyyy') as fechaEntrega,nombre,TotalDeuda,Plazo from legales order by nombre asc"
         'End If
@@ -26,7 +26,7 @@ Public Class BuscarEmpeño
         readerCreditos = comandoCreditos.ExecuteReader
         While readerCreditos.Read
             'If tipoCredito = "Normal" Then
-            dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("MontoPrestado"), readerCreditos("Plazo"))
+            dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("MontoPrestado"), readerCreditos("Plazorefrendo"))
 
             ' Else
             ' dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("TotalDeuda"), readerCreditos("Plazo"))
@@ -79,5 +79,15 @@ Public Class BuscarEmpeño
         CobroEmpeño.txtid.Text = dtimpuestos.Rows(dtimpuestos.CurrentRow.Index).Cells(0).Value
         Me.Close()
 
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub Panel1_MouseDown(sender As Object, e As MouseEventArgs) Handles Panel1.MouseDown
+        If e.Button = MouseButtons.Left Then
+            MoveForm(Me)
+        End If
     End Sub
 End Class

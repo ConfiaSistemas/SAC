@@ -179,6 +179,42 @@ Public Class frm_adm
             login.bloqueado = True
             login.ShowDialog()
         End If
+        If e.KeyCode = Keys.F8 Then
+            CobroExtra.Show()
+
+        End If
+
+        If e.KeyCode = Keys.F9 Then
+            For Each frmForm As Form In My.Application.OpenForms
+
+
+                If frmForm.Name = ventana.Name Then
+                    frmForm.Close()
+                    Exit For
+                End If
+            Next
+
+            ventana.Name = CobroEmpeño.Name
+            CobroEmpeño.MdiParent = Me
+            CobroEmpeño.Height = Me.Height - Panel1.Height - 43
+            CobroEmpeño.Width = Me.Width - panelmenus.Width - 20
+
+
+            CobroEmpeño.Top = 0
+            CobroEmpeño.Left = 0
+            CobroEmpeño.Show()
+            CobroEmpeño.Top = 0
+            CobroEmpeño.Left = 0
+            ' inicio.Height = Me.Height - Panel1.Height + 1
+            'inicio.Width = Me.Width - panelmenus.Width + 1
+
+            CobroEmpeño.Show()
+
+            If CobroEmpeño.Top > 0 Then
+                CobroEmpeño.Top = 0
+
+            End If
+        End If
     End Sub
 
     Private Sub frm_login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -604,5 +640,37 @@ Public Class frm_adm
 
     Private Sub notificaciones_Click(sender As Object, e As EventArgs) Handles notificaciones.Click
 
+    End Sub
+
+    Private Sub BunifuFlatButton7_Click_1(sender As Object, e As EventArgs) Handles BunifuFlatButton7.Click
+        For Each frmForm As Form In My.Application.OpenForms
+
+
+            If frmForm.Name = ventana.Name Then
+                frmForm.Close()
+                Exit For
+            End If
+        Next
+
+        ventana.Name = CobroEmpeño.Name
+        CobroEmpeño.MdiParent = Me
+        CobroEmpeño.Height = Me.Height - Panel1.Height - 43
+        CobroEmpeño.Width = Me.Width - panelmenus.Width - 20
+
+
+        CobroEmpeño.Top = 0
+        CobroEmpeño.Left = 0
+        CobroEmpeño.Show()
+        CobroEmpeño.Top = 0
+        CobroEmpeño.Left = 0
+        ' inicio.Height = Me.Height - Panel1.Height + 1
+        'inicio.Width = Me.Width - panelmenus.Width + 1
+
+        CobroEmpeño.Show()
+
+        If CobroEmpeño.Top > 0 Then
+            CobroEmpeño.Top = 0
+
+        End If
     End Sub
 End Class

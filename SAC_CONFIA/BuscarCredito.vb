@@ -79,4 +79,14 @@ Public Class BuscarCredito
         Me.Close()
 
     End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub Panel1_MouseDown(sender As Object, e As MouseEventArgs) Handles Panel1.MouseDown
+        If e.Button = MouseButtons.Left Then
+            MoveForm(Me)
+        End If
+    End Sub
 End Class

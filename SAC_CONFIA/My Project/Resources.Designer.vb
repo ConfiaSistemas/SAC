@@ -163,6 +163,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property commerce_loan_money_pawnshop_shop_store_icon_1320186257679862843() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("commerce+loan+money+pawnshop+shop+store+icon-1320186257679862843", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property config() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("config", resourceCulture)
@@ -465,6 +475,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property pawn_shop_icon_15() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("pawn-shop-icon-15", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property png_transparent_cash_register_cash_register_payment_monochrome_black_thumbnail() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("png-transparent-cash-register-cash-register-payment-monochrome-black-thumbnail", resourceCulture)
@@ -508,6 +528,16 @@ Namespace My.Resources
         Friend ReadOnly Property SAC() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SAC", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property small_business_financing_marketing_computer_icons_business() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("small-business-financing-marketing-computer-icons-business", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

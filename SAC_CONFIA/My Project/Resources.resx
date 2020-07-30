@@ -157,29 +157,32 @@
   <data name="icono cerrar empresa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icono cerrar empresa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="small-business-financing-marketing-computer-icons-business" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\small-business-financing-marketing-computer-icons-business.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="open_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\open-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="background_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icono reportes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icono reportes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="75804849-ccc1-40d0-b0aa-672e22556ad5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\75804849-ccc1-40d0-b0aa-672e22556ad5.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="usr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\usr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_875781" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\875781.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icono_producto_hogar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icono_producto-hogar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ocultar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ocultar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mostrar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mostrar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mas1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mas1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="commerce+loan+money+pawnshop+shop+store+icon-1320186257679862843" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\commerce+loan+money+pawnshop+shop+store+icon-1320186257679862843.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ojochico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ojochico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,11 +196,17 @@
   <data name="mas2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mas2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="impuestos_mas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\impuestos mas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mostrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mostrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="357-3573518_notebook-and-pencil-vector-icono-de-libreta-png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\357-3573518_notebook-and-pencil-vector-icono-de-libreta-png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lconfia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lconfia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuarionegro" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuarionegro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,9 +220,6 @@
   <data name="reporte_png_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reporte-png-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="inv" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ocultar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ocultar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -223,29 +229,32 @@
   <data name="mas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SAC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SAC.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="kisspng-cash-register-computer-icons-trade-download-encaps-5af27779dcbb22.9139403915258397379041" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kisspng-cash-register-computer-icons-trade-download-encaps-5af27779dcbb22.9139403915258397379041.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SAC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SAC.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="inv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="proveedores" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\proveedores.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mostrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mostrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mostrar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mostrar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="86114" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\86114.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icono reportes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icono reportes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_875781" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\875781.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="png-transparent-cash-register-cash-register-payment-monochrome-black-thumbnail" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\png-transparent-cash-register-cash-register-payment-monochrome-black-thumbnail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icono_producto_hogar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icono_producto-hogar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="impuestos_mas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\impuestos mas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="eliminar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eliminar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -253,8 +262,8 @@
   <data name="_23782214_1949735195350343_1299272425_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\23782214_1949735195350343_1299272425_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lconfia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lconfia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="usr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="modificar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\modificar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -265,7 +274,7 @@
   <data name="logo_dando_vueltas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo dando vueltas.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="357-3573518_notebook-and-pencil-vector-icono-de-libreta-png" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\357-3573518_notebook-and-pencil-vector-icono-de-libreta-png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pawn-shop-icon-15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pawn-shop-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

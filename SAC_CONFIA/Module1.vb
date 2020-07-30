@@ -408,6 +408,12 @@ ByVal maximumWorkingSetSize As Integer) As Integer
 
             Case "Extra"
                 consultarecibo = "select Ticket.Id,Ticket.IdCredito,Ticket.total,Ticket.Recibido,Ticket.Cambio,Ticket.SubTotal,Ticket.Descuento,Ticket.fecha,Ticket.hora,Ticket.PagoNormal,Ticket.Intereses,Ticket.tipodoc as Tipo, Ticket.concepto, tipodoc.nombre as NombreDoc,Ticket.Caja,Ticket.NombreUsuario  from Ticket  inner join tipodoc on Ticket.tipodoc = tipodoc.id where Ticket.id = '" & noTicket & "'"
+
+            Case "Legal"
+                consultarecibo = "select Ticket.Id,Ticket.IdCredito,Ticket.total,Ticket.Recibido,Ticket.Cambio,Ticket.SubTotal,Ticket.Descuento,Ticket.fecha,Ticket.hora,Ticket.PagoNormal,Ticket.Intereses,ce.nombre,ce.MontoConvenio,ce.plazo,ticket.tipodoc as Tipo, Ticket.concepto, tipodoc.nombre as NombreDoc,Ticket.Caja,Ticket.NombreUsuario  from Ticket inner join Legales CE on Ticket.IdCredito = ce.id inner join TiposDeCredito on ce.Tipo = TiposDeCredito.ID inner join tipodoc on Ticket.tipodoc = tipodoc.id where Ticket.id = '" & noTicket & "'"
+            Case "Refrendo", "Comisión por avalúo", "Desempeño"
+                consultarecibo = "select Ticket.Id,Ticket.IdCredito,Ticket.total,Ticket.Recibido,Ticket.Cambio,Ticket.SubTotal,Ticket.Descuento,Ticket.fecha,Ticket.hora,Ticket.PagoNormal,Ticket.Intereses,ce.nombre,ce.Interesdiario,ce.montoprestado,ce.Plazorefrendo,Ticket.tipodoc as Tipo, Ticket.concepto, tipodoc.nombre as NombreDoc,Ticket.Caja,Ticket.NombreUsuario,ce.montorefrendo  from Ticket inner join empeños CE on Ticket.IdCredito = ce.id  inner join tipodoc on Ticket.tipodoc = tipodoc.id where Ticket.id = '" & noTicket & "'"
+
             Case Else
                 consultarecibo = "select Ticket.Id,Ticket.IdCredito,Ticket.total,Ticket.Recibido,Ticket.Cambio,Ticket.SubTotal,Ticket.Descuento,Ticket.fecha,Ticket.hora,Ticket.PagoNormal,Ticket.Intereses,ce.nombre,ce.Interes,ce.monto,TiposDeCredito.Plazo,Ticket.tipodoc as Tipo, Ticket.concepto, tipodoc.nombre as NombreDoc,Ticket.Caja,Ticket.NombreUsuario,ce.pagoindividual  from Ticket inner join Credito CE on Ticket.IdCredito = ce.id inner join TiposDeCredito on ce.Tipo = TiposDeCredito.ID inner join tipodoc on Ticket.tipodoc = tipodoc.id where Ticket.id = '" & noTicket & "'"
 
@@ -491,6 +497,52 @@ ByVal maximumWorkingSetSize As Integer) As Integer
                     descuento = readerrecibo("descuento")
                     nombreCajero = readerrecibo("NombreUsuario")
                 End While
+            Case "Legal"
+                While readerrecibo.Read
+                    idrecibo = readerrecibo("id")
+                    idcredito = readerrecibo("idcredito")
+                    total = readerrecibo("total")
+                    recibido = readerrecibo("recibido")
+                    cambio = readerrecibo("cambio")
+                    fechastring = readerrecibo("fecha")
+                    horastring = readerrecibo("hora").ToString
+                    pagonormal = readerrecibo("pagonormal")
+                    intereses = readerrecibo("intereses")
+                    nombreCredito = readerrecibo("nombre")
+                    ' pcmil = readerrecibo("interes")
+                    monto = readerrecibo("montoConvenio")
+                    cp = readerrecibo("plazo")
+                    tipodoc = readerrecibo("Tipo")
+                    concepto = readerrecibo("concepto")
+                    tipodocstring = readerrecibo("NombreDoc")
+                    NumeroCaja = readerrecibo("Caja")
+                    subtotal = readerrecibo("subtotal")
+                    descuento = readerrecibo("descuento")
+                    nombreCajero = readerrecibo("NombreUsuario")
+                End While
+            Case "Refrendo", "Comisión por avalúo", "Desempeño"
+                While readerrecibo.Read
+                    idrecibo = readerrecibo("id")
+                    idcredito = readerrecibo("idcredito")
+                    total = readerrecibo("total")
+                    recibido = readerrecibo("recibido")
+                    cambio = readerrecibo("cambio")
+                    fechastring = readerrecibo("fecha")
+                    horastring = readerrecibo("hora").ToString
+                    pagonormal = readerrecibo("pagonormal")
+                    intereses = readerrecibo("intereses")
+                    nombreCredito = readerrecibo("nombre")
+                    pcmil = readerrecibo("interesdiario")
+                    monto = readerrecibo("montoPrestado")
+                    cp = readerrecibo("plazoRefrendo")
+                    tipodoc = readerrecibo("Tipo")
+                    concepto = readerrecibo("concepto")
+                    tipodocstring = readerrecibo("NombreDoc")
+                    NumeroCaja = readerrecibo("Caja")
+                    subtotal = readerrecibo("subtotal")
+                    descuento = readerrecibo("descuento")
+                    nombreCajero = readerrecibo("NombreUsuario")
+                End While
             Case Else
                 While readerrecibo.Read
                     idrecibo = readerrecibo("id")
@@ -556,6 +608,20 @@ ByVal maximumWorkingSetSize As Integer) As Integer
 
                 End If
                 'consultaAbono = "select abonosext.idpago,abonosext.fecha,abonosext.monto,abonosext.intereses,abonosext.PagoNormal,abonosext.concepto,calendarioconvenios.Npago from AbonosExt inner join calendarioconvenios on AbonosExt.idpago = calendarioconvenios.idpago where IdRecibo = '" & noTicket & "'"
+            Case 5
+                consultaAbono = "select TicketDetalle.idpago,TicketDetalle.fecha,TicketDetalle.monto,TicketDetalle.intereses,TicketDetalle.PagoNormal,TicketDetalle.concepto,Calendariolegales.Npago from TicketDetalle inner join Calendariolegales on TicketDetalle.idpago = Calendariolegales.idpago where idTicket = '" & noTicket & "'"
+                comandoAbono = New SqlCommand
+                comandoAbono.Connection = conexionempresa
+                comandoAbono.CommandText = consultaAbono
+                readerAbono = comandoAbono.ExecuteReader
+                If readerAbono.HasRows Then
+                    While readerAbono.Read
+                        a = New DetallePago(readerAbono("idpago"), readerAbono("Npago"), readerAbono("monto"), readerAbono("intereses"), 0, 0, readerAbono("pagonormal"), readerAbono("concepto"), recibido, 0)
+                        array.Add(a)
+                    End While
+                Else
+
+                End If
             Case Else
                 'consultaAbono = "select abonosext.idpago,abonosext.fecha,abonosext.monto,abonosext.intereses,abonosext.PagoNormal,abonosext.concepto,PagosExt.Npago from AbonosExt inner join PagosExt on AbonosExt.idpago = PagosExt.idpago where IdRecibo = '" & noTicket & "'"
 
@@ -2170,6 +2236,228 @@ ByVal maximumWorkingSetSize As Integer) As Integer
 
                             .Bold = True
                             .WriteLine("CUENTA LIQUIDADA")
+
+                            .GotoSixth(1)
+                            .Bold = False
+                            .WriteLine("RÉGIMEN GENERAL DE LEY PERSONAS MORALES")
+                            .CutPaper()
+                            .EndDoc()
+
+                        End With
+                    Case "Refrendo", "Comisión por avalúo", "Desempeño"
+                        With P
+                            .AlignCenter()
+                            .RTL = False
+                            .AlignCenter()
+                            .Gotox(1085)
+                            .PrintLogo()
+                            .GotoSixth(1)
+                            .NormalFont()
+                            .WriteLine(NombreEmpresa)
+                            .WriteLine("")
+                            .WriteLine(RFCEmpresa)
+                            .FontSize = 8
+                            .WriteLine("")
+                            .WriteChars("Calle  " & CalleEmpresa & "  No. " & NumeroEmpresa)
+
+
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .WriteChars("Colonia" & " " & ColEmpresa)
+
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .WriteChars("C.P." & " " & CPEmpresa & " " & CiudadEmpresa & " " & EstadoEmpresa)
+
+
+                            .WriteLine("")
+
+                            .DrawLine()
+                            .GotoSixth(1)
+                            .FontSize = 7.3
+                            .Bold = True
+                            .WriteChars("TICKET:")
+                            .Bold = False
+                            .GotoSixth(3)
+                            .WriteChars(idrecibo)
+                            .WriteLine("")
+                            .Bold = True
+                            .GotoSixth(1)
+                            .WriteChars("CAJA:")
+                            .Bold = False
+                            .GotoSixth(3)
+                            .WriteChars(NumeroCaja)
+                            .WriteLine("")
+                            .Bold = True
+                            .GotoSixth(1)
+                            .WriteChars("ATENDIDO POR:")
+                            .Bold = False
+                            .GotoSixth(3)
+                            .WriteChars(nombreCajero)
+                            .WriteLine("")
+                            .Bold = True
+                            .GotoSixth(1)
+                            .WriteChars("EMPEÑO NO.:")
+                            .Bold = False
+                            .GotoSixth(3)
+                            .WriteChars(idcredito)
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .Bold = True
+                            .FontSize = 6.3
+                            .WriteChars("MONTO DEL EMPEÑO:")
+                            .Bold = False
+                            .FontSize = 7.3
+                            .GotoSixth(3)
+                            .WriteChars((monto).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .Bold = True
+                            .WriteChars("CLIENTE:")
+                            .GotoSixth(3)
+                            .Bold = False
+                            .FontSize = 6.5
+                            .WriteChars(nombreCredito)
+                            .FontSize = 7.3
+                            .WriteLine("")
+                            .GotoSixth(1)
+
+
+                            .Bold = True
+                            .WriteChars("FECHA Y HORA DE PAGO:  ")
+                            .Bold = False
+                            .WriteChars("  " & fechadepago & " - " & horastring)
+
+                            .WriteLine("")
+                            .DrawLine()
+
+                            .GotoSixth(1)
+                            .Bold = True
+
+                            .WriteChars("DESCRIPCIÓN")
+                            .GotoSixth(5)
+                            .WriteChars("MONTO")
+
+                            .WriteLine("")
+
+                            .DrawLine()
+
+
+                            Dim subtotal16 As Double = 0
+                            Dim totalpago As Double = 0
+                            If GetNombreDoc(tipodoc) = "Comisión por avalúo" Then
+                                .GotoSixth(1)
+
+                                .WriteChars("Comisión por avalúo ")
+                                .GotoSixth(5)
+                                .WriteChars((intereses).ToString("$ ##,##00.00"))
+
+
+                                .WriteLine("")
+                            Else
+                                If intereses <> 0 Then
+                                    .GotoSixth(1)
+
+                                    .WriteChars("Pago de refrendo no. " & concepto)
+                                    .GotoSixth(5)
+                                    .WriteChars((intereses).ToString("$ ##,##00.00"))
+
+
+                                    .WriteLine("")
+                                End If
+
+                                'subtotal16 = subtotal16 + s.GenInteres(pcmil)
+
+
+                                If pagonormal <> 0 Then
+                                    .GotoSixth(1)
+                                    .WriteChars("Abono a capital")
+
+                                    .GotoSixth(5)
+                                    .WriteChars((pagonormal).ToString("$ ##,##00.00"))
+
+                                    .WriteLine("")
+                                End If
+
+
+                            End If
+
+                            .DrawLine()
+
+                            .GotoSixth(1)
+                            .WriteChars("Subtotal Tasa 16%")
+
+                            .GotoSixth(5)
+                            .WriteChars((intereses / 1.16).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .WriteChars("I.V.A")
+
+
+                            .GotoSixth(5)
+                            .WriteChars(((intereses / 1.16) * 0.16).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+
+                            .DrawLine()
+
+                            .GotoSixth(1)
+                            .WriteChars("SubTotal")
+                            .GotoSixth(5)
+                            .WriteChars((subtotal).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+
+                            .WriteChars("Descuento")
+                            .GotoSixth(5)
+                            .WriteChars((descuento).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+
+                            .WriteChars("Total")
+                            .GotoSixth(5)
+                            .WriteChars((total).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .WriteChars("Recibido")
+                            .GotoSixth(5)
+
+                            .WriteChars((recibido).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .WriteChars("Cambio")
+                            .GotoSixth(5)
+
+                            .WriteChars((cambio).ToString("$ ##,##00.00"))
+                            .WriteLine("")
+                            .GotoSixth(1)
+                            .DrawLine()
+                            .GotoSixth(1)
+                            Dim StringNumeroLetra As String
+                            StringNumeroLetra = (NumeroLetra.Convertir(total.ToString, True))
+                            Dim StringNumeroLetraPartido() As String = Split(StringNumeroLetra)
+                            Dim i As Integer = 0
+                            Dim nuevostring As String = ""
+                            Dim siguientestring As String = ""
+                            For Palabras As Integer = 0 To StringNumeroLetraPartido.Length - 1
+                                i += StringNumeroLetraPartido(Palabras).Length + 1
+                                .AlignCenter()
+                                If i < 56 Then
+                                    nuevostring = nuevostring & StringNumeroLetraPartido(Palabras) & " "
+                                Else
+                                    siguientestring = siguientestring & StringNumeroLetraPartido(Palabras) & " "
+                                End If
+                            Next
+                            .WriteLine(nuevostring)
+                            If siguientestring <> "" Then
+                                .WriteLine(siguientestring)
+                            End If
+                            .WriteLine("")
+                            If GetNombreDoc(tipodoc) = "Desempeño" Then
+                                .Bold = True
+                                .GotoSixth(1)
+                                .WriteLine("CUENTA LIQUIDADA")
+
+                            End If
 
                             .GotoSixth(1)
                             .Bold = False
