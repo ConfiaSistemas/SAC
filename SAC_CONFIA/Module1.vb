@@ -1235,7 +1235,7 @@ ByVal maximumWorkingSetSize As Integer) As Integer
                     .WriteLine(RFCEmpresa)
                     .FontSize = 8
                     .WriteLine("")
-                    .WriteChars("Calle  " & CalleEmpresa & "  No. " & NumeroEmpresa)
+                    .WriteChars("Calle  " & CalleEmpresa & "  " & NumeroEmpresa)
 
 
                     .WriteLine("")
@@ -1263,14 +1263,46 @@ ByVal maximumWorkingSetSize As Integer) As Integer
                     .WriteChars("CAJA:")
                     .Bold = False
                     .GotoSixth(3)
-                    .WriteChars(NumeroCaja)
+                    .WriteChars(noCaja)
                     .WriteLine("")
                     .Bold = True
                     .GotoSixth(1)
-                    .WriteChars("TIPO:")
+                    .WriteChars("ATENDIDO POR:")
                     .Bold = False
                     .GotoSixth(3)
-                    .WriteChars(tipodocstring)
+                    .WriteChars(nm_completeusr)
+                    .WriteLine("")
+                    .Bold = True
+                    .GotoSixth(1)
+                    .FontSize = 6.8
+                    .WriteChars("CRÉDITO LEGAL NO.:")
+                    .FontSize = 7.3
+                    .Bold = False
+                    .GotoSixth(3)
+                    .WriteChars(idcredito)
+                    .WriteLine("")
+                    .GotoSixth(1)
+                    .Bold = True
+                    .WriteChars("DEUDA TOTAL:")
+                    .Bold = False
+                    .GotoSixth(3)
+                    .WriteChars((monto).ToString("$ ##,##00.00"))
+                    .WriteLine("")
+                    .GotoSixth(1)
+                    .Bold = True
+                    .WriteChars("CLIENTE:")
+                    .GotoSixth(3)
+                    .Bold = False
+                    .FontSize = 6.5
+                    .WriteChars(nombreCredito)
+                    .FontSize = 7.3
+                    .WriteLine("")
+                    .GotoSixth(1)
+                    .Bold = True
+                    .WriteChars("PLAZO(semanas):")
+                    .GotoSixth(3)
+                    .Bold = False
+                    .WriteChars(cp)
                     .WriteLine("")
 
                     .GotoSixth(1)
