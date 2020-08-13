@@ -223,6 +223,7 @@ Partial Class Configuraciones
         Me.Controls.Add(Me.txtIp)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Configuraciones"
         Me.Text = "Configuraciones"
         Me.Panel1.ResumeLayout(False)

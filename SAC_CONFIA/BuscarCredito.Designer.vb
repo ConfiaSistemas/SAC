@@ -24,6 +24,7 @@ Partial Class BuscarCredito
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BuscarCredito))
         Me.dtimpuestos = New Bunifu.Framework.UI.BunifuCustomDataGrid()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -91,10 +92,11 @@ Partial Class BuscarCredito
         '
         'Nombre
         '
+        Me.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.Nombre.HeaderText = "Nombre"
         Me.Nombre.Name = "Nombre"
         Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 79
+        Me.Nombre.Width = 250
         '
         'Monto
         '
@@ -164,7 +166,7 @@ Partial Class BuscarCredito
         Me.txtNombre.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(379, 33)
-        Me.txtNombre.TabIndex = 11
+        Me.txtNombre.TabIndex = 0
         Me.txtNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
         '
         'Label4
@@ -191,7 +193,9 @@ Partial Class BuscarCredito
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.dtimpuestos)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BuscarCredito"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "BuscarCredito"
         CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
@@ -207,10 +211,10 @@ Partial Class BuscarCredito
     Friend WithEvents MonoFlat_HeaderLabel1 As MonoFlat.MonoFlat_HeaderLabel
     Friend WithEvents txtNombre As Bunifu.Framework.UI.BunifuMaterialTextbox
     Friend WithEvents Label4 As Label
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents Fecha As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents Monto As DataGridViewTextBoxColumn
     Friend WithEvents Plazo As DataGridViewTextBoxColumn
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

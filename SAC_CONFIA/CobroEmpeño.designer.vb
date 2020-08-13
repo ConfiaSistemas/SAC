@@ -516,6 +516,7 @@ Partial Class CobroEmpeño
         Me.BunifuTransition5.SetDecoration(Me, BunifuAnimatorNS.DecorationType.None)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CobroEmpeño"
         Me.RightToLeftLayout = True
         Me.Text = "inicio"

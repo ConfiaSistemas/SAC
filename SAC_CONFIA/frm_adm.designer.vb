@@ -23,26 +23,27 @@ Partial Class frm_adm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_adm))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.notificaciones = New SAC_CONFIA.MonoFlat.MonoFlat_NotificationBox()
-        Me.panelmenus = New System.Windows.Forms.Panel()
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timerwidthmenos = New System.Windows.Forms.Timer(Me.components)
-        Me.Timerwidthmas = New System.Windows.Forms.Timer(Me.components)
-        Me.TimerPermisos = New System.Windows.Forms.Timer(Me.components)
-        Me.BunifuFlatButton5 = New Bunifu.Framework.UI.BunifuFlatButton()
-        Me.BunifuFlatButton3 = New Bunifu.Framework.UI.BunifuFlatButton()
-        Me.BunifuFlatButton2 = New Bunifu.Framework.UI.BunifuFlatButton()
-        Me.BunifuFlatButton1 = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.BunifuFlatButton7 = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.BunifuFlatButton6 = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnusuarios = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnconfiguracion = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.notificaciones = New SAC_CONFIA.MonoFlat.MonoFlat_NotificationBox()
         Me.imgperfil = New Bunifu.Framework.UI.BunifuImageButton()
+        Me.panelmenus = New System.Windows.Forms.Panel()
+        Me.BunifuFlatButton5 = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.BunifuFlatButton3 = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.BunifuFlatButton2 = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.BunifuFlatButton1 = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timerwidthmenos = New System.Windows.Forms.Timer(Me.components)
+        Me.Timerwidthmas = New System.Windows.Forms.Timer(Me.components)
+        Me.TimerPermisos = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
-        Me.panelmenus.SuspendLayout()
         CType(Me.imgperfil, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panelmenus.SuspendLayout()
         Me.SuspendLayout()
         '
         'Timer1
@@ -64,6 +65,138 @@ Partial Class frm_adm
         Me.Panel1.Size = New System.Drawing.Size(890, 66)
         Me.Panel1.TabIndex = 0
         '
+        'BunifuFlatButton7
+        '
+        Me.BunifuFlatButton7.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.BunifuFlatButton7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.BunifuFlatButton7.BorderRadius = 0
+        Me.BunifuFlatButton7.ButtonText = "Empeños (F9)"
+        Me.BunifuFlatButton7.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BunifuFlatButton7.DisabledColor = System.Drawing.Color.Gray
+        Me.BunifuFlatButton7.Iconcolor = System.Drawing.Color.Transparent
+        Me.BunifuFlatButton7.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.pawn_shop_icon_15
+        Me.BunifuFlatButton7.Iconimage_right = Nothing
+        Me.BunifuFlatButton7.Iconimage_right_Selected = Nothing
+        Me.BunifuFlatButton7.Iconimage_Selected = Nothing
+        Me.BunifuFlatButton7.IconMarginLeft = 0
+        Me.BunifuFlatButton7.IconMarginRight = 0
+        Me.BunifuFlatButton7.IconRightVisible = True
+        Me.BunifuFlatButton7.IconRightZoom = 0R
+        Me.BunifuFlatButton7.IconVisible = True
+        Me.BunifuFlatButton7.IconZoom = 90.0R
+        Me.BunifuFlatButton7.IsTab = False
+        Me.BunifuFlatButton7.Location = New System.Drawing.Point(414, 6)
+        Me.BunifuFlatButton7.Name = "BunifuFlatButton7"
+        Me.BunifuFlatButton7.Normalcolor = System.Drawing.Color.Empty
+        Me.BunifuFlatButton7.OnHovercolor = System.Drawing.Color.Gray
+        Me.BunifuFlatButton7.OnHoverTextColor = System.Drawing.Color.White
+        Me.BunifuFlatButton7.selected = False
+        Me.BunifuFlatButton7.Size = New System.Drawing.Size(122, 48)
+        Me.BunifuFlatButton7.TabIndex = 6
+        Me.BunifuFlatButton7.Text = "Empeños (F9)"
+        Me.BunifuFlatButton7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BunifuFlatButton7.Textcolor = System.Drawing.Color.WhiteSmoke
+        Me.BunifuFlatButton7.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'BunifuFlatButton6
+        '
+        Me.BunifuFlatButton6.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.BunifuFlatButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.BunifuFlatButton6.BorderRadius = 0
+        Me.BunifuFlatButton6.ButtonText = "Pago Extraordinario (F8)"
+        Me.BunifuFlatButton6.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BunifuFlatButton6.DisabledColor = System.Drawing.Color.Gray
+        Me.BunifuFlatButton6.Iconcolor = System.Drawing.Color.Transparent
+        Me.BunifuFlatButton6.Iconimage = Global.SAC_CONFIA.My.Resources.Resources._86114
+        Me.BunifuFlatButton6.Iconimage_right = Nothing
+        Me.BunifuFlatButton6.Iconimage_right_Selected = Nothing
+        Me.BunifuFlatButton6.Iconimage_Selected = Nothing
+        Me.BunifuFlatButton6.IconMarginLeft = 0
+        Me.BunifuFlatButton6.IconMarginRight = 0
+        Me.BunifuFlatButton6.IconRightVisible = True
+        Me.BunifuFlatButton6.IconRightZoom = 0R
+        Me.BunifuFlatButton6.IconVisible = True
+        Me.BunifuFlatButton6.IconZoom = 90.0R
+        Me.BunifuFlatButton6.IsTab = False
+        Me.BunifuFlatButton6.Location = New System.Drawing.Point(286, 6)
+        Me.BunifuFlatButton6.Name = "BunifuFlatButton6"
+        Me.BunifuFlatButton6.Normalcolor = System.Drawing.Color.Empty
+        Me.BunifuFlatButton6.OnHovercolor = System.Drawing.Color.Gray
+        Me.BunifuFlatButton6.OnHoverTextColor = System.Drawing.Color.White
+        Me.BunifuFlatButton6.selected = False
+        Me.BunifuFlatButton6.Size = New System.Drawing.Size(122, 48)
+        Me.BunifuFlatButton6.TabIndex = 5
+        Me.BunifuFlatButton6.Text = "Pago Extraordinario (F8)"
+        Me.BunifuFlatButton6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BunifuFlatButton6.Textcolor = System.Drawing.Color.WhiteSmoke
+        Me.BunifuFlatButton6.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'btnusuarios
+        '
+        Me.btnusuarios.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.btnusuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnusuarios.BorderRadius = 0
+        Me.btnusuarios.ButtonText = "Detalle de Caja"
+        Me.btnusuarios.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnusuarios.DisabledColor = System.Drawing.Color.Gray
+        Me.btnusuarios.Iconcolor = System.Drawing.Color.Transparent
+        Me.btnusuarios.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.inv
+        Me.btnusuarios.Iconimage_right = Nothing
+        Me.btnusuarios.Iconimage_right_Selected = Nothing
+        Me.btnusuarios.Iconimage_Selected = Nothing
+        Me.btnusuarios.IconMarginLeft = 0
+        Me.btnusuarios.IconMarginRight = 0
+        Me.btnusuarios.IconRightVisible = True
+        Me.btnusuarios.IconRightZoom = 0R
+        Me.btnusuarios.IconVisible = True
+        Me.btnusuarios.IconZoom = 90.0R
+        Me.btnusuarios.IsTab = False
+        Me.btnusuarios.Location = New System.Drawing.Point(3, 9)
+        Me.btnusuarios.Name = "btnusuarios"
+        Me.btnusuarios.Normalcolor = System.Drawing.Color.Empty
+        Me.btnusuarios.OnHovercolor = System.Drawing.Color.Gray
+        Me.btnusuarios.OnHoverTextColor = System.Drawing.Color.Transparent
+        Me.btnusuarios.selected = False
+        Me.btnusuarios.Size = New System.Drawing.Size(140, 48)
+        Me.btnusuarios.TabIndex = 5
+        Me.btnusuarios.Text = "Detalle de Caja"
+        Me.btnusuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnusuarios.Textcolor = System.Drawing.Color.Transparent
+        Me.btnusuarios.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'btnconfiguracion
+        '
+        Me.btnconfiguracion.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.btnconfiguracion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnconfiguracion.BorderRadius = 0
+        Me.btnconfiguracion.ButtonText = "Configuración"
+        Me.btnconfiguracion.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnconfiguracion.DisabledColor = System.Drawing.Color.Gray
+        Me.btnconfiguracion.Iconcolor = System.Drawing.Color.Transparent
+        Me.btnconfiguracion.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.config
+        Me.btnconfiguracion.Iconimage_right = Nothing
+        Me.btnconfiguracion.Iconimage_right_Selected = Nothing
+        Me.btnconfiguracion.Iconimage_Selected = Nothing
+        Me.btnconfiguracion.IconMarginLeft = 0
+        Me.btnconfiguracion.IconMarginRight = 0
+        Me.btnconfiguracion.IconRightVisible = True
+        Me.btnconfiguracion.IconRightZoom = 0R
+        Me.btnconfiguracion.IconVisible = True
+        Me.btnconfiguracion.IconZoom = 90.0R
+        Me.btnconfiguracion.IsTab = False
+        Me.btnconfiguracion.Location = New System.Drawing.Point(139, 6)
+        Me.btnconfiguracion.Name = "btnconfiguracion"
+        Me.btnconfiguracion.Normalcolor = System.Drawing.Color.Empty
+        Me.btnconfiguracion.OnHovercolor = System.Drawing.Color.Gray
+        Me.btnconfiguracion.OnHoverTextColor = System.Drawing.Color.White
+        Me.btnconfiguracion.selected = False
+        Me.btnconfiguracion.Size = New System.Drawing.Size(141, 48)
+        Me.btnconfiguracion.TabIndex = 5
+        Me.btnconfiguracion.Text = "Configuración"
+        Me.btnconfiguracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnconfiguracion.Textcolor = System.Drawing.Color.WhiteSmoke
+        Me.btnconfiguracion.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
         'notificaciones
         '
         Me.notificaciones.BorderCurve = 8
@@ -79,6 +212,20 @@ Partial Class frm_adm
         Me.notificaciones.TabIndex = 3
         Me.notificaciones.Text = "MonoFlat_NotificationBox1"
         '
+        'imgperfil
+        '
+        Me.imgperfil.BackColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(204, Byte), Integer))
+        Me.imgperfil.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.imgperfil.Image = Global.SAC_CONFIA.My.Resources.Resources.usuario
+        Me.imgperfil.ImageActive = Nothing
+        Me.imgperfil.Location = New System.Drawing.Point(838, 13)
+        Me.imgperfil.Name = "imgperfil"
+        Me.imgperfil.Size = New System.Drawing.Size(45, 43)
+        Me.imgperfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.imgperfil.TabIndex = 2
+        Me.imgperfil.TabStop = False
+        Me.imgperfil.Zoom = 10
+        '
         'panelmenus
         '
         Me.panelmenus.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -91,19 +238,6 @@ Partial Class frm_adm
         Me.panelmenus.Name = "panelmenus"
         Me.panelmenus.Size = New System.Drawing.Size(258, 376)
         Me.panelmenus.TabIndex = 1
-        '
-        'Timer2
-        '
-        '
-        'Timerwidthmenos
-        '
-        '
-        'Timerwidthmas
-        '
-        '
-        'TimerPermisos
-        '
-        Me.TimerPermisos.Interval = 3600000
         '
         'BunifuFlatButton5
         '
@@ -241,151 +375,18 @@ Partial Class frm_adm
         Me.BunifuFlatButton1.Textcolor = System.Drawing.Color.Black
         Me.BunifuFlatButton1.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'BunifuFlatButton7
+        'Timer2
         '
-        Me.BunifuFlatButton7.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
-        Me.BunifuFlatButton7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.BunifuFlatButton7.BorderRadius = 0
-        Me.BunifuFlatButton7.ButtonText = "Empeños (F9)"
-        Me.BunifuFlatButton7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BunifuFlatButton7.DisabledColor = System.Drawing.Color.Gray
-        Me.BunifuFlatButton7.Iconcolor = System.Drawing.Color.Transparent
-        Me.BunifuFlatButton7.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.pawn_shop_icon_15
-        Me.BunifuFlatButton7.Iconimage_right = Nothing
-        Me.BunifuFlatButton7.Iconimage_right_Selected = Nothing
-        Me.BunifuFlatButton7.Iconimage_Selected = Nothing
-        Me.BunifuFlatButton7.IconMarginLeft = 0
-        Me.BunifuFlatButton7.IconMarginRight = 0
-        Me.BunifuFlatButton7.IconRightVisible = True
-        Me.BunifuFlatButton7.IconRightZoom = 0R
-        Me.BunifuFlatButton7.IconVisible = True
-        Me.BunifuFlatButton7.IconZoom = 90.0R
-        Me.BunifuFlatButton7.IsTab = False
-        Me.BunifuFlatButton7.Location = New System.Drawing.Point(414, 6)
-        Me.BunifuFlatButton7.Name = "BunifuFlatButton7"
-        Me.BunifuFlatButton7.Normalcolor = System.Drawing.Color.Empty
-        Me.BunifuFlatButton7.OnHovercolor = System.Drawing.Color.Gray
-        Me.BunifuFlatButton7.OnHoverTextColor = System.Drawing.Color.White
-        Me.BunifuFlatButton7.selected = False
-        Me.BunifuFlatButton7.Size = New System.Drawing.Size(122, 48)
-        Me.BunifuFlatButton7.TabIndex = 6
-        Me.BunifuFlatButton7.Text = "Empeños (F9)"
-        Me.BunifuFlatButton7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BunifuFlatButton7.Textcolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuFlatButton7.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'BunifuFlatButton6
+        'Timerwidthmenos
         '
-        Me.BunifuFlatButton6.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
-        Me.BunifuFlatButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.BunifuFlatButton6.BorderRadius = 0
-        Me.BunifuFlatButton6.ButtonText = "Pago Extraordinario (F8)"
-        Me.BunifuFlatButton6.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BunifuFlatButton6.DisabledColor = System.Drawing.Color.Gray
-        Me.BunifuFlatButton6.Iconcolor = System.Drawing.Color.Transparent
-        Me.BunifuFlatButton6.Iconimage = Global.SAC_CONFIA.My.Resources.Resources._86114
-        Me.BunifuFlatButton6.Iconimage_right = Nothing
-        Me.BunifuFlatButton6.Iconimage_right_Selected = Nothing
-        Me.BunifuFlatButton6.Iconimage_Selected = Nothing
-        Me.BunifuFlatButton6.IconMarginLeft = 0
-        Me.BunifuFlatButton6.IconMarginRight = 0
-        Me.BunifuFlatButton6.IconRightVisible = True
-        Me.BunifuFlatButton6.IconRightZoom = 0R
-        Me.BunifuFlatButton6.IconVisible = True
-        Me.BunifuFlatButton6.IconZoom = 90.0R
-        Me.BunifuFlatButton6.IsTab = False
-        Me.BunifuFlatButton6.Location = New System.Drawing.Point(286, 6)
-        Me.BunifuFlatButton6.Name = "BunifuFlatButton6"
-        Me.BunifuFlatButton6.Normalcolor = System.Drawing.Color.Empty
-        Me.BunifuFlatButton6.OnHovercolor = System.Drawing.Color.Gray
-        Me.BunifuFlatButton6.OnHoverTextColor = System.Drawing.Color.White
-        Me.BunifuFlatButton6.selected = False
-        Me.BunifuFlatButton6.Size = New System.Drawing.Size(122, 48)
-        Me.BunifuFlatButton6.TabIndex = 5
-        Me.BunifuFlatButton6.Text = "Pago Extraordinario (F8)"
-        Me.BunifuFlatButton6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BunifuFlatButton6.Textcolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuFlatButton6.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'btnusuarios
+        'Timerwidthmas
         '
-        Me.btnusuarios.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
-        Me.btnusuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnusuarios.BorderRadius = 0
-        Me.btnusuarios.ButtonText = "Detalle de Caja"
-        Me.btnusuarios.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnusuarios.DisabledColor = System.Drawing.Color.Gray
-        Me.btnusuarios.Iconcolor = System.Drawing.Color.Transparent
-        Me.btnusuarios.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.inv
-        Me.btnusuarios.Iconimage_right = Nothing
-        Me.btnusuarios.Iconimage_right_Selected = Nothing
-        Me.btnusuarios.Iconimage_Selected = Nothing
-        Me.btnusuarios.IconMarginLeft = 0
-        Me.btnusuarios.IconMarginRight = 0
-        Me.btnusuarios.IconRightVisible = True
-        Me.btnusuarios.IconRightZoom = 0R
-        Me.btnusuarios.IconVisible = True
-        Me.btnusuarios.IconZoom = 90.0R
-        Me.btnusuarios.IsTab = False
-        Me.btnusuarios.Location = New System.Drawing.Point(3, 9)
-        Me.btnusuarios.Name = "btnusuarios"
-        Me.btnusuarios.Normalcolor = System.Drawing.Color.Empty
-        Me.btnusuarios.OnHovercolor = System.Drawing.Color.Gray
-        Me.btnusuarios.OnHoverTextColor = System.Drawing.Color.Transparent
-        Me.btnusuarios.selected = False
-        Me.btnusuarios.Size = New System.Drawing.Size(140, 48)
-        Me.btnusuarios.TabIndex = 5
-        Me.btnusuarios.Text = "Detalle de Caja"
-        Me.btnusuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnusuarios.Textcolor = System.Drawing.Color.Transparent
-        Me.btnusuarios.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'btnconfiguracion
+        'TimerPermisos
         '
-        Me.btnconfiguracion.Activecolor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(87, Byte), Integer))
-        Me.btnconfiguracion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnconfiguracion.BorderRadius = 0
-        Me.btnconfiguracion.ButtonText = "Configuración"
-        Me.btnconfiguracion.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnconfiguracion.DisabledColor = System.Drawing.Color.Gray
-        Me.btnconfiguracion.Iconcolor = System.Drawing.Color.Transparent
-        Me.btnconfiguracion.Iconimage = Global.SAC_CONFIA.My.Resources.Resources.config
-        Me.btnconfiguracion.Iconimage_right = Nothing
-        Me.btnconfiguracion.Iconimage_right_Selected = Nothing
-        Me.btnconfiguracion.Iconimage_Selected = Nothing
-        Me.btnconfiguracion.IconMarginLeft = 0
-        Me.btnconfiguracion.IconMarginRight = 0
-        Me.btnconfiguracion.IconRightVisible = True
-        Me.btnconfiguracion.IconRightZoom = 0R
-        Me.btnconfiguracion.IconVisible = True
-        Me.btnconfiguracion.IconZoom = 90.0R
-        Me.btnconfiguracion.IsTab = False
-        Me.btnconfiguracion.Location = New System.Drawing.Point(149, 8)
-        Me.btnconfiguracion.Name = "btnconfiguracion"
-        Me.btnconfiguracion.Normalcolor = System.Drawing.Color.Empty
-        Me.btnconfiguracion.OnHovercolor = System.Drawing.Color.Gray
-        Me.btnconfiguracion.OnHoverTextColor = System.Drawing.Color.White
-        Me.btnconfiguracion.selected = False
-        Me.btnconfiguracion.Size = New System.Drawing.Size(141, 48)
-        Me.btnconfiguracion.TabIndex = 5
-        Me.btnconfiguracion.Text = "Configuración"
-        Me.btnconfiguracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnconfiguracion.Textcolor = System.Drawing.Color.WhiteSmoke
-        Me.btnconfiguracion.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '
-        'imgperfil
-        '
-        Me.imgperfil.BackColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(204, Byte), Integer))
-        Me.imgperfil.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.imgperfil.Image = Global.SAC_CONFIA.My.Resources.Resources.usuario
-        Me.imgperfil.ImageActive = Nothing
-        Me.imgperfil.Location = New System.Drawing.Point(838, 13)
-        Me.imgperfil.Name = "imgperfil"
-        Me.imgperfil.Size = New System.Drawing.Size(45, 43)
-        Me.imgperfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.imgperfil.TabIndex = 2
-        Me.imgperfil.TabStop = False
-        Me.imgperfil.Zoom = 10
+        Me.TimerPermisos.Interval = 3600000
         '
         'frm_adm
         '
@@ -395,6 +396,7 @@ Partial Class frm_adm
         Me.ClientSize = New System.Drawing.Size(890, 442)
         Me.Controls.Add(Me.panelmenus)
         Me.Controls.Add(Me.Panel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.KeyPreview = True
         Me.MinimumSize = New System.Drawing.Size(672, 480)
@@ -402,9 +404,10 @@ Partial Class frm_adm
         Me.Opacity = 0.1R
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SAC"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
-        Me.panelmenus.ResumeLayout(False)
         CType(Me.imgperfil, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelmenus.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

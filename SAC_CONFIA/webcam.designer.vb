@@ -187,6 +187,7 @@ Partial Class webcam
         Me.Controls.Add(Me.EvolveControlBox1)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "webcam"
         Me.Text = "webcam"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

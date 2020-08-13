@@ -36,6 +36,7 @@ Partial Class Creditos_Autorizados
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CobrarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BunifuThinButton21 = New Bunifu.Framework.UI.BunifuThinButton2()
+        Me.MonoFlat_Label1 = New SAC_CONFIA.MonoFlat.MonoFlat_Label()
         CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -155,20 +156,35 @@ Partial Class Creditos_Autorizados
         Me.BunifuThinButton21.TabIndex = 6
         Me.BunifuThinButton21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'MonoFlat_Label1
+        '
+        Me.MonoFlat_Label1.AutoSize = True
+        Me.MonoFlat_Label1.BackColor = System.Drawing.Color.Transparent
+        Me.MonoFlat_Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MonoFlat_Label1.ForeColor = System.Drawing.Color.White
+        Me.MonoFlat_Label1.Location = New System.Drawing.Point(12, 27)
+        Me.MonoFlat_Label1.Name = "MonoFlat_Label1"
+        Me.MonoFlat_Label1.Size = New System.Drawing.Size(169, 21)
+        Me.MonoFlat_Label1.TabIndex = 7
+        Me.MonoFlat_Label1.Text = "Créditos Autorizados"
+        '
         'Creditos_Autorizados
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(5, Byte), Integer), CType(CType(11, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(913, 540)
+        Me.Controls.Add(Me.MonoFlat_Label1)
         Me.Controls.Add(Me.BunifuThinButton21)
         Me.Controls.Add(Me.dtimpuestos)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Creditos_Autorizados"
         Me.Text = "Creditos_Autorizados"
         CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -182,4 +198,5 @@ Partial Class Creditos_Autorizados
     Friend WithEvents Plazo As DataGridViewTextBoxColumn
     Friend WithEvents Cobrado As DataGridViewTextBoxColumn
     Friend WithEvents BunifuThinButton21 As Bunifu.Framework.UI.BunifuThinButton2
+    Friend WithEvents MonoFlat_Label1 As MonoFlat.MonoFlat_Label
 End Class

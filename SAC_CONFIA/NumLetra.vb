@@ -1,9 +1,9 @@
 ﻿Imports System.Text.RegularExpressions
 
 Class NumLetra
-    Private UNIDADES As String() = {"", "un ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve "}
-    Private DECENAS As String() = {"diez ", "once ", "doce ", "trece ", "catorce ", "quince ", "dieciseis ", "diecisiete ", "dieciocho ", "diecinueve", "veinte ", "treinta ", "cuarenta ", "cincuenta ", "sesenta ", "setenta ", "ochenta ", "noventa "}
-    Private CENTENAS As String() = {"", "ciento ", "doscientos ", "trescientos ", "cuatrocientos ", "quinientos ", "seiscientos ", "setecientos ", "ochocientos ", "novecientos "}
+    Private UNIDADES As String() = {"", "Un ", "Dos ", "Tres ", "Cuatro ", "Cinco ", "Seis ", "Siete ", "Ocho ", "Nueve "}
+    Private DECENAS As String() = {"Diez ", "Once ", "Doce ", "Trece ", "Catorce ", "Quince ", "Dieciséis ", "Diecisiete ", "Dieciocho ", "Diecinueve ", "Veinte ", "Veintiún ", "Veintidós ", "Veintitrés ", "Veinticuatro ", "Veinticinco ", "Veintiséis ", "Veintisiete ", "Veintiocho ", "Veintinueve ", "Treinta ", "Cuarenta ", "Cincuenta ", "Sesenta ", "Setenta ", "Ochenta ", "Noventa "}
+    Private CENTENAS As String() = {"", "Ciento ", "Doscientos ", "Trescientos ", "Cuatrocientos ", "Quinientos ", "Seiscientos ", "Setecientos ", "Ochocientos ", "Novecientos "}
     Private r As Regex
 
     Public Function Convertir(ByVal numero As String, ByVal mayusculas As Boolean) As String
@@ -20,10 +20,10 @@ Class NumLetra
 
         If mc.Count > 0 Then
             Dim Num As String() = numero.Split(","c)
-            parte_decimal = Convert.ToInt64(Num(1)).ToString("0#") & "/100 M.N."
+            parte_decimal = Convert.ToInt64(Num(1) * 10).ToString("00") & "/100 M.N."
 
             If Integer.Parse(Num(0)) = 0 Then
-                literal = "cero "
+                literal = "Cero "
             ElseIf Integer.Parse(Num(0)) > 999999 Then
                 literal = getMillones(Num(0))
             ElseIf Integer.Parse(Num(0)) > 999 Then
@@ -39,7 +39,7 @@ Class NumLetra
             If mayusculas Then
                 Return "(" & (literal & " PESOS " + parte_decimal).ToUpper() & ")"
             Else
-                Return (literal + parte_decimal)
+                Return "(" & (literal & " Pesos " + parte_decimal) & ")"
             End If
         Else
             Return CSharpImpl.__Assign(literal, Nothing)
@@ -56,13 +56,13 @@ Class NumLetra
 
         If n < 10 Then
             Return getUnidades(num)
-        ElseIf n > 19 Then
+        ElseIf n > 29 Then
             Dim u As String = getUnidades(num)
 
             If u.Equals("") Then
-                Return DECENAS(Integer.Parse(num.Substring(0, 1)) + 8)
+                Return DECENAS(Integer.Parse(num.Substring(0, 1)) + 17)
             Else
-                Return DECENAS(Integer.Parse(num.Substring(0, 1)) + 8) & "y " + u
+                Return DECENAS(Integer.Parse(num.Substring(0, 1)) + 17) & "y " + u
             End If
         Else
             Return DECENAS(n - 10)
@@ -73,7 +73,7 @@ Class NumLetra
         If Integer.Parse(num) > 99 Then
 
             If Integer.Parse(num) = 100 Then
-                Return " cien "
+                Return " Cien "
             Else
                 Return CENTENAS(Integer.Parse(num.Substring(0, 1))) + getDecenas(num.Substring(1))
             End If
@@ -89,7 +89,7 @@ Class NumLetra
 
         If Integer.Parse(m) > 0 Then
             n = getCentenas(m)
-            Return n & "mil " + getCentenas(c)
+            Return n & "Mil " + getCentenas(c)
         Else
             Return "" & getCentenas(c)
         End If
@@ -101,9 +101,9 @@ Class NumLetra
         Dim n As String = ""
 
         If millon.Length > 1 Then
-            n = getCentenas(millon) & "millones "
+            n = getCentenas(millon) & "Millones "
         Else
-            n = getUnidades(millon) & "millon "
+            n = getUnidades(millon) & "Millon "
         End If
 
         Return n + getMiles(miles)
@@ -117,4 +117,3 @@ Class NumLetra
         End Function
     End Class
 End Class
-

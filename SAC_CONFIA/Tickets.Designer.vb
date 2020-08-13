@@ -28,6 +28,15 @@ Partial Class Tickets
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tickets))
         Me.MonoFlat_HeaderLabel1 = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
         Me.dtdatos = New Bunifu.Framework.UI.BunifuCustomDataGrid()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.idCredito = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Monto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Hora = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Caja = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MonoFlat_CheckBox1 = New SAC_CONFIA.MonoFlat.MonoFlat_CheckBox()
         Me.dateDesde = New Bunifu.Framework.UI.BunifuDatepicker()
@@ -42,15 +51,6 @@ Partial Class Tickets
         Me.MonoFlat_HeaderLabel2 = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
         Me.lbltotal = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
         Me.BackgroundCajas = New System.ComponentModel.BackgroundWorker()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.idCredito = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Monto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Hora = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Caja = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtdatos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -101,6 +101,69 @@ Partial Class Tickets
         Me.dtdatos.RowHeadersVisible = False
         Me.dtdatos.Size = New System.Drawing.Size(1194, 447)
         Me.dtdatos.TabIndex = 7
+        '
+        'Id
+        '
+        Me.Id.HeaderText = "Id"
+        Me.Id.Name = "Id"
+        Me.Id.ReadOnly = True
+        Me.Id.Width = 42
+        '
+        'idCredito
+        '
+        Me.idCredito.HeaderText = "idCrédito"
+        Me.idCredito.Name = "idCredito"
+        Me.idCredito.ReadOnly = True
+        Me.idCredito.Width = 87
+        '
+        'Nombre
+        '
+        Me.Nombre.HeaderText = "Nombre"
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.ReadOnly = True
+        Me.Nombre.Width = 79
+        '
+        'Monto
+        '
+        Me.Monto.HeaderText = "Monto"
+        Me.Monto.Name = "Monto"
+        Me.Monto.ReadOnly = True
+        Me.Monto.Width = 70
+        '
+        'Fecha
+        '
+        Me.Fecha.HeaderText = "Fecha"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.ReadOnly = True
+        Me.Fecha.Width = 68
+        '
+        'Hora
+        '
+        Me.Hora.HeaderText = "Hora"
+        Me.Hora.Name = "Hora"
+        Me.Hora.ReadOnly = True
+        Me.Hora.Width = 59
+        '
+        'Tipo
+        '
+        Me.Tipo.HeaderText = "Tipo"
+        Me.Tipo.Name = "Tipo"
+        Me.Tipo.ReadOnly = True
+        Me.Tipo.Width = 55
+        '
+        'Caja
+        '
+        Me.Caja.HeaderText = "Caja"
+        Me.Caja.Name = "Caja"
+        Me.Caja.ReadOnly = True
+        Me.Caja.Width = 59
+        '
+        'Estado
+        '
+        Me.Estado.HeaderText = "Estado"
+        Me.Estado.Name = "Estado"
+        Me.Estado.ReadOnly = True
+        Me.Estado.Width = 71
         '
         'Panel1
         '
@@ -278,69 +341,6 @@ Partial Class Tickets
         'BackgroundCajas
         '
         '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.Name = "Id"
-        Me.Id.ReadOnly = True
-        Me.Id.Width = 42
-        '
-        'idCredito
-        '
-        Me.idCredito.HeaderText = "idCrédito"
-        Me.idCredito.Name = "idCredito"
-        Me.idCredito.ReadOnly = True
-        Me.idCredito.Width = 87
-        '
-        'Nombre
-        '
-        Me.Nombre.HeaderText = "Nombre"
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 79
-        '
-        'Monto
-        '
-        Me.Monto.HeaderText = "Monto"
-        Me.Monto.Name = "Monto"
-        Me.Monto.ReadOnly = True
-        Me.Monto.Width = 70
-        '
-        'Fecha
-        '
-        Me.Fecha.HeaderText = "Fecha"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.ReadOnly = True
-        Me.Fecha.Width = 68
-        '
-        'Hora
-        '
-        Me.Hora.HeaderText = "Hora"
-        Me.Hora.Name = "Hora"
-        Me.Hora.ReadOnly = True
-        Me.Hora.Width = 59
-        '
-        'Tipo
-        '
-        Me.Tipo.HeaderText = "Tipo"
-        Me.Tipo.Name = "Tipo"
-        Me.Tipo.ReadOnly = True
-        Me.Tipo.Width = 55
-        '
-        'Caja
-        '
-        Me.Caja.HeaderText = "Caja"
-        Me.Caja.Name = "Caja"
-        Me.Caja.ReadOnly = True
-        Me.Caja.Width = 59
-        '
-        'Estado
-        '
-        Me.Estado.HeaderText = "Estado"
-        Me.Estado.Name = "Estado"
-        Me.Estado.ReadOnly = True
-        Me.Estado.Width = 71
-        '
         'Tickets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -360,6 +360,7 @@ Partial Class Tickets
         Me.Controls.Add(Me.dateDesde)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Tickets"
         Me.Text = "Desembolsos"
         CType(Me.dtdatos, System.ComponentModel.ISupportInitialize).EndInit()

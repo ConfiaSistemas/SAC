@@ -23,21 +23,10 @@ Partial Class inicio
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim ZeroitMetroWebChartPoint1 As Zeroit.Framework.Metro.ZeroitMetroWebChartPoint = New Zeroit.Framework.Metro.ZeroitMetroWebChartPoint()
+        Dim ZeroitMetroWebChartPoint2 As Zeroit.Framework.Metro.ZeroitMetroWebChartPoint = New Zeroit.Framework.Metro.ZeroitMetroWebChartPoint()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(inicio))
-        Me.dtimpuestos = New Bunifu.Framework.UI.BunifuCustomDataGrid()
-        Me.Pagar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.IdPago = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Npago = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Monto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Interes = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Abonado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Pendiente = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Convenio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.txtid = New Bunifu.Framework.UI.BunifuMaterialTextbox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MonoFlat_Label1 = New SAC_CONFIA.MonoFlat.MonoFlat_Label()
@@ -52,110 +41,21 @@ Partial Class inicio
         Me.btn_actualizar = New Bunifu.Framework.UI.BunifuThinButton2()
         Me.TimerLiquidación = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundLiquidacionNormal = New System.ComponentModel.BackgroundWorker()
-        CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.lblEstado = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
+        Me.Convenio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pendiente = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Abonado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Interes = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Monto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Npago = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdPago = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pagar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.dtimpuestos = New Bunifu.Framework.UI.BunifuCustomDataGrid()
         Me.PanelLiquidacion.SuspendLayout()
+        CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'dtimpuestos
-        '
-        Me.dtimpuestos.AllowUserToAddRows = False
-        Me.dtimpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dtimpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dtimpuestos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtimpuestos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.dtimpuestos.BackgroundColor = System.Drawing.Color.Gainsboro
-        Me.dtimpuestos.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dtimpuestos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkSlateGray
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dtimpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dtimpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtimpuestos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Pagar, Me.IdPago, Me.Npago, Me.Fecha, Me.Monto, Me.Interes, Me.Abonado, Me.Pendiente, Me.Estado, Me.Convenio})
-        Me.dtimpuestos.DoubleBuffered = True
-        Me.dtimpuestos.EnableHeadersVisualStyles = False
-        Me.dtimpuestos.HeaderBgColor = System.Drawing.Color.DarkSlateGray
-        Me.dtimpuestos.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
-        Me.dtimpuestos.Location = New System.Drawing.Point(12, 120)
-        Me.dtimpuestos.Name = "dtimpuestos"
-        Me.dtimpuestos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        Me.dtimpuestos.RowHeadersVisible = False
-        Me.dtimpuestos.Size = New System.Drawing.Size(1289, 427)
-        Me.dtimpuestos.TabIndex = 5
-        '
-        'Pagar
-        '
-        Me.Pagar.HeaderText = "Pagar"
-        Me.Pagar.Name = "Pagar"
-        Me.Pagar.Width = 47
-        '
-        'IdPago
-        '
-        Me.IdPago.HeaderText = "IdPago"
-        Me.IdPago.Name = "IdPago"
-        Me.IdPago.ReadOnly = True
-        Me.IdPago.Width = 73
-        '
-        'Npago
-        '
-        Me.Npago.HeaderText = "NPago"
-        Me.Npago.Name = "Npago"
-        Me.Npago.ReadOnly = True
-        Me.Npago.Width = 71
-        '
-        'Fecha
-        '
-        Me.Fecha.HeaderText = "Fecha"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.ReadOnly = True
-        Me.Fecha.Width = 68
-        '
-        'Monto
-        '
-        Me.Monto.HeaderText = "Monto"
-        Me.Monto.Name = "Monto"
-        Me.Monto.ReadOnly = True
-        Me.Monto.Width = 70
-        '
-        'Interes
-        '
-        Me.Interes.HeaderText = "Interés"
-        Me.Interes.Name = "Interes"
-        Me.Interes.ReadOnly = True
-        Me.Interes.Width = 71
-        '
-        'Abonado
-        '
-        Me.Abonado.HeaderText = "Abonado"
-        Me.Abonado.Name = "Abonado"
-        Me.Abonado.ReadOnly = True
-        Me.Abonado.Width = 87
-        '
-        'Pendiente
-        '
-        Me.Pendiente.HeaderText = "Pendiente"
-        Me.Pendiente.Name = "Pendiente"
-        Me.Pendiente.ReadOnly = True
-        Me.Pendiente.Width = 92
-        '
-        'Estado
-        '
-        Me.Estado.HeaderText = "Estado"
-        Me.Estado.Name = "Estado"
-        Me.Estado.ReadOnly = True
-        Me.Estado.Width = 71
-        '
-        'Convenio
-        '
-        Me.Convenio.HeaderText = "Convenio"
-        Me.Convenio.Name = "Convenio"
-        Me.Convenio.Width = 89
         '
         'txtid
         '
@@ -174,7 +74,7 @@ Partial Class inicio
         Me.txtid.Margin = New System.Windows.Forms.Padding(4)
         Me.txtid.Name = "txtid"
         Me.txtid.Size = New System.Drawing.Size(263, 33)
-        Me.txtid.TabIndex = 6
+        Me.txtid.TabIndex = 0
         Me.txtid.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
         '
         'Button1
@@ -192,7 +92,7 @@ Partial Class inicio
         Me.MonoFlat_Label1.BackColor = System.Drawing.Color.Transparent
         Me.MonoFlat_Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.MonoFlat_Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(116, Byte), Integer), CType(CType(125, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.MonoFlat_Label1.Location = New System.Drawing.Point(12, 61)
+        Me.MonoFlat_Label1.Location = New System.Drawing.Point(12, 63)
         Me.MonoFlat_Label1.Name = "MonoFlat_Label1"
         Me.MonoFlat_Label1.Size = New System.Drawing.Size(18, 15)
         Me.MonoFlat_Label1.TabIndex = 15
@@ -207,7 +107,7 @@ Partial Class inicio
         Me.lblnombre.BackColor = System.Drawing.Color.Transparent
         Me.lblnombre.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.lblnombre.ForeColor = System.Drawing.Color.Gray
-        Me.lblnombre.Location = New System.Drawing.Point(12, 9)
+        Me.lblnombre.Location = New System.Drawing.Point(12, 8)
         Me.lblnombre.Name = "lblnombre"
         Me.lblnombre.Size = New System.Drawing.Size(13, 20)
         Me.lblnombre.TabIndex = 16
@@ -255,10 +155,10 @@ Partial Class inicio
         Me.ZeroitMetroWebChart1.Style = Zeroit.Framework.Metro.Design.Style.Custom
         Me.ZeroitMetroWebChart1.TabIndex = 0
         Me.ZeroitMetroWebChart1.WebBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(98, Byte), Integer), CType(CType(163, Byte), Integer))
-        ZeroitMetroWebChartPoint1.Color = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(162, Byte), Integer), CType(CType(219, Byte), Integer))
-        ZeroitMetroWebChartPoint1.Text = ""
-        ZeroitMetroWebChartPoint1.Value = 0
-        Me.ZeroitMetroWebChart1.WebPoints = ZeroitMetroWebChartPoint1
+        ZeroitMetroWebChartPoint2.Color = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(162, Byte), Integer), CType(CType(219, Byte), Integer))
+        ZeroitMetroWebChartPoint2.Text = ""
+        ZeroitMetroWebChartPoint2.Value = 0
+        Me.ZeroitMetroWebChart1.WebPoints = ZeroitMetroWebChartPoint2
         '
         'SwitchTipo
         '
@@ -327,6 +227,119 @@ Partial Class inicio
         '
         Me.TimerLiquidación.Interval = 1
         '
+        'lblEstado
+        '
+        Me.lblEstado.AutoSize = True
+        Me.lblEstado.BackColor = System.Drawing.Color.Transparent
+        Me.lblEstado.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblEstado.ForeColor = System.Drawing.Color.Gray
+        Me.lblEstado.Location = New System.Drawing.Point(12, 34)
+        Me.lblEstado.Name = "lblEstado"
+        Me.lblEstado.Size = New System.Drawing.Size(13, 20)
+        Me.lblEstado.TabIndex = 24
+        Me.lblEstado.Text = "."
+        '
+        'Convenio
+        '
+        Me.Convenio.HeaderText = "Convenio"
+        Me.Convenio.Name = "Convenio"
+        Me.Convenio.Width = 89
+        '
+        'Estado
+        '
+        Me.Estado.HeaderText = "Estado"
+        Me.Estado.Name = "Estado"
+        Me.Estado.ReadOnly = True
+        Me.Estado.Width = 71
+        '
+        'Pendiente
+        '
+        Me.Pendiente.HeaderText = "Pendiente"
+        Me.Pendiente.Name = "Pendiente"
+        Me.Pendiente.ReadOnly = True
+        Me.Pendiente.Width = 92
+        '
+        'Abonado
+        '
+        Me.Abonado.HeaderText = "Abonado"
+        Me.Abonado.Name = "Abonado"
+        Me.Abonado.ReadOnly = True
+        Me.Abonado.Width = 87
+        '
+        'Interes
+        '
+        Me.Interes.HeaderText = "Interés"
+        Me.Interes.Name = "Interes"
+        Me.Interes.ReadOnly = True
+        Me.Interes.Width = 71
+        '
+        'Monto
+        '
+        Me.Monto.HeaderText = "Monto"
+        Me.Monto.Name = "Monto"
+        Me.Monto.ReadOnly = True
+        Me.Monto.Width = 70
+        '
+        'Fecha
+        '
+        Me.Fecha.HeaderText = "Fecha"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.ReadOnly = True
+        Me.Fecha.Width = 68
+        '
+        'Npago
+        '
+        Me.Npago.HeaderText = "NPago"
+        Me.Npago.Name = "Npago"
+        Me.Npago.ReadOnly = True
+        Me.Npago.Width = 71
+        '
+        'IdPago
+        '
+        Me.IdPago.HeaderText = "IdPago"
+        Me.IdPago.Name = "IdPago"
+        Me.IdPago.ReadOnly = True
+        Me.IdPago.Width = 73
+        '
+        'Pagar
+        '
+        Me.Pagar.HeaderText = "Pagar"
+        Me.Pagar.Name = "Pagar"
+        Me.Pagar.Width = 47
+        '
+        'dtimpuestos
+        '
+        Me.dtimpuestos.AllowUserToAddRows = False
+        Me.dtimpuestos.AllowUserToDeleteRows = False
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dtimpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dtimpuestos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dtimpuestos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dtimpuestos.BackgroundColor = System.Drawing.Color.Gainsboro
+        Me.dtimpuestos.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dtimpuestos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkSlateGray
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dtimpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.dtimpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dtimpuestos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Pagar, Me.IdPago, Me.Npago, Me.Fecha, Me.Monto, Me.Interes, Me.Abonado, Me.Pendiente, Me.Estado, Me.Convenio})
+        Me.dtimpuestos.DoubleBuffered = True
+        Me.dtimpuestos.EnableHeadersVisualStyles = False
+        Me.dtimpuestos.HeaderBgColor = System.Drawing.Color.DarkSlateGray
+        Me.dtimpuestos.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
+        Me.dtimpuestos.Location = New System.Drawing.Point(12, 120)
+        Me.dtimpuestos.Name = "dtimpuestos"
+        Me.dtimpuestos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.dtimpuestos.RowHeadersVisible = False
+        Me.dtimpuestos.Size = New System.Drawing.Size(1289, 427)
+        Me.dtimpuestos.TabIndex = 5
+        '
         'inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -335,6 +348,7 @@ Partial Class inicio
         Me.BackgroundImage = Global.SAC_CONFIA.My.Resources.Resources.SAC
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1313, 765)
+        Me.Controls.Add(Me.lblEstado)
         Me.Controls.Add(Me.PanelLiquidacion)
         Me.Controls.Add(Me.lblTipoCredito)
         Me.Controls.Add(Me.SwitchTipo)
@@ -347,18 +361,17 @@ Partial Class inicio
         Me.Controls.Add(Me.dtimpuestos)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "inicio"
         Me.RightToLeftLayout = True
         Me.Text = "inicio"
         Me.TransparencyKey = System.Drawing.Color.Transparent
-        CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelLiquidacion.ResumeLayout(False)
+        CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents dtimpuestos As Bunifu.Framework.UI.BunifuCustomDataGrid
     Friend WithEvents txtid As Bunifu.Framework.UI.BunifuMaterialTextbox
     Friend WithEvents Button1 As Button
     Friend WithEvents MonoFlat_Label1 As MonoFlat.MonoFlat_Label
@@ -366,16 +379,6 @@ Partial Class inicio
     Friend WithEvents lblnombre As MonoFlat.MonoFlat_HeaderLabel
     Friend WithEvents MonoFlat_HeaderLabel2 As MonoFlat.MonoFlat_HeaderLabel
     Friend WithEvents lblpago As MonoFlat.MonoFlat_HeaderLabel
-    Friend WithEvents Pagar As DataGridViewCheckBoxColumn
-    Friend WithEvents IdPago As DataGridViewTextBoxColumn
-    Friend WithEvents Npago As DataGridViewTextBoxColumn
-    Friend WithEvents Fecha As DataGridViewTextBoxColumn
-    Friend WithEvents Monto As DataGridViewTextBoxColumn
-    Friend WithEvents Interes As DataGridViewTextBoxColumn
-    Friend WithEvents Abonado As DataGridViewTextBoxColumn
-    Friend WithEvents Pendiente As DataGridViewTextBoxColumn
-    Friend WithEvents Estado As DataGridViewTextBoxColumn
-    Friend WithEvents Convenio As DataGridViewTextBoxColumn
     Friend WithEvents ZeroitMetroWebChart1 As Zeroit.Framework.Metro.ZeroitMetroWebChart
     Friend WithEvents SwitchTipo As Zeroit.Framework.Metro.ZeroitMetroSwitch
     Friend WithEvents lblTipoCredito As MonoFlat.MonoFlat_Label
@@ -383,4 +386,16 @@ Partial Class inicio
     Friend WithEvents btn_actualizar As Bunifu.Framework.UI.BunifuThinButton2
     Friend WithEvents TimerLiquidación As Timer
     Friend WithEvents BackgroundLiquidacionNormal As System.ComponentModel.BackgroundWorker
+    Friend WithEvents lblEstado As MonoFlat.MonoFlat_HeaderLabel
+    Friend WithEvents Convenio As DataGridViewTextBoxColumn
+    Friend WithEvents Estado As DataGridViewTextBoxColumn
+    Friend WithEvents Pendiente As DataGridViewTextBoxColumn
+    Friend WithEvents Abonado As DataGridViewTextBoxColumn
+    Friend WithEvents Interes As DataGridViewTextBoxColumn
+    Friend WithEvents Monto As DataGridViewTextBoxColumn
+    Friend WithEvents Fecha As DataGridViewTextBoxColumn
+    Friend WithEvents Npago As DataGridViewTextBoxColumn
+    Friend WithEvents IdPago As DataGridViewTextBoxColumn
+    Friend WithEvents Pagar As DataGridViewCheckBoxColumn
+    Friend WithEvents dtimpuestos As Bunifu.Framework.UI.BunifuCustomDataGrid
 End Class

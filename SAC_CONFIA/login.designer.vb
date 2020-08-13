@@ -23,6 +23,7 @@ Partial Class login
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(login))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MonoFlat_Button2 = New SAC_CONFIA.MonoFlat.MonoFlat_Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -181,9 +182,9 @@ Partial Class login
         Me.MonoFlat_HeaderLabel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MonoFlat_HeaderLabel1.Location = New System.Drawing.Point(3, 3)
         Me.MonoFlat_HeaderLabel1.Name = "MonoFlat_HeaderLabel1"
-        Me.MonoFlat_HeaderLabel1.Size = New System.Drawing.Size(132, 20)
+        Me.MonoFlat_HeaderLabel1.Size = New System.Drawing.Size(174, 20)
         Me.MonoFlat_HeaderLabel1.TabIndex = 21
-        Me.MonoFlat_HeaderLabel1.Text = "Préstamos Confía"
+        Me.MonoFlat_HeaderLabel1.Text = "Préstamos Confía - SAC"
         '
         'EvolveControlBox1
         '
@@ -218,6 +219,7 @@ Partial Class login
         Me.Controls.Add(Me.txtcontra)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

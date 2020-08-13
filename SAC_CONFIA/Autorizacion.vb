@@ -121,7 +121,10 @@ Public Class Autorizacion
             Case "SacDetalleCaja"
             Case "SacConsultarTicket"
             Case "SacModReportes"
-
+            Case "SacCobrarExtra"
+                frm_adm.autorizadoTicketExtra = False
+                inicio.autorizado = False
+                Me.Close()
 
 
         End Select
@@ -150,6 +153,20 @@ Public Class Autorizacion
             Case "SacDetalleCaja"
             Case "SacConsultarTicket"
             Case "SacModReportes"
+            Case "SacCobrarExtra"
+                If autorizado Then
+                    inicio.autorizado = True
+                    frm_adm.autorizadoTicketExtra = True
+                    autorizado = False
+                    txtusr.Text = ""
+                    txtcontra.Text = ""
+                Else
+                    inicio.autorizado = False
+                    frm_adm.autorizadoTicketExtra = False
+                    autorizado = False
+                    txtusr.Text = ""
+                    txtcontra.Text = ""
+                End If
 
         End Select
     End Sub
@@ -263,6 +280,10 @@ Public Class Autorizacion
                 Case "SacDetalleCaja"
                 Case "SacConsultarTicket"
                 Case "SacModReportes"
+                Case "SacCobrarExtra"
+                    inicio.autorizado = True
+                    frm_adm.autorizadoTicketExtra = True
+                    Me.Close()
             End Select
         Else
             If passwordCorrect Then

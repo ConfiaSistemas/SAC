@@ -14,6 +14,7 @@ Public Class frm_adm
     Public cerrandoSesion As Boolean
     Public cerrandoEmpresa As Boolean
     Public mostrarpanelsecundario As Boolean = False
+    Public autorizadoTicketExtra As Boolean
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         Timer1.Interval = 150
 
@@ -180,7 +181,19 @@ Public Class frm_adm
             login.ShowDialog()
         End If
         If e.KeyCode = Keys.F8 Then
-            CobroExtra.Show()
+            Me.TopMost = False
+            Autorizacion.TopMost = True
+            Autorizacion.tipoAutorizacion = "SacCobrarExtra"
+            Autorizacion.ShowDialog()
+
+            Autorizacion.BringToFront()
+
+
+            If autorizadoTicketExtra Then
+                CobroExtra.ShowDialog()
+            Else
+                MessageBox.Show("No fue autorizado")
+            End If
 
         End If
 
@@ -215,6 +228,21 @@ Public Class frm_adm
 
             End If
         End If
+
+        If e.KeyCode = Keys.F2 And ventana.Name = inicio.Name Then
+            BuscarCredito.tipoCredito = inicio.tipoCredito
+            BuscarCredito.Show()
+        End If
+
+        If e.KeyCode = Keys.F5 And ventana.Name = inicio.Name Then
+            If CanCobrar Then
+                inicio.SubCobrar()
+            Else
+                MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
+            End If
+
+        End If
+
     End Sub
 
     Private Sub frm_login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -634,7 +662,19 @@ Public Class frm_adm
     End Sub
 
     Private Sub BunifuFlatButton6_Click(sender As Object, e As EventArgs) Handles BunifuFlatButton6.Click
-        CobroExtra.Show()
+        Me.TopMost = False
+        Autorizacion.TopMost = True
+        Autorizacion.tipoAutorizacion = "SacCobrarExtra"
+        Autorizacion.ShowDialog()
+
+        Autorizacion.BringToFront()
+
+
+        If autorizadoTicketExtra Then
+            CobroExtra.ShowDialog()
+        Else
+            MessageBox.Show("No fue autorizado")
+        End If
 
     End Sub
 

@@ -206,6 +206,7 @@ Partial Class RealizarRetrio
         Me.Controls.Add(Me.MonoFlat_HeaderLabel3)
         Me.Controls.Add(Me.txtmonto)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "RealizarRetrio"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Realizar Retiro"

@@ -25,6 +25,7 @@ Partial Class BuscarEmpeño
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BuscarEmpeño))
         Me.dtimpuestos = New Bunifu.Framework.UI.BunifuCustomDataGrid()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -192,6 +193,7 @@ Partial Class BuscarEmpeño
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.dtimpuestos)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BuscarEmpeño"
         Me.Text = "Buscar Empeño"
         CType(Me.dtimpuestos, System.ComponentModel.ISupportInitialize).EndInit()

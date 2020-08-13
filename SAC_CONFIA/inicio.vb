@@ -19,8 +19,9 @@ Public Class inicio
     Public MontoliquidacionSmultas As Double
     Public Insoluto As Boolean
     Public idConsultado As Integer
-    Dim tipoCredito As String
+    Public tipoCredito As String
     Dim widthLiquidacion As Integer = 0
+    Public autorizado As Boolean
     Private Sub inicio_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         PanelLiquidacion.Width = 0
         FlushMemory()
@@ -58,18 +59,9 @@ Public Class inicio
 
     End Sub
 
-    Private Sub BunifuFlatButton7_Click(sender As Object, e As EventArgs)
-        'grupos.Show()
-
-    End Sub
-    
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         BuscarCredito.tipoCredito = tipoCredito
         BuscarCredito.Show()
-    End Sub
-
-    Private Sub BunifuMaterialTextbox1_OnValueChanged(sender As Object, e As EventArgs) Handles txtid.OnValueChanged
-
     End Sub
 
     Private Sub dtimpuestos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtimpuestos.CellContentClick
@@ -100,10 +92,22 @@ Public Class inicio
 
         End If
 
-        If e.KeyCode = Keys.F8 Then
-            CobroExtra.Show()
+        'If e.KeyCode = Keys.F8 Then
+        '    Me.TopMost = False
+        '    Autorizacion.TopMost = True
+        '    Autorizacion.tipoAutorizacion = "SacCobrarExtra"
+        '    Autorizacion.ShowDialog()
 
-        End If
+        '    Autorizacion.BringToFront()
+
+
+        '    If autorizado Then
+        '        CobroExtra.ShowDialog()
+        '    Else
+        '        MessageBox.Show("No fue autorizado")
+        '    End If
+
+        'End If
     End Sub
 
     Private Sub SwitchTipo_CheckedChanged(sender As Object, e As EventArgs) Handles SwitchTipo.CheckedChanged
@@ -285,6 +289,62 @@ Public Class inicio
                     End If
 
                     tipoDoc = ObtenerTipoDoc("Legal")
+                Case "I"
+                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
+                    comandoPagos = New SqlCommand
+                    comandoPagos.Connection = conexionempresa
+                    comandoPagos.CommandText = consultaPagos
+                    readerPagos = comandoPagos.ExecuteReader
+                    If readerPagos.HasRows Then
+                        While readerPagos.Read
+                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+
+                        End While
+                    End If
+                    readerPagos.Close()
+                    Dim comandoPagosProximos As SqlCommand
+                    Dim consultaPagosProximos As String
+                    Dim readerPagosProximos As SqlDataReader
+                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
+                    comandoPagosProximos = New SqlCommand
+                    comandoPagosProximos.Connection = conexionempresa
+                    comandoPagosProximos.CommandText = consultaPagosProximos
+                    readerPagosProximos = comandoPagosProximos.ExecuteReader
+                    If readerPagosProximos.HasRows Then
+                        While readerPagosProximos.Read
+                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+
+                        End While
+                    End If
+                    tipoDoc = 1
+                Case "R"
+                    consultaPagos = "select CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where ReestructurasSac.idcredito = '" & idCredito & "' and CalendarioReestructurasSAC.estado = 'V'"
+                    comandoPagos = New SqlCommand
+                    comandoPagos.Connection = conexionempresa
+                    comandoPagos.CommandText = consultaPagos
+                    readerPagos = comandoPagos.ExecuteReader
+                    If readerPagos.HasRows Then
+                        While readerPagos.Read
+                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+                            convenioCredito = readerPagos("idconvenio")
+                        End While
+                    End If
+                    readerPagos.Close()
+                    Dim comandoPagosProximos As SqlCommand
+                    Dim consultaPagosProximos As String
+                    Dim readerPagosProximos As SqlDataReader
+                    consultaPagosProximos = "select top 2 CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where CalendarioReestructurasSAC.estado = 'P' and ReestructurasSAC.idcredito  = '" & idCredito & "' order by CalendarioReestructurasSAC.fechapago asc"
+                    comandoPagosProximos = New SqlCommand
+                    comandoPagosProximos.Connection = conexionempresa
+                    comandoPagosProximos.CommandText = consultaPagosProximos
+                    readerPagosProximos = comandoPagosProximos.ExecuteReader
+                    If readerPagosProximos.HasRows Then
+                        While readerPagosProximos.Read
+                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+                            convenioCredito = readerPagosProximos("idconvenio")
+                        End While
+                    End If
+                    tipoDoc = ObtenerTipoDoc("Reestructura")
                 Case Else
                     MessageBox.Show("El crédito no se encuentra activo por lo tanto no puedes cobrarle")
             End Select
@@ -303,9 +363,23 @@ Public Class inicio
             If row.Cells(0).Value = 1 Then
                 total = total + row.Cells(7).Value
             End If
-
-
         Next
+
+        Select Case estadoCredito
+            Case "A"
+                lblEstado.Text = "Activo Normal"
+            Case "C"
+                lblEstado.Text = "Convenio"
+            Case "L"
+                lblEstado.Text = "Legal"
+            Case "I"
+                lblEstado.Text = "Incumplimiento (Convenio Cancelado)"
+            Case "R"
+                lblEstado.Text = "Reestructura"
+            Case Else
+                lblEstado.Text = "."
+                lblpago.Text = "."
+        End Select
         lblpago.Text = FormatCurrency(total, 2)
         lblnombre.Text = nombreCredito
         txtid.Enabled = True
@@ -315,7 +389,7 @@ Public Class inicio
         Cargando.Close()
         FlushMemory()
         widthLiquidacion = 0
-        If estadoCredito = "A" Then
+        If estadoCredito = "A" Or estadoCredito = "I" Then
             TimerLiquidación.Enabled = True
         End If
     End Sub
@@ -368,8 +442,5 @@ Public Class inicio
         Else
             MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
         End If
-
-
-
     End Sub
 End Class

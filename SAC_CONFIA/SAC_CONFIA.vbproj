@@ -551,6 +551,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lconfia.ico" />
+    <Content Include="SAC.ico" />
     <None Include="Resources\pawn-shop-icon-15.png" />
     <None Include="Resources\commerce+loan+money+pawnshop+shop+store+icon-1320186257679862843.png" />
     <None Include="Resources\small-business-financing-marketing-computer-icons-business.jpg" />
