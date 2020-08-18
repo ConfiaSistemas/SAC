@@ -23,10 +23,10 @@ Partial Class inicio
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ZeroitMetroWebChartPoint2 As Zeroit.Framework.Metro.ZeroitMetroWebChartPoint = New Zeroit.Framework.Metro.ZeroitMetroWebChartPoint()
+        Dim ZeroitMetroWebChartPoint1 As Zeroit.Framework.Metro.ZeroitMetroWebChartPoint = New Zeroit.Framework.Metro.ZeroitMetroWebChartPoint()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(inicio))
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.txtid = New Bunifu.Framework.UI.BunifuMaterialTextbox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MonoFlat_Label1 = New SAC_CONFIA.MonoFlat.MonoFlat_Label()
@@ -155,10 +155,10 @@ Partial Class inicio
         Me.ZeroitMetroWebChart1.Style = Zeroit.Framework.Metro.Design.Style.Custom
         Me.ZeroitMetroWebChart1.TabIndex = 0
         Me.ZeroitMetroWebChart1.WebBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(98, Byte), Integer), CType(CType(163, Byte), Integer))
-        ZeroitMetroWebChartPoint2.Color = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(162, Byte), Integer), CType(CType(219, Byte), Integer))
-        ZeroitMetroWebChartPoint2.Text = ""
-        ZeroitMetroWebChartPoint2.Value = 0
-        Me.ZeroitMetroWebChart1.WebPoints = ZeroitMetroWebChartPoint2
+        ZeroitMetroWebChartPoint1.Color = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(162, Byte), Integer), CType(CType(219, Byte), Integer))
+        ZeroitMetroWebChartPoint1.Text = ""
+        ZeroitMetroWebChartPoint1.Value = 0
+        Me.ZeroitMetroWebChart1.WebPoints = ZeroitMetroWebChartPoint1
         '
         'SwitchTipo
         '
@@ -311,22 +311,22 @@ Partial Class inicio
         '
         Me.dtimpuestos.AllowUserToAddRows = False
         Me.dtimpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dtimpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dtimpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dtimpuestos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtimpuestos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dtimpuestos.BackgroundColor = System.Drawing.Color.Gainsboro
         Me.dtimpuestos.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtimpuestos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkSlateGray
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dtimpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkSlateGray
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(223, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dtimpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dtimpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtimpuestos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Pagar, Me.IdPago, Me.Npago, Me.Fecha, Me.Monto, Me.Interes, Me.Abonado, Me.Pendiente, Me.Estado, Me.Convenio})
         Me.dtimpuestos.DoubleBuffered = True
