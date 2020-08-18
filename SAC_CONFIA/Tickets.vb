@@ -77,6 +77,15 @@ Public Class Tickets
                     comandonombre.Connection = conexionempresa
                     comandonombre.CommandText = consultaNombre
                     nombrecredito = comandonombre.ExecuteScalar
+                Case "Reestructura"
+                    Dim comandonombre As SqlCommand
+                    comandonombre = New SqlCommand
+
+                    Dim consultaNombre As String
+                    consultaNombre = "select credito.nombre from ReestructurasSAC inner join credito on credito.id = ReestructurasSAC.idcredito where ReestructurasSAC.id = '" & reader("idcredito") & "'"
+                    comandonombre.Connection = conexionempresa
+                    comandonombre.CommandText = consultaNombre
+                    nombrecredito = comandonombre.ExecuteScalar
                 Case Else
                     Dim comandonombre As SqlCommand
                     comandonombre = New SqlCommand
@@ -238,7 +247,4 @@ Public Class Tickets
 
     End Sub
 
-    Private Sub dateDesde_onValueChanged(sender As Object, e As EventArgs) Handles dateDesde.onValueChanged
-
-    End Sub
 End Class
