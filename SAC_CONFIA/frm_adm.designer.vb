@@ -293,7 +293,7 @@ Partial Class frm_adm
         Me.BunifuFlatButton3.IconRightZoom = 0R
         Me.BunifuFlatButton3.IconVisible = True
         Me.BunifuFlatButton3.IconZoom = 90.0R
-        Me.BunifuFlatButton3.IsTab = False
+        Me.BunifuFlatButton3.IsTab = True
         Me.BunifuFlatButton3.Location = New System.Drawing.Point(1, 110)
         Me.BunifuFlatButton3.Name = "BunifuFlatButton3"
         Me.BunifuFlatButton3.Normalcolor = System.Drawing.SystemColors.ButtonFace

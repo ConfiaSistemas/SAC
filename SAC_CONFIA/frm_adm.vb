@@ -229,14 +229,17 @@ Public Class frm_adm
             End If
         End If
 
-        If e.KeyCode = Keys.F2 And ventana.Name = inicio.Name Then
+        If e.KeyCode = Keys.F2 And ventana.Name = "inicio" Then
             BuscarCredito.tipoCredito = inicio.tipoCredito
             BuscarCredito.Show()
         End If
 
-        If e.KeyCode = Keys.F5 And ventana.Name = inicio.Name Then
+        If e.KeyCode = Keys.F5 And ventana.Name = "inicio" Then
             If CanCobrar Then
-                inicio.SubCobrar()
+                Me.Invoke(Sub()
+                              inicio.SubCobrar()
+                          End Sub)
+
             Else
                 MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
             End If

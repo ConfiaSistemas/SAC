@@ -247,4 +247,7 @@ Public Class Tickets
 
     End Sub
 
+    Private Sub dateDesde_onValueChanged(sender As Object, e As EventArgs) Handles dateDesde.onValueChanged
+
+    End Sub
 End Class
