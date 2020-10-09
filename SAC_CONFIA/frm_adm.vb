@@ -1,4 +1,6 @@
-﻿Imports System.Windows
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
+Imports System.Windows
 
 Public Class frm_adm
     Dim ventana As New Form
@@ -15,6 +17,8 @@ Public Class frm_adm
     Public cerrandoEmpresa As Boolean
     Public mostrarpanelsecundario As Boolean = False
     Public autorizadoTicketExtra As Boolean
+    Dim hayActualizacion As Boolean
+
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         Timer1.Interval = 150
 
@@ -54,120 +58,124 @@ Public Class frm_adm
         perfilalt.Close()
         abierto = False
         Try
-            If cerrarEmpresa Then
-                If MessageBox.Show("¿Está seguro que desea cerrar la empresa?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
-                    perfilalt.TopMost = False
-
-                    'Application.ExitThread()
-
-                    Empresas.Show()
-                    'System.Threading.Thread.Sleep(1000)
-                    ' System.Threading.Thread.Sleep(1000)
-                    'cerrarSesion = False
-                    cerrarEmpresa = False
-                    cerrandoEmpresa = True
-                    'cerrandoSesion = True
-                    ' Dim i As Integer = 0
-                    'i = Application.OpenForms.Count
-                    ' For a As Integer = 0 To i
-                    'Dim frm As Form
-                    'frm = New Form
-                    'frm = Application.OpenForms.Item(a)
-                    'If frm.Name <> "login" And frm.Name <> Me.Name Then
-                    'frm.Close()
-                    'End If
-                    'Next
-
-                    Dim num_controles As Integer = Application.OpenForms.Count - 1
-                    For n As Integer = num_controles To 0 Step -1
-                        Dim ctrl As Form = Application.OpenForms.Item(n)
-                        If ctrl.Name <> "Empresas" Or ctrl.Name <> Me.Name Then
-                            'MessageBox.Show(ctrl.Name)
-                            ctrl.Close()
-                        End If
-
-                        ' ctrl.Dispose()
-                    Next
-                    'MessageBox.Show("hola")
-                    Empresas.Show()
-                    Me.Close()
-
-                Else
-                    cerrarEmpresa = False
-
-                    e.Cancel = True
-
-                End If
-
+            If Actualizar Then
             Else
-                If cerrandoEmpresa Then
-                    MessageBox.Show("hola")
-                    'Me.Close()
+                If cerrarEmpresa Then
+                    If MessageBox.Show("¿Está seguro que desea cerrar la empresa?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
+                        perfilalt.TopMost = False
 
+                        'Application.ExitThread()
+
+                        Empresas.Show()
+                        'System.Threading.Thread.Sleep(1000)
+                        ' System.Threading.Thread.Sleep(1000)
+                        'cerrarSesion = False
+                        cerrarEmpresa = False
+                        cerrandoEmpresa = True
+                        'cerrandoSesion = True
+                        ' Dim i As Integer = 0
+                        'i = Application.OpenForms.Count
+                        ' For a As Integer = 0 To i
+                        'Dim frm As Form
+                        'frm = New Form
+                        'frm = Application.OpenForms.Item(a)
+                        'If frm.Name <> "login" And frm.Name <> Me.Name Then
+                        'frm.Close()
+                        'End If
+                        'Next
+
+                        Dim num_controles As Integer = Application.OpenForms.Count - 1
+                        For n As Integer = num_controles To 0 Step -1
+                            Dim ctrl As Form = Application.OpenForms.Item(n)
+                            If ctrl.Name <> "Empresas" Or ctrl.Name <> Me.Name Then
+                                'MessageBox.Show(ctrl.Name)
+                                ctrl.Close()
+                            End If
+
+                            ' ctrl.Dispose()
+                        Next
+                        'MessageBox.Show("hola")
+                        Empresas.Show()
+                        Me.Close()
+
+                    Else
+                        cerrarEmpresa = False
+
+                        e.Cancel = True
+
+                    End If
 
                 Else
+                    If cerrandoEmpresa Then
+                        MessageBox.Show("hola")
+                        'Me.Close()
 
-                    If cerrarSesion Then
 
-                        If MessageBox.Show("¿Está seguro que desea cerrar sesión?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
-                            perfilalt.TopMost = False
-
-                            'Application.ExitThread()
-                            login.Show()
-                            cerrarSesion = False
-                            cerrandoSesion = True
-                            ' Dim i As Integer = 0
-                            'i = Application.OpenForms.Count
-                            ' For a As Integer = 0 To i
-                            'Dim frm As Form
-                            'frm = New Form
-                            'frm = Application.OpenForms.Item(a)
-                            'If frm.Name <> "login" And frm.Name <> Me.Name Then
-                            'frm.Close()
-                            'End If
-                            'Next
-
-                            Dim num_controles As Integer = Application.OpenForms.Count - 1
-                            For n As Integer = num_controles To 0 Step -1
-                                Dim ctrl As Form = Application.OpenForms.Item(n)
-                                If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
-                                    ctrl.Close()
-                                End If
-
-                                'ctrl.Dispose()
-                            Next
-
-                            Me.Close()
-
-                        Else
-                            cerrarSesion = False
-
-                            e.Cancel = True
-
-                        End If
                     Else
-                        If cerrandoSesion Then
 
-                        Else
-                            'MessageBox.Show("hola")
-                            If MessageBox.Show("¿Está seguro que desea salir?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
+                        If cerrarSesion Then
+
+                            If MessageBox.Show("¿Está seguro que desea cerrar sesión?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
                                 perfilalt.TopMost = False
 
-                                Application.ExitThread()
+                                'Application.ExitThread()
+                                login.Show()
+                                cerrarSesion = False
+                                cerrandoSesion = True
+                                ' Dim i As Integer = 0
+                                'i = Application.OpenForms.Count
+                                ' For a As Integer = 0 To i
+                                'Dim frm As Form
+                                'frm = New Form
+                                'frm = Application.OpenForms.Item(a)
+                                'If frm.Name <> "login" And frm.Name <> Me.Name Then
+                                'frm.Close()
+                                'End If
+                                'Next
 
+                                Dim num_controles As Integer = Application.OpenForms.Count - 1
+                                For n As Integer = num_controles To 0 Step -1
+                                    Dim ctrl As Form = Application.OpenForms.Item(n)
+                                    If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
+                                        ctrl.Close()
+                                    End If
 
+                                    'ctrl.Dispose()
+                                Next
+
+                                Me.Close()
 
                             Else
+                                cerrarSesion = False
+
                                 e.Cancel = True
 
                             End If
+                        Else
+                            If cerrandoSesion Then
+
+                            Else
+                                'MessageBox.Show("hola")
+                                If MessageBox.Show("¿Está seguro que desea salir?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
+                                    perfilalt.TopMost = False
+
+                                    Application.ExitThread()
+
+
+
+                                Else
+                                    e.Cancel = True
+
+                                End If
+                            End If
+
                         End If
-
                     End If
+
+
                 End If
-
-
             End If
+
         Catch ex As Exception
 
         End Try
@@ -246,9 +254,18 @@ Public Class frm_adm
 
         End If
 
+        If e.KeyData = Keys.Control + Keys.R Then
+
+            Run.ShowDialog()
+        End If
+
     End Sub
 
     Private Sub frm_login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        TimerActualizacion.Interval = 60000
+        TimerActualizacion.Enabled = True
+        TimerActualizacion.Start()
         CanCobrar = PuedeCobrar()
 
         DoubleBuffered = True
@@ -616,7 +633,7 @@ Public Class frm_adm
         DetalleCaja.Show()
     End Sub
 
-    Private Sub BunifuFlatButton7_Click(sender As Object, e As EventArgs) 
+    Private Sub BunifuFlatButton7_Click(sender As Object, e As EventArgs)
         inicio.Width = 20
         'grupos.Show()
     End Sub
@@ -713,6 +730,64 @@ Public Class frm_adm
 
         If CobroEmpeño.Top > 0 Then
             CobroEmpeño.Top = 0
+
+        End If
+    End Sub
+
+    Private Sub TimerActualizacion_Tick(sender As Object, e As EventArgs) Handles TimerActualizacion.Tick
+
+        BackgroundActualizacion.RunWorkerAsync()
+
+    End Sub
+
+    Private Sub BackgroundActualizacion_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundActualizacion.DoWork
+        Try
+            Dim cnActualizacion As String
+            cnActualizacion = "Data Source=  " & ipser & "\confia;" &
+                         "Initial Catalog=" & bdser & ";" &
+                         "User Id=sa;Password=BSi5t3Ma$CFAD;MultipleActiveResultSets=true"
+            Dim connectActualizacion As New SqlConnection(cnActualizacion)
+            connectActualizacion.Open()
+            Dim consultaActualizacion As String
+            Dim comandoActualizacion As SqlCommand
+            consultaActualizacion = "Select nversion from versiones where Sistema = 'SAC'"
+            comandoActualizacion = New SqlCommand
+            comandoActualizacion.Connection = connectActualizacion
+            comandoActualizacion.CommandText = consultaActualizacion
+            Dim versionActualizacion As String
+            versionActualizacion = comandoActualizacion.ExecuteScalar
+            connectActualizacion.Close()
+
+            If Application.ProductVersion <> versionActualizacion Then
+                hayActualizacion = True
+
+            End If
+        Catch ex As Exception
+            hayActualizacion = False
+
+        End Try
+    End Sub
+
+    Private Sub BackgroundActualizacion_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundActualizacion.RunWorkerCompleted
+        If hayActualizacion Then
+            btn_Actualizar.Visible = True
+
+        End If
+
+    End Sub
+
+    Private Sub btn_Actualizar_Click(sender As Object, e As EventArgs) Handles btn_Actualizar.Click
+        If MessageBox.Show("¿Desea aplicar la actualización?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+            Actualizar = True
+
+            Dim Proceso As Process = New Process
+            Dim ruta As String = "C:\ConfiaAdmin\Updater\Updater.exe"
+            Proceso.StartInfo.FileName = ruta
+            Proceso.StartInfo.Arguments = "/S SAC /T " & TipoEquipo
+            Proceso.Start()
+            Application.Exit()
+        Else
+            Actualizar = False
 
         End If
     End Sub

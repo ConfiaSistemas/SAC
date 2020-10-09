@@ -54,6 +54,9 @@ Module Module1
     Public idGrp As Integer
     Public adapterPermisos As OleDb.OleDbDataAdapter
     Public dataPermisos As DataTable
+    Public TipoEquipo As String
+    Public Actualizar As Boolean
+
     Private WithEvents TestWorker As System.ComponentModel.BackgroundWorker
     Private Declare Function SetProcessWorkingSetSize Lib "kernel32.dll" (
 ByVal process As IntPtr,

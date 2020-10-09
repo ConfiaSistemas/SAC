@@ -286,6 +286,18 @@
     <Compile Include="Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Run.designer.vb">
+      <DependentUpon>Run.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Run.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen1.designer.vb">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tickets.Designer.vb">
       <DependentUpon>Tickets.vb</DependentUpon>
     </Compile>
@@ -388,6 +400,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Run.resx">
+      <DependentUpon>Run.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen1.resx">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tickets.resx">
       <DependentUpon>Tickets.vb</DependentUpon>
@@ -551,6 +569,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lconfia.ico" />
+    <None Include="Resources\SATI2.jpg" />
+    <None Include="Resources\9261.png" />
     <Content Include="SAC.ico" />
     <None Include="Resources\pawn-shop-icon-15.png" />
     <None Include="Resources\commerce+loan+money+pawnshop+shop+store+icon-1320186257679862843.png" />
