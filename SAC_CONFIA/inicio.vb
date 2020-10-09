@@ -376,6 +376,8 @@ Public Class inicio
                 lblEstado.Text = "Incumplimiento (Convenio Cancelado)"
             Case "R"
                 lblEstado.Text = "Reestructura"
+            Case "T"
+                lblEstado.Text = "Liquidado"
             Case Else
                 lblEstado.Text = "."
                 lblpago.Text = "."
