@@ -287,6 +287,6 @@ Public Class login
     End Sub
 
     Private Sub login_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        SendKeys.Send("{TAB}")
+        'SendKeys.Send("{TAB}")
     End Sub
 End Class
