@@ -15,9 +15,9 @@ Public Class BuscarCredito
         Dim consultaCreditos As String
         Dim readerCreditos As SqlDataReader
         If tipoCredito = "Normal" Then
-            consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,monto,Plazo from credito order by nombre asc"
+            consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,monto,Plazo,Estado from credito order by nombre, id"
         Else
-            consultaCreditos = "Select id,format(FechaConvenio,'dd/MM/yyyy') as fechaEntrega,nombre,TotalDeuda,Plazo from legales order by nombre asc"
+            consultaCreditos = "Select id,format(FechaConvenio,'dd/MM/yyyy') as fechaEntrega,nombre,TotalDeuda,Plazo,Estado from legales order by nombre, id"
         End If
 
         comandoCreditos = New SqlCommand
@@ -26,10 +26,10 @@ Public Class BuscarCredito
         readerCreditos = comandoCreditos.ExecuteReader
         While readerCreditos.Read
             If tipoCredito = "Normal" Then
-                dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("Monto"), readerCreditos("Plazo"))
+                dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("Monto"), readerCreditos("Plazo"), readerCreditos("Estado"))
 
             Else
-                dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("TotalDeuda"), readerCreditos("Plazo"))
+                dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("TotalDeuda"), readerCreditos("Plazo"), readerCreditos("Estado"))
             End If
         End While
     End Sub
@@ -52,9 +52,9 @@ Public Class BuscarCredito
             Dim consultaCreditos As String
             Dim readerCreditos As SqlDataReader
             If tipoCredito = "Normal" Then
-                consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,monto,Plazo from credito where nombre like '%" & txtNombre.Text & "%' order by nombre asc"
+                consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,monto,Plazo,Estado from credito where nombre like '%" & txtNombre.Text & "%' order by nombre, id"
             Else
-                consultaCreditos = "Select id,format(FechaConvenio,'dd/MM/yyyy') as fechaEntrega,nombre,totaldeuda,Plazo from legales where nombre like '%" & txtNombre.Text & "%' order by nombre asc"
+                consultaCreditos = "Select id,format(FechaConvenio,'dd/MM/yyyy') as fechaEntrega,nombre,totaldeuda,Plazo,Estado from legales where nombre like '%" & txtNombre.Text & "%' order by nombre, id"
             End If
             'consultaCreditos = "Select id,format(fechaEntrega,'dd/MM/yyyy') as fechaEntrega,nombre,monto,Plazo from credito where nombre like '%" & txtNombre.Text & "%'"
             comandoCreditos = New SqlCommand
@@ -63,10 +63,10 @@ Public Class BuscarCredito
             readerCreditos = comandoCreditos.ExecuteReader
             While readerCreditos.Read
                 If tipoCredito = "Normal" Then
-                    dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("Monto"), readerCreditos("Plazo"))
+                    dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("Monto"), readerCreditos("Plazo"), readerCreditos("Estado"))
                 Else
 
-                    dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("totaldeuda"), readerCreditos("Plazo"))
+                    dtimpuestos.Rows.Add(readerCreditos("id"), readerCreditos("fechaEntrega"), readerCreditos("Nombre"), readerCreditos("totaldeuda"), readerCreditos("Plazo"), readerCreditos("Estado"))
                 End If
 
             End While
