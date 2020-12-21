@@ -243,14 +243,34 @@ Public Class frm_adm
         End If
 
         If e.KeyCode = Keys.F5 And ventana.Name = "inicio" Then
-            If CanCobrar Then
-                Me.Invoke(Sub()
-                              inicio.SubCobrar()
-                          End Sub)
 
-            Else
-                MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
-            End If
+            Dim seleccionado As Integer = 0
+                For Each row As DataGridViewRow In inicio.dtimpuestos.Rows
+                    Dim c As Boolean
+                    c = Convert.ToBoolean(row.Cells(0).GetEditedFormattedValue(row.Index, 1))
+
+                    If c Then
+                        seleccionado = seleccionado + 1
+                    Else
+
+                    End If
+                Next
+                If seleccionado > 0 Then
+                    If CanCobrar Then
+                        Me.Invoke(Sub()
+                                      inicio.SubCobrar()
+                                  End Sub)
+
+                    Else
+                        MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
+                    End If
+                Else
+                    MessageBox.Show("No has seleccionado ningún pago")
+
+                End If
+
+
+
 
         End If
 

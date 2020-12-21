@@ -757,7 +757,659 @@ Public Class Ticket_impresion
                                     End Sub)
 
     End Sub
+    Private Async Sub ImprimeTicketPagoPromesaAsync()
+        Await Task.Factory.StartNew(Sub()
+                                        Dim NumeroLetra As New NumLetra
+                                        Dim tiempo As String = TimeOfDay.ToString("HH:mm:ss")
+                                        If recibido < totalApagar Then
+                                            Cargando.TopMost = False
+                                            Cargando.SendToBack()
+                                            Me.TopMost = False
+                                            Dim result As DialogResult = MessageBox.Show("El pago recibido es menor al total a pagar, ¿Desea agregarlo como abono?",
+                                                          "Title",
+                                                          MessageBoxButtons.YesNo)
 
+
+                                            If (result = DialogResult.Yes) Then
+                                                abono = True
+                                                ' Cargando.ShowDialog()
+                                                'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                Cargando.Show()
+                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                Cargando.TopMost = True
+                                                Dim comandoRecibo As SqlCommand
+                                                Dim consultarecibo As String
+                                                iniciarconexionempresa()
+                                                Dim fechainsercionhasta As String
+                                                fechainsercionhasta = Now.Date
+
+                                                Dim fechasqlhasta As Date
+                                                fechasqlhasta = fechainsercionhasta
+                                                fechainsercionhasta = Format(fechasqlhasta, "yyyy-MM-dd")
+                                                consultarecibo = "Insert into ticket values('" & recibido & "','" & recibido & "','" & txtCambio.Text & "','" & fechainsercionhasta & "','" & tiempo & "','" & idCreditoRecibo & "','','','" & tipoDoc & "','','" & nmusr & "','" & noCaja & "','" & descuentoAticket & "','A','" & nm_completeusr & "','" & recibido & "') SELECT SCOPE_IDENTITY()"
+                                                comandoRecibo = New SqlCommand
+                                                comandoRecibo.Connection = conexionempresa
+                                                comandoRecibo.CommandText = consultarecibo
+                                                idRecibo = comandoRecibo.ExecuteScalar
+                                                fechadePago = Format(fechasqlhasta, "dd/MM/yyyy")
+                                                horadepago = tiempo
+
+                                                saldo = recibido
+                                                Dim interesrecibo As Double = 0
+                                                Dim pagonormalrecibo As Double = 0
+                                                Me.Invoke(Sub()
+                                                              For Each row As DataGridViewRow In inicio.dtimpuestos.Rows
+
+                                                                  Dim c As Boolean
+                                                                  c = Convert.ToBoolean(row.Cells(0).GetEditedFormattedValue(row.Index, 1))
+                                                                  If c Then
+
+                                                                      If saldo >= row.Cells(7).Value Then
+                                                                          Dim comandointeres As SqlCommand
+                                                                          Dim consultaintereses As String
+                                                                          Dim interesesAcumulado As Double
+                                                                          Dim readerinteresesacumulado As SqlDataReader
+                                                                          comandointeres = New SqlCommand
+                                                                          consultaintereses = "select sum(intereses) as interes from ticketDetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or TipoDoc=(select id from TipoDoc where Nombre='Cancelación de Convenio')) and estado = 'A'"
+                                                                          comandointeres.Connection = conexionempresa
+                                                                          comandointeres.CommandText = consultaintereses
+                                                                          'readerinteresesacumulado = comandointeres.ExecuteReader
+
+                                                                          If IsDBNull(comandointeres.ExecuteScalar) Then
+                                                                              Select Case row.Cells(5).Value
+                                                                                  Case Is > row.Cells(6).Value
+                                                                                      interesesAcumulado = row.Cells(6).Value
+                                                                                  Case Else
+                                                                                      interesesAcumulado = row.Cells(5).Value
+                                                                              End Select
+                                                                          Else
+                                                                              interesesAcumulado = comandointeres.ExecuteScalar
+                                                                          End If
+
+                                                                          'MessageBox.Show(interesesAcumulado)
+                                                                          Dim interesabono As Double
+                                                                          interesabono = row.Cells(5).Value - interesesAcumulado
+                                                                          Dim pagonormal As Double
+                                                                          pagonormal = row.Cells(7).Value - interesabono
+
+                                                                          interesrecibo = interesrecibo + interesabono
+
+                                                                          pagonormalrecibo = pagonormalrecibo + pagonormal
+                                                                          Dim consultaAbono As String
+                                                                          consultaAbono = "Insert into ticketdetalle(idpago,fecha,monto,idticket,intereses,pagonormal,Concepto,tipodoc,estado,descuento) values('" & row.Cells(1).Value & "',convert(date,'" & fechainsercionhasta & "',102),'" & row.Cells(7).Value & "','" & idRecibo & "','" & interesabono & "','" & pagonormal & "','Total','" & tipoDoc & "','A','" & descuentoApago & "')"
+                                                                          Dim comandoInsertAbono As SqlCommand
+                                                                          comandoInsertAbono = New SqlCommand
+                                                                          comandoInsertAbono.Connection = conexionempresa
+                                                                          comandoInsertAbono.CommandText = consultaAbono
+                                                                          comandoInsertAbono.ExecuteNonQuery()
+                                                                          Dim comandoAbono As SqlCommand
+                                                                          comandoAbono = New SqlCommand
+                                                                          Dim consultaAbonar As String
+
+
+
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or tipodoc=(select id from TipoDoc where Nombre = 'Cancelación de Convenio')) and estado = 'A'"
+                                                                          Dim totalAbonado As String
+                                                                          comandoAbono.Connection = conexionempresa
+                                                                          comandoAbono.CommandText = consultaAbonar
+                                                                          totalAbonado = comandoAbono.ExecuteScalar
+
+                                                                          a = New DetallePago(row.Cells(1).Value, row.Cells(2).Value, row.Cells(4).Value, interesabono, totalAbonado, row.Cells(7).Value, pagonormal, "Total", txtRecibido.Text, descuentoApago)
+                                                                          array.Add(a)
+                                                                          If totalAbonado < (Convert.ToDouble(row.Cells(4).Value) + Convert.ToDouble(row.Cells(5).Value)) Then
+                                                                              totalAbonado = totalAbonado + (Convert.ToDouble(row.Cells(6).Value))
+                                                                          End If
+                                                                          Dim comandoAbonado As SqlCommand
+                                                                          comandoAbonado = New SqlCommand
+                                                                          Dim consultaAbonado As String
+                                                                          consultaAbonado = "Update promesadepago set abonado = '" & totalAbonado & "', pendiente = '0', estado = 'L',fechaultimopago = '" & fechainsercionhasta & "' where id = '" & row.Cells(1).Value & "'"
+                                                                          comandoAbonado.Connection = conexionempresa
+                                                                          comandoAbonado.CommandText = consultaAbonado
+                                                                          comandoAbonado.ExecuteNonQuery()
+
+                                                                          saldo = saldo - row.Cells(7).Value
+
+
+
+                                                                      ElseIf saldo < row.Cells(7).Value And saldo > 0 Then
+                                                                          Dim comandointeres As SqlCommand
+                                                                          Dim consultaintereses As String
+                                                                          Dim interesesAcumulado As Double
+                                                                          comandointeres = New SqlCommand
+                                                                          consultaintereses = "select sum(intereses) from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or tipodoc=(select id from TipoDoc where nombre='Cancelación de Convenio')) and estado = 'A'"
+                                                                          comandointeres.Connection = conexionempresa
+                                                                          comandointeres.CommandText = consultaintereses
+                                                                          If IsDBNull(comandointeres.ExecuteScalar) Then
+                                                                              Select Case row.Cells(5).Value
+                                                                                  Case Is > row.Cells(6).Value
+                                                                                      interesesAcumulado = row.Cells(6).Value
+                                                                                  Case Else
+                                                                                      interesesAcumulado = row.Cells(5).Value
+                                                                              End Select
+                                                                          Else
+                                                                              interesesAcumulado = comandointeres.ExecuteScalar
+                                                                          End If
+
+                                                                          Dim interesabono As Double
+                                                                          interesabono = row.Cells(5).Value - interesesAcumulado
+                                                                          Dim interesAbonar As Double
+                                                                          Dim saldoAbono As Double
+                                                                          Dim pagonormal As Double
+                                                                          Dim pagonormalAbonar As Double
+                                                                          saldoAbono = saldo
+                                                                          interesAbonar = interesabono - saldo
+                                                                          pagonormal = row.Cells(7).Value - interesabono
+
+                                                                          ' If saldo > pagonormal Then
+                                                                          'pagonormalAbonar = pagonormal
+                                                                          'saldoAbono = saldoAbono - pagonormalAbonar
+                                                                          'Else
+                                                                          'pagonormalAbonar = saldo
+                                                                          'saldoAbono = saldoAbono - pagonormalAbonar
+                                                                          'End If
+
+                                                                          If saldo > interesabono Then
+                                                                              interesAbonar = interesabono
+                                                                              saldoAbono = saldoAbono - interesAbonar
+                                                                          Else
+                                                                              interesAbonar = saldo
+                                                                              saldoAbono = saldoAbono - interesAbonar
+
+                                                                          End If
+
+                                                                          'interesAbonar = saldoAbono
+                                                                          ' MessageBox.Show(interesesAcumulado)
+
+                                                                          pagonormal = saldoAbono
+
+                                                                          interesrecibo = interesrecibo + interesAbonar
+                                                                          pagonormalrecibo = pagonormalrecibo + pagonormal
+                                                                          Dim consultaAbono As String
+                                                                          consultaAbono = "Insert into ticketdetalle(idpago,fecha,monto,idticket,intereses,pagonormal,Concepto,tipodoc,estado,descuento) values('" & row.Cells(1).Value & "',convert(date,'" & fechainsercionhasta & "',102),'" & saldo & "','" & idRecibo & "','" & interesAbonar & "','" & pagonormal & "','Abono','" & tipoDoc & "','A','" & descuentoApago & "')"
+                                                                          Dim comandoInsertAbono As SqlCommand
+                                                                          comandoInsertAbono = New SqlCommand
+                                                                          comandoInsertAbono.Connection = conexionempresa
+                                                                          comandoInsertAbono.CommandText = consultaAbono
+                                                                          comandoInsertAbono.ExecuteNonQuery()
+                                                                          Dim comandoAbono As SqlCommand
+                                                                          comandoAbono = New SqlCommand
+                                                                          Dim consultaAbonar As String
+                                                                          consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or tipodoc=(select id from TipoDoc where Nombre='Cancelación de Convenio')) and estado = 'A'"
+                                                                          Dim totalAbonado As String
+                                                                          comandoAbono.Connection = conexionempresa
+                                                                          comandoAbono.CommandText = consultaAbonar
+                                                                          totalAbonado = comandoAbono.ExecuteScalar
+                                                                          a = New DetallePago(row.Cells(1).Value, row.Cells(2).Value, saldo, interesAbonar, totalAbonado, pagonormal, pagonormal, "Abono", txtRecibido.Text, descuentoApago)
+                                                                          array.Add(a)
+                                                                          Dim comandoAbonado As SqlCommand
+                                                                          comandoAbonado = New SqlCommand
+                                                                          Dim consultaAbonado As String
+                                                                          Dim restante As Double
+                                                                          restante = row.Cells(7).Value - saldo
+                                                                          consultaAbonado = "Update promesadepago set abonado = '" & totalAbonado & "', pendiente = '" & restante & "', fechaultimopago = '" & fechainsercionhasta & "' where id = '" & row.Cells(1).Value & "'"
+                                                                          comandoAbonado.Connection = conexionempresa
+                                                                          comandoAbonado.CommandText = consultaAbonado
+                                                                          comandoAbonado.ExecuteNonQuery()
+
+                                                                          saldo = 0
+
+                                                                      Else
+                                                                          Exit For
+                                                                      End If
+                                                                  End If
+                                                              Next
+                                                          End Sub)
+
+                                                Dim ComandoActRecibo As SqlCommand
+                                                Dim consultaActRecibo As String
+                                                ComandoActRecibo = New SqlCommand
+
+                                                consultaActRecibo = "update ticket set intereses = '" & interesrecibo & "',pagonormal = '" & pagonormalrecibo & "' where id = '" & idRecibo & "'"
+                                                ComandoActRecibo.Connection = conexionempresa
+                                                ComandoActRecibo.CommandText = consultaActRecibo
+                                                ComandoActRecibo.ExecuteNonQuery()
+                                                ' MessageBox.Show("listo")
+                                                '  Principal.BackgroundWorker1.RunWorkerAsync()
+                                                '  Me.Close()
+
+                                            Else
+                                                abono = False
+                                                Exit Sub
+                                            End If
+                                        Else
+                                            abono = False
+                                            Cargando.Show()
+                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                            Cargando.TopMost = True
+                                            Dim comandoRecibo As SqlCommand
+                                            Dim consultarecibo As String
+                                            iniciarconexionempresa()
+                                            Dim fechainsercionhasta As String
+                                            fechainsercionhasta = Now.Date
+
+                                            Dim fechasqlhasta As Date
+                                            fechasqlhasta = fechainsercionhasta
+                                            fechainsercionhasta = Format(fechasqlhasta, "yyyy-MM-dd")
+                                            consultarecibo = "Insert into ticket values('" & totalApagar & "','" & recibido & "','" & txtCambio.Text & "','" & fechainsercionhasta & "','" & tiempo & "','" & idCreditoRecibo & "','','','" & tipoDoc & "','','" & nmusr & "','" & noCaja & "','" & descuentoAticket & "','A','" & nm_completeusr & "','" & total & "') SELECT SCOPE_IDENTITY()"
+                                            comandoRecibo = New SqlCommand
+                                            comandoRecibo.Connection = conexionempresa
+                                            comandoRecibo.CommandText = consultarecibo
+                                            'comandoRecibo.ExecuteNonQuery()
+                                            idRecibo = comandoRecibo.ExecuteScalar
+                                            fechadePago = Format(fechasqlhasta, "dd/MM/yyyy")
+                                            horadepago = tiempo
+
+
+                                            Dim pagados As String
+
+
+                                            saldo = total
+                                            Dim interesrecibo As Double = 0
+                                            Dim pagonormalrecibo As Double = 0
+                                            Me.Invoke(Sub()
+                                                          For Each row As DataGridViewRow In inicio.dtimpuestos.Rows
+                                                              Dim c As Boolean
+                                                              c = Convert.ToBoolean(row.Cells(0).GetEditedFormattedValue(row.Index, 1))
+                                                              If c Then
+
+                                                                  If saldo >= row.Cells(7).Value Then
+                                                                      Dim comandointeres As SqlCommand
+                                                                      Dim consultaintereses As String
+                                                                      Dim interesesAcumulado As Double
+                                                                      Dim readerinteresesacumulado As SqlDataReader
+                                                                      comandointeres = New SqlCommand
+                                                                      consultaintereses = "select sum(intereses) as interes from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or tipodoc =(select id from TipoDoc where Nombre='Cancelación de Convenio')) and estado = 'A'"
+                                                                      comandointeres.Connection = conexionempresa
+                                                                      comandointeres.CommandText = consultaintereses
+                                                                      'readerinteresesacumulado = comandointeres.ExecuteReader
+                                                                      If IsDBNull(comandointeres.ExecuteScalar) Then
+                                                                          Select Case row.Cells(5).Value
+                                                                              Case Is > row.Cells(6).Value
+                                                                                  interesesAcumulado = row.Cells(6).Value
+                                                                              Case Else
+                                                                                  interesesAcumulado = row.Cells(5).Value
+                                                                          End Select
+                                                                      Else
+                                                                          interesesAcumulado = comandointeres.ExecuteScalar
+                                                                      End If
+
+                                                                      Dim interesabono As Double
+                                                                      interesabono = row.Cells(5).Value - interesesAcumulado
+                                                                      Dim pagonormal As Double
+                                                                      pagonormal = row.Cells(7).Value - interesabono
+
+                                                                      interesrecibo = interesrecibo + interesabono
+
+                                                                      pagonormalrecibo = pagonormalrecibo + pagonormal
+                                                                      Dim consultaAbono As String
+                                                                      consultaAbono = "Insert into ticketdetalle(idpago,fecha,monto,idticket,intereses,pagonormal,Concepto,tipodoc,estado,descuento) values('" & row.Cells(1).Value & "',convert(date,'" & fechainsercionhasta & "',102),'" & row.Cells(7).Value & "','" & idRecibo & "','" & interesabono & "','" & pagonormal & "','Total','" & tipoDoc & "','A','" & descuentoApago & "')"
+                                                                      Dim comandoInsertAbono As SqlCommand
+                                                                      comandoInsertAbono = New SqlCommand
+                                                                      comandoInsertAbono.Connection = conexionempresa
+                                                                      comandoInsertAbono.CommandText = consultaAbono
+                                                                      comandoInsertAbono.ExecuteNonQuery()
+
+
+
+
+
+                                                                      Dim comandoAbono As SqlCommand
+                                                                      comandoAbono = New SqlCommand
+                                                                      Dim consultaAbonar As String
+                                                                      consultaAbonar = "select sum(monto) as total from ticketdetalle where idpago = '" & row.Cells(1).Value & "' and (tipodoc = '" & tipoDoc & "' or tipodoc = (select id from TipoDoc where Nombre='Cancelación de Convenio')) and estado = 'A'"
+                                                                      Dim totalAbonado As String
+                                                                      comandoAbono.Connection = conexionempresa
+                                                                      comandoAbono.CommandText = consultaAbonar
+                                                                      totalAbonado = comandoAbono.ExecuteScalar
+
+
+                                                                      a = New DetallePago(row.Cells(1).Value, row.Cells(2).Value, row.Cells(4).Value, interesabono, totalAbonado, row.Cells(7).Value, pagonormal, "Total", txtRecibido.Text, descuentoApago)
+                                                                      array.Add(a)
+                                                                      If totalAbonado < (Convert.ToDouble(row.Cells(4).Value) + Convert.ToDouble(row.Cells(5).Value)) Then
+                                                                          totalAbonado = totalAbonado + (Convert.ToDouble(row.Cells(6).Value))
+                                                                      End If
+                                                                      Dim comandoAbonado As SqlCommand
+                                                                      comandoAbonado = New SqlCommand
+                                                                      Dim consultaAbonado As String
+                                                                      consultaAbonado = "Update promesadepago set abonado = '" & totalAbonado & "', pendiente = '0', estado = 'L',fechaultimopago = '" & fechainsercionhasta & "' where id = '" & row.Cells(1).Value & "'"
+                                                                      comandoAbonado.Connection = conexionempresa
+                                                                      comandoAbonado.CommandText = consultaAbonado
+                                                                      comandoAbonado.ExecuteNonQuery()
+
+                                                                      saldo = saldo - row.Cells(7).Value
+                                                                  Else
+                                                                      Exit For
+                                                                  End If
+
+                                                                  ' If saldo < row.Cells(8).Value And saldo > 0 Then
+                                                                  'Dim consultaAbono As String
+                                                                  'consultaAbono = "Insert into abonosext(idpago,fecha,monto,comprobante,idRecibo) values('" & row.Cells(1).Value & "',convert(date,'" & fechainsercionhasta & "',102),'" & saldo & "','','" & idRecibo & "')"
+                                                                  'Dim comandoInsertAbono As OleDb.OleDbCommand
+                                                                  'comandoInsertAbono = New OleDb.OleDbCommand
+                                                                  'comandoInsertAbono.Connection = conexionempresa
+                                                                  'comandoInsertAbono.CommandText = consultaAbono
+                                                                  'comandoInsertAbono.ExecuteNonQuery()
+                                                                  'Dim comandoAbono As OleDb.OleDbCommand
+                                                                  'comandoAbono = New OleDb.OleDbCommand
+                                                                  '  Dim consultaAbonar As String
+                                                                  'consultaAbonar = "select sum(monto) as total from abonosext where idpago = '" & row.Cells(1).Value & "'"
+                                                                  'Dim totalAbonado As String
+                                                                  'comandoAbono.Connection = conexionempresa
+                                                                  'comandoAbono.CommandText = consultaAbonar
+                                                                  'totalAbonado = comandoAbono.ExecuteScalar
+                                                                  'a = New DetallePago(row.Cells(1).Value, row.Cells(5).Value, saldo, row.Cells(6).Value, totalAbonado, row.Cells(8).Value, saldo, "Abono")
+                                                                  'array.Add(a)
+                                                                  '  Dim comandoAbonado As OleDb.OleDbCommand
+                                                                  'comandoAbonado = New OleDb.OleDbCommand
+                                                                  'Dim consultaAbonado As String
+                                                                  'Dim restante As Double
+                                                                  'restante = row.Cells(8).Value - saldo
+                                                                  'consultaAbonado = "Update pagosext set abonado = '" & totalAbonado & "', pendiente = '" & restante & "', fecha = '" & fechainsercionhasta & "', convenio = '" & row.Cells(10).Value & "' where idpago = '" & row.Cells(1).Value & "'"
+                                                                  'comandoAbonado.Connection = conexionempresa
+                                                                  'comandoAbonado.CommandText = consultaAbonado
+                                                                  'comandoAbonado.ExecuteNonQuery()
+
+                                                                  ' saldo = saldo - row.Cells(8).Value
+                                                                  'End If
+                                                              End If
+                                                          Next
+                                                      End Sub)
+
+                                            Dim ComandoActRecibo As SqlCommand
+                                            Dim consultaActRecibo As String
+                                            ComandoActRecibo = New SqlCommand
+
+                                            consultaActRecibo = "update ticket set intereses = '" & interesrecibo & "',pagonormal = '" & pagonormalrecibo & "' where id = '" & idRecibo & "'"
+                                            ComandoActRecibo.Connection = conexionempresa
+                                            ComandoActRecibo.CommandText = consultaActRecibo
+                                            ComandoActRecibo.ExecuteNonQuery()
+                                            ' MessageBox.Show("listo")
+                                            'Principal.BackgroundWorker1.RunWorkerAsync()
+                                            '  Me.Close()
+
+                                        End If
+                                        'conexionempresa.Close()
+                                        'iniciarconexionempresa()
+
+
+
+                                        Dim pagosemana As Double
+                                        pagosemana = (montocredito / 1000) * pcmil
+
+
+                                        Dim P As New PrinterClass(Impresora, Application.StartupPath, False)
+                                        For copy As Integer = 1 To 2
+                                            With P
+
+                                                .AlignCenter()
+                                                .RTL = False
+                                                .AlignCenter()
+                                                .Gotox(1050)
+                                                .PrintLogo()
+                                                .GotoSixth(1)
+                                                .NormalFont()
+                                                .WriteLine(NombreEmpresa)
+                                                .WriteLine("")
+                                                .WriteLine(RFCEmpresa)
+                                                .FontSize = 8
+                                                .WriteLine("")
+                                                .WriteChars("Calle  " & CalleEmpresa & "  No. " & NumeroEmpresa)
+
+
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .WriteChars("Colonia" & " " & ColEmpresa)
+
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .WriteChars("C.P." & " " & CPEmpresa & " " & CiudadEmpresa & " " & EstadoEmpresa)
+
+
+                                                .WriteLine("")
+
+                                                .DrawLine()
+                                                .GotoSixth(1)
+                                                .FontSize = 7.3
+                                                .Bold = True
+                                                .WriteChars("TICKET:")
+                                                .Bold = False
+                                                .GotoSixth(3)
+                                                .WriteChars(idRecibo)
+                                                .WriteLine("")
+                                                .Bold = True
+                                                .GotoSixth(1)
+                                                .WriteChars("CAJA:")
+                                                .Bold = False
+                                                .GotoSixth(3)
+                                                .WriteChars(noCaja)
+                                                .WriteLine("")
+                                                .Bold = True
+                                                .GotoSixth(1)
+                                                .WriteChars("ATENDIDO POR:")
+                                                .Bold = False
+                                                .GotoSixth(3)
+                                                .WriteChars(nm_completeusr)
+                                                .WriteLine("")
+                                                .Bold = True
+                                                .GotoSixth(1)
+                                                .WriteChars("CRÉDITO NO.:")
+                                                .Bold = False
+                                                .GotoSixth(3)
+                                                .WriteChars(idCreditoRecibo)
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .Bold = True
+                                                .FontSize = 6.3
+                                                .WriteChars("MONTO DEL CRÉDITO:")
+                                                .Bold = False
+                                                .FontSize = 7.3
+                                                .GotoSixth(3)
+                                                .WriteChars((montocredito).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .Bold = True
+                                                .WriteChars("CLIENTE:")
+                                                .GotoSixth(3)
+                                                .Bold = False
+                                                .FontSize = 6.5
+                                                .WriteChars(nombre_credito)
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .Bold = True
+                                                .FontSize = 7.3
+                                                .WriteChars("PLAZO(semanas):")
+                                                .GotoSixth(3)
+                                                .Bold = False
+                                                .WriteChars(cp)
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .Bold = True
+                                                .WriteChars("PAGO SEMANAL:")
+                                                .Bold = False
+                                                .GotoSixth(3)
+                                                .WriteChars(pagosemana)
+                                                .WriteLine("")
+
+
+
+                                                .GotoSixth(1)
+                                                .Bold = True
+                                                '.FontSize = 
+                                                .WriteChars("FECHA Y HORA DE PAGO:  ")
+                                                .Bold = False
+
+                                                .WriteChars("  " & fechadePago & " - " & horadepago)
+
+                                                .WriteLine("")
+                                                .DrawLine()
+
+                                                .GotoSixth(1)
+                                                .Bold = True
+
+                                                .WriteChars("DESCRIPCIÓN")
+                                                .GotoSixth(5)
+                                                .WriteChars("MONTO")
+
+                                                .WriteLine("")
+
+                                                .DrawLine()
+
+
+                                                Dim subtotal16 As Double = 0
+                                                Dim totalpago As Double = 0
+                                                For Each s As DetallePago In array
+                                                    .GotoSixth(1)
+                                                    If s.getAbonado = 0 Then
+                                                        .WriteChars("Capital de " & s.getConcepto & " de promesa ")
+                                                        .GotoSixth(5)
+                                                        .WriteChars((s.getAbonado).ToString("$ ##,##00.00"))
+
+                                                        .WriteLine("")
+                                                        .GotoSixth(1)
+                                                        .WriteChars("Interés de " & s.getConcepto & " de promesa")
+                                                        .GotoSixth(5)
+                                                        .WriteChars((s.getAbonado).ToString("$ ##,##00.00"))
+                                                        .WriteLine("")
+                                                        'subtotal16 = subtotal16 + s.GenInteres(pcmil)
+                                                    Else
+                                                        .WriteChars("Capital de " & s.getConcepto & " de promesa")
+                                                        .GotoSixth(5)
+                                                        .WriteChars((s.getAbonado - s.GenInteres(pcmil)).ToString("$ ##,##00.00"))
+
+                                                        .WriteLine("")
+                                                        .GotoSixth(1)
+                                                        .WriteChars("Interés de " & s.getConcepto & " de promesa")
+                                                        .GotoSixth(5)
+                                                        .WriteChars((s.GenInteres(pcmil)).ToString("$ ##,##00.00"))
+                                                        .WriteLine("")
+                                                        subtotal16 = subtotal16 + s.GenInteres(pcmil)
+                                                    End If
+
+                                                    If s.getInteres <> 0 Then
+                                                        .GotoSixth(1)
+                                                        .WriteChars("Multa de promesa")
+
+                                                        .GotoSixth(5)
+                                                        .WriteChars((s.getInteres).ToString("$ ##,##00.00"))
+                                                        subtotal16 = subtotal16 + s.getInteres
+                                                        .WriteLine("")
+                                                    End If
+                                                    totalpago = totalpago + s.getAbonado + s.getInteres
+                                                Next
+                                                .DrawLine()
+
+                                                .GotoSixth(1)
+                                                .WriteChars("Subtotal Tasa 16%")
+
+                                                .GotoSixth(5)
+                                                .WriteChars((subtotal16 / 1.16).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .WriteChars("I.V.A")
+
+
+                                                .GotoSixth(5)
+                                                .WriteChars(((subtotal16 / 1.16) * 0.16).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+
+                                                .DrawLine()
+
+                                                .GotoSixth(1)
+                                                .WriteChars("SubTotal")
+                                                .GotoSixth(5)
+                                                .WriteChars((totalpago).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+
+                                                .WriteChars("Descuento")
+                                                .GotoSixth(5)
+                                                .WriteChars((descuentoAticket).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+
+                                                .WriteChars("Total")
+                                                .GotoSixth(5)
+                                                If abono Then
+                                                    .WriteChars((totalpago).ToString("$ ##,##00.00"))
+                                                Else
+                                                    .WriteChars((totalApagar).ToString("$ ##,##00.00"))
+
+                                                End If
+
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .WriteChars("Recibido")
+                                                .GotoSixth(5)
+                                                Dim recibido As Double
+                                                recibido = Convert.ToDouble(txtRecibido.Text)
+                                                .WriteChars((recibido).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .WriteChars("Cambio")
+                                                .GotoSixth(5)
+                                                Dim cambio As Double
+                                                If txtCambio.Text = "" Then
+                                                    cambio = 0
+                                                Else
+                                                    cambio = Convert.ToDouble(txtCambio.Text)
+                                                End If
+                                                .WriteChars((cambio).ToString("$ ##,##00.00"))
+                                                .WriteLine("")
+                                                .GotoSixth(1)
+                                                .DrawLine()
+                                                .GotoSixth(1)
+                                                Dim StringNumeroLetra As String
+                                                If abono Then
+                                                    StringNumeroLetra = (NumeroLetra.Convertir(totalpago.ToString, True))
+                                                Else
+                                                    StringNumeroLetra = (NumeroLetra.Convertir(totalApagar.ToString, True))
+                                                End If
+
+                                                Dim StringNumeroLetraPartido() As String = Split(StringNumeroLetra)
+                                                Dim i As Integer = 0
+                                                Dim nuevostring As String = ""
+                                                Dim siguientestring As String = ""
+                                                For Palabras As Integer = 0 To StringNumeroLetraPartido.Length - 1
+                                                    i += StringNumeroLetraPartido(Palabras).Length + 1
+                                                    .AlignCenter()
+                                                    If i < 56 Then
+                                                        nuevostring = nuevostring & StringNumeroLetraPartido(Palabras) & " "
+                                                        '.WriteChars(StringNumeroLetraPartido(Palabras))
+                                                        ' .WriteChars(" ")
+                                                        '.Gotox(i * 70)
+                                                    Else
+                                                        siguientestring = siguientestring & StringNumeroLetraPartido(Palabras) & " "
+                                                        '.WriteLine("")
+                                                        '.GotoSixth(1)
+                                                        '.WriteChars(StringNumeroLetraPartido(Palabras))
+                                                    End If
+                                                Next
+                                                .WriteLine(nuevostring)
+                                                If siguientestring <> "" Then
+                                                    .WriteLine(siguientestring)
+                                                End If
+
+
+                                                .GotoSixth(1)
+                                                .Bold = False
+                                                .WriteLine("RÉGIMEN GENERAL DE LEY PERSONAS MORALES")
+                                                .CutPaper()
+                                                .EndDoc()
+
+                                            End With
+
+                                        Next
+                                        Me.Invoke(Sub()
+                                                      ' Principal.idAnterior = idCreditoRecibo
+                                                      inicio.BackgroundWorker1.RunWorkerAsync()
+                                                  End Sub)
+                                        ' PanelConsultando.Visible = False
+                                        'FlatButton1.Enabled = True
+                                        Cargando.Close()
+                                        Me.Close()
+                                    End Sub)
+
+    End Sub
     Private Async Sub ImprimeTicketPagoLegalAsync()
         Await Task.Factory.StartNew(Sub()
                                         Dim NumeroLetra As New NumLetra
@@ -1453,7 +2105,11 @@ Public Class Ticket_impresion
             ImprimeTicketEmpeño()
         ElseIf GetNombreDoc(tipoDoc) = "Desempeño" Then
             ImprimeTicketEmpeño()
+        ElseIf GetNombreDoc(tipoDoc) = "Promesa de pago" Then
+            ImprimeTicketPagoPromesaAsync()
+
         Else
+
 
 
 

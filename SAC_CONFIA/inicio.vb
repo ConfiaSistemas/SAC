@@ -10,6 +10,8 @@ Public Class inicio
     Dim total As Double
     Dim cobrar As Boolean = True
     Dim convenioCredito As Integer
+    Dim idPromesa As Integer
+    Public focustxtid As Boolean = False
     Public tipoDoc As Integer
     Dim cpConvenio As Integer
     Dim MontoConvenio As Integer
@@ -84,11 +86,29 @@ Public Class inicio
 
         End If
         If e.KeyCode = Keys.F5 Then
-            If CanCobrar Then
-                SubCobrar()
-            Else
-                MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
-            End If
+
+            ' Dim seleccionado As Integer = 0
+            '  For Each row As DataGridViewRow In dtimpuestos.Rows
+            ' Dim c As Boolean
+            'c = Convert.ToBoolean(row.Cells(0).GetEditedFormattedValue(row.Index, 1))
+
+            'If c Then
+            'seleccionado = seleccionado + 1
+            '    Else
+
+            'End If
+            'Next
+            'If seleccionado > 0 Then
+            'If CanCobrar Then
+
+            'SubCobrar()
+            'Else
+            'MessageBox.Show("Haz alcanzado tu límite de cobro, realiza un retiro para poder seguir cobrando")
+            'End If
+            'Else
+            'MessageBox.Show("No has seleccionado ningún pago")
+            'End If
+
 
         End If
 
@@ -136,6 +156,10 @@ Public Class inicio
         Liquidaciones.Show()
     End Sub
 
+    Private Sub txtid_OnValueChanged(sender As Object, e As EventArgs) Handles txtid.OnValueChanged
+
+    End Sub
+
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         dtimpuestos.Rows.Clear()
         PanelLiquidacion.Width = 0
@@ -149,7 +173,8 @@ Public Class inicio
             select Legales.id,Legales.Nombre,MontoConvenio as Monto, Legales.Plazo, ('0')as pagoindividual, credito.Estado,  ('0')as Interes from credito inner join Solicitud on Credito.IdSolicitud=Solicitud.id
 			inner join Legales on Legales.idSolicitud=Solicitud.id where Credito.id='" & txtid.Text & "'
             else
-            Select id,nombre,monto,plazo,interes,pagoindividual,estado from credito where id = '" & txtid.Text & "'"
+            select cred.*,ISNULL((select id from PromesaDePago where idCredito = cred.id),0) as idPromesa from
+			(Select id,nombre,monto,plazo,interes,pagoindividual,estado from credito where id = '" & txtid.Text & "')cred"
 
         Else
             consultaDatos = "Select id,nombre,totaldeuda,plazo,estado from legales where id = '" & txtid.Text & "'"
@@ -176,7 +201,7 @@ Public Class inicio
                     Else
                         montoCredito = readerDatos("monto")
                     End If
-
+                    idPromesa = readerDatos("idPromesa")
                 Else
                     estadoCredito = "L"
                     interesCredito = 0
@@ -199,155 +224,172 @@ Public Class inicio
             Dim comandoPagos As SqlCommand
             Dim consultaPagos As String
             Dim readerPagos As SqlDataReader
-            Select Case estadoCredito
-                Case "A"
-                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+            If idPromesa <> 0 Then
+                consultaPagos = "select id as idpago,fechalimite as fechapago,Capital as monto,Moratorios as interes,Pendiente,Abonado,'1' as npago,Estado,'0' as convenio from promesadepago where idcredito = '" & idCredito & "' and estado = 'A'"
+                comandoPagos = New SqlCommand
+                comandoPagos.Connection = conexionempresa
+                comandoPagos.CommandText = consultaPagos
+                readerPagos = comandoPagos.ExecuteReader
+                If readerPagos.HasRows Then
+                    While readerPagos.Read
+                        dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
 
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+                    End While
+                End If
+                tipoDoc = ObtenerTipoDoc("Promesa de pago")
+                readerPagos.Close()
+            Else
+                Select Case estadoCredito
+                    Case "A"
+                        consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
+                        comandoPagos = New SqlCommand
+                        comandoPagos.Connection = conexionempresa
+                        comandoPagos.CommandText = consultaPagos
+                        readerPagos = comandoPagos.ExecuteReader
+                        If readerPagos.HasRows Then
+                            While readerPagos.Read
+                                dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
 
-                        End While
-                    End If
-                    tipoDoc = 1
-                Case "C"
-                    consultaPagos = "select calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where conveniossac.idcredito = '" & idCredito & "' and calendarioconveniossac.estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
-                            convenioCredito = readerPagos("idconvenio")
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where   calendarioconveniossac.estado = 'P' and conveniossac.idcredito  = '" & idCredito & "' order by calendarioconveniossac.fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
-                            convenioCredito = readerPagosProximos("idconvenio")
-                        End While
-                    End If
-                    tipoDoc = ObtenerTipoDoc("Convenio")
-                Case "L"
-                    Dim ComandoLegal As SqlCommand
-                    Dim ConsultaLegal As String
-                    Dim ReaderLegal As SqlDataReader
-                    ConsultaLegal = "Select id, montoconvenio, plazo, from legales"
-                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where idcredito = '" & idCredito & "' and estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), 0)
+                            End While
+                        End If
+                        readerPagos.Close()
+                        Dim comandoPagosProximos As SqlCommand
+                        Dim consultaPagosProximos As String
+                        Dim readerPagosProximos As SqlDataReader
+                        consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
+                        comandoPagosProximos = New SqlCommand
+                        comandoPagosProximos.Connection = conexionempresa
+                        comandoPagosProximos.CommandText = consultaPagosProximos
+                        readerPagosProximos = comandoPagosProximos.ExecuteReader
+                        If readerPagosProximos.HasRows Then
+                            While readerPagosProximos.Read
+                                dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
 
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where   estado = 'P' and idcredito  = '" & idCredito & "' order by fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), 0)
+                            End While
+                        End If
+                        tipoDoc = 1
+                    Case "C"
+                        consultaPagos = "select calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where conveniossac.idcredito = '" & idCredito & "' and calendarioconveniossac.estado = 'V'"
+                        comandoPagos = New SqlCommand
+                        comandoPagos.Connection = conexionempresa
+                        comandoPagos.CommandText = consultaPagos
+                        readerPagos = comandoPagos.ExecuteReader
+                        If readerPagos.HasRows Then
+                            While readerPagos.Read
+                                dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+                                convenioCredito = readerPagos("idconvenio")
+                            End While
+                        End If
+                        readerPagos.Close()
+                        Dim comandoPagosProximos As SqlCommand
+                        Dim consultaPagosProximos As String
+                        Dim readerPagosProximos As SqlDataReader
+                        consultaPagosProximos = "select top 2 calendarioconveniosSac.idpago,calendarioconveniosSac.FechaPago,calendarioconveniosSac.monto,calendarioconveniosSac.interes,calendarioconveniosSac.Pendiente,calendarioconveniosSac.Abonado,calendarioconveniosSac.Npago,calendarioconveniosSac.Estado,calendarioconveniosSac.Convenio,calendarioconveniossac.idconvenio from calendarioConveniosSac inner join conveniosSac on calendarioconveniosSac.idconvenio = conveniossac.id inner join credito on conveniossac.idcredito = credito.id where   calendarioconveniossac.estado = 'P' and conveniossac.idcredito  = '" & idCredito & "' order by calendarioconveniossac.fechapago asc"
+                        comandoPagosProximos = New SqlCommand
+                        comandoPagosProximos.Connection = conexionempresa
+                        comandoPagosProximos.CommandText = consultaPagosProximos
+                        readerPagosProximos = comandoPagosProximos.ExecuteReader
+                        If readerPagosProximos.HasRows Then
+                            While readerPagosProximos.Read
+                                dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+                                convenioCredito = readerPagosProximos("idconvenio")
+                            End While
+                        End If
+                        tipoDoc = ObtenerTipoDoc("Convenio")
+                    Case "L"
+                        Dim ComandoLegal As SqlCommand
+                        Dim ConsultaLegal As String
+                        Dim ReaderLegal As SqlDataReader
+                        ConsultaLegal = "Select id, montoconvenio, plazo, from legales"
+                        consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where idcredito = '" & idCredito & "' and estado = 'V'"
+                        comandoPagos = New SqlCommand
+                        comandoPagos.Connection = conexionempresa
+                        comandoPagos.CommandText = consultaPagos
+                        readerPagos = comandoPagos.ExecuteReader
+                        If readerPagos.HasRows Then
+                            While readerPagos.Read
+                                dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), 0)
 
-                        End While
-                    End If
+                            End While
+                        End If
+                        readerPagos.Close()
+                        Dim comandoPagosProximos As SqlCommand
+                        Dim consultaPagosProximos As String
+                        Dim readerPagosProximos As SqlDataReader
+                        consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado from calendariolegales where   estado = 'P' and idcredito  = '" & idCredito & "' order by fechapago asc"
+                        comandoPagosProximos = New SqlCommand
+                        comandoPagosProximos.Connection = conexionempresa
+                        comandoPagosProximos.CommandText = consultaPagosProximos
+                        readerPagosProximos = comandoPagosProximos.ExecuteReader
+                        If readerPagosProximos.HasRows Then
+                            While readerPagosProximos.Read
+                                dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), 0)
 
-                    tipoDoc = ObtenerTipoDoc("Legal")
-                Case "I"
-                    consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+                            End While
+                        End If
 
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+                        tipoDoc = ObtenerTipoDoc("Legal")
+                    Case "I"
+                        consultaPagos = "select idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where id_credito = '" & idCredito & "' and estado = 'V'"
+                        comandoPagos = New SqlCommand
+                        comandoPagos.Connection = conexionempresa
+                        comandoPagos.CommandText = consultaPagos
+                        readerPagos = comandoPagos.ExecuteReader
+                        If readerPagos.HasRows Then
+                            While readerPagos.Read
+                                dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
 
-                        End While
-                    End If
-                    tipoDoc = 1
-                Case "R"
-                    consultaPagos = "select CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where ReestructurasSac.idcredito = '" & idCredito & "' and CalendarioReestructurasSAC.estado = 'V'"
-                    comandoPagos = New SqlCommand
-                    comandoPagos.Connection = conexionempresa
-                    comandoPagos.CommandText = consultaPagos
-                    readerPagos = comandoPagos.ExecuteReader
-                    If readerPagos.HasRows Then
-                        While readerPagos.Read
-                            dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
-                            convenioCredito = readerPagos("idconvenio")
-                        End While
-                    End If
-                    readerPagos.Close()
-                    Dim comandoPagosProximos As SqlCommand
-                    Dim consultaPagosProximos As String
-                    Dim readerPagosProximos As SqlDataReader
-                    consultaPagosProximos = "select top 2 CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where CalendarioReestructurasSAC.estado = 'P' and ReestructurasSAC.idcredito  = '" & idCredito & "' order by CalendarioReestructurasSAC.fechapago asc"
-                    comandoPagosProximos = New SqlCommand
-                    comandoPagosProximos.Connection = conexionempresa
-                    comandoPagosProximos.CommandText = consultaPagosProximos
-                    readerPagosProximos = comandoPagosProximos.ExecuteReader
-                    If readerPagosProximos.HasRows Then
-                        While readerPagosProximos.Read
-                            dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
-                            convenioCredito = readerPagosProximos("idconvenio")
-                        End While
-                    End If
-                    tipoDoc = ObtenerTipoDoc("Reestructura")
-                Case Else
-                    MessageBox.Show("El crédito no se encuentra activo por lo tanto no puedes cobrarle")
-            End Select
+                            End While
+                        End If
+                        readerPagos.Close()
+                        Dim comandoPagosProximos As SqlCommand
+                        Dim consultaPagosProximos As String
+                        Dim readerPagosProximos As SqlDataReader
+                        consultaPagosProximos = "select top 2 idpago,FechaPago,monto,interes,Pendiente,Abonado,Npago,Estado,Convenio from calendarioNormal where   estado = 'P' and id_credito  = '" & idCredito & "' order by fechapago asc"
+                        comandoPagosProximos = New SqlCommand
+                        comandoPagosProximos.Connection = conexionempresa
+                        comandoPagosProximos.CommandText = consultaPagosProximos
+                        readerPagosProximos = comandoPagosProximos.ExecuteReader
+                        If readerPagosProximos.HasRows Then
+                            While readerPagosProximos.Read
+                                dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+
+                            End While
+                        End If
+                        tipoDoc = 1
+                    Case "R"
+                        consultaPagos = "select CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where ReestructurasSac.idcredito = '" & idCredito & "' and CalendarioReestructurasSAC.estado = 'V'"
+                        comandoPagos = New SqlCommand
+                        comandoPagos.Connection = conexionempresa
+                        comandoPagos.CommandText = consultaPagos
+                        readerPagos = comandoPagos.ExecuteReader
+                        If readerPagos.HasRows Then
+                            While readerPagos.Read
+                                dtimpuestos.Rows.Add(1, readerPagos("idpago"), readerPagos("npago"), readerPagos("fechaPago"), readerPagos("Monto"), readerPagos("interes"), readerPagos("abonado"), readerPagos("pendiente"), readerPagos("estado"), readerPagos("convenio"))
+                                convenioCredito = readerPagos("idconvenio")
+                            End While
+                        End If
+                        readerPagos.Close()
+                        Dim comandoPagosProximos As SqlCommand
+                        Dim consultaPagosProximos As String
+                        Dim readerPagosProximos As SqlDataReader
+                        consultaPagosProximos = "select top 2 CalendarioReestructurasSAC.idpago,CalendarioReestructurasSAC.FechaPago,CalendarioReestructurasSAC.monto,CalendarioReestructurasSAC.interes,CalendarioReestructurasSAC.Pendiente,CalendarioReestructurasSAC.Abonado,CalendarioReestructurasSAC.Npago,CalendarioReestructurasSAC.Estado,CalendarioReestructurasSAC.Convenio,CalendarioReestructurasSAC.idconvenio from CalendarioReestructurasSAC inner join ReestructurasSAC on CalendarioReestructurasSAC.idconvenio = ReestructurasSAC.id inner join credito on ReestructurasSAC.idcredito = credito.id where CalendarioReestructurasSAC.estado = 'P' and ReestructurasSAC.idcredito  = '" & idCredito & "' order by CalendarioReestructurasSAC.fechapago asc"
+                        comandoPagosProximos = New SqlCommand
+                        comandoPagosProximos.Connection = conexionempresa
+                        comandoPagosProximos.CommandText = consultaPagosProximos
+                        readerPagosProximos = comandoPagosProximos.ExecuteReader
+                        If readerPagosProximos.HasRows Then
+                            While readerPagosProximos.Read
+                                dtimpuestos.Rows.Add(0, readerPagosProximos("idpago"), readerPagosProximos("npago"), readerPagosProximos("fechaPago"), readerPagosProximos("Monto"), readerPagosProximos("interes"), readerPagosProximos("abonado"), readerPagosProximos("pendiente"), readerPagosProximos("estado"), readerPagosProximos("convenio"))
+                                convenioCredito = readerPagosProximos("idconvenio")
+                            End While
+                        End If
+                        tipoDoc = ObtenerTipoDoc("Reestructura")
+                    Case Else
+                        MessageBox.Show("El crédito no se encuentra activo por lo tanto no puedes cobrarle")
+                End Select
+            End If
+
         Else
 
         End If
@@ -444,5 +486,23 @@ Public Class inicio
         Else
             MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
         End If
+    End Sub
+
+    Private Sub txtid_PaddingChanged(sender As Object, e As EventArgs) Handles txtid.PaddingChanged
+
+    End Sub
+
+    Private Sub inicio_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+
+    End Sub
+
+    Private Sub txtid_GotFocus(sender As Object, e As EventArgs) Handles txtid.GotFocus
+
+
+    End Sub
+
+    Private Sub txtid_LostFocus(sender As Object, e As EventArgs) Handles txtid.LostFocus
+        focustxtid = False
+
     End Sub
 End Class
