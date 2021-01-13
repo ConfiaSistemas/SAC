@@ -117,40 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>106, 17</value>
-  </metadata>
-  <metadata name="Timerwidthmenos.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>195, 17</value>
-  </metadata>
-  <metadata name="Timerwidthmas.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>344, 17</value>
-  </metadata>
-  <metadata name="TimerPermisos.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>479, 17</value>
-  </metadata>
-  <metadata name="TimerActualizacion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>620, 14</value>
-  </metadata>
-  <metadata name="BackgroundActualizacion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>781, 20</value>
-  </metadata>
-  <metadata name="BackgroundNotificaciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>323, 56</value>
-  </metadata>
-  <metadata name="TimerNotificaciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>517, 56</value>
-  </metadata>
-  <metadata name="BackgroundActSesion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>677, 56</value>
-  </metadata>
-  <metadata name="TimerActSesion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>847, 56</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BunifuThinButton21.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAAApCAYAAADDJIzmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKISURBVHhe7ZrBSxRhGMaNoiAq6tKhQwSeAkm0LaNDEf0F
+        0SGik4egOmyECIEHPSgsWki0mzOzq2yaHbJSLMiLmaBBBoWFJQYuBHuoiCI8iB3efL6Zdhv2u0g67xye
+        H/xA33E9vA8z3zf7flVV9wpCY6S1SPW0Fqme1iLV01qkelqLVE9rMXDTwCfZnR2RGiclh3taJHH7shzq
+        OkfXKPqG/tW67bLHeyibBz5Y+220Flfd2TsmR9NX5NLjbnn2cVpef56T4s+vQtYO+ob+jS/MyLUnaTm2
+        2te9uUfWvlcEgvRqvBty/n6HfFv6EfxLsp78Wl6S5Gha6pw22dL/LtT/UCAIo+FOkwzNTgQfJRvJ1OJb
+        OeFdl635N/ZAcGcwjGjBowzrS0UgWDPwmCLR0/F8UPZn8+VAsJvCAs41Q4fl3ytyOtss2/IzfiDYimH1
+        J3q4L4flgOf4gWB/jC0Z0WP+S0ESmSY/kCPppCx+LwaXiAZ4bNXdvOAHUt/daPbGRBe81ZtA8APRh4HE
+        DAYSMxhIzGAgMYOBxAwGEjMYSMwoBYI3RLwpEl1KgWDmy/GsPuU7xGkz0yuiB75LxHeKJpB9bl5SE4PB
+        JaLByPsXctDt8gPBTPdkz1WuI4o0DnXKrtxTPxBYneuVzskHwWUSJaNzU1LrpsIzdYxxG5wWmS0uBH9G
+        ogBj8+OZZPnw3N9AIGa6p7xmDqsiAmGcudsqO/rGSxmEAoHb+ybN2azM9HDwMbIRjM2/MndGKAwY+iUQ
+        j6/qrCNn+1vN6s/TKOsDprI4lovjufVeu/2Mb0XhH5EetmKJWxfNSwv9PzEqx8F1HGC39dtoLVI9rUWq
+        p7VI9bQWqZ7WIlWyIH8AXcL8IYAuDC8AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEAAACMuAAAjLgAAAAAAAAAA

@@ -87,9 +87,12 @@ Public Class Ticket_impresion
                                                 abono = True
                                                 ' Cargando.ShowDialog()
                                                 'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.Show()
-                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.TopMost = True
+                                                Me.Invoke(Sub()
+                                                              Cargando.Show()
+                                                              Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                              Cargando.TopMost = True
+                                                          End Sub)
+
                                                 Dim comandoRecibo As SqlCommand
                                                 Dim consultarecibo As String
                                                 iniciarconexionempresa()
@@ -291,9 +294,11 @@ Public Class Ticket_impresion
                                             End If
                                         Else
                                             abono = False
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -774,9 +779,11 @@ Public Class Ticket_impresion
                                                 abono = True
                                                 ' Cargando.ShowDialog()
                                                 'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.Show()
-                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.TopMost = True
+                                                Me.Invoke(Sub()
+                                                              Cargando.Show()
+                                                              Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                              Cargando.TopMost = True
+                                                          End Sub)
                                                 Dim comandoRecibo As SqlCommand
                                                 Dim consultarecibo As String
                                                 iniciarconexionempresa()
@@ -978,9 +985,11 @@ Public Class Ticket_impresion
                                             End If
                                         Else
                                             abono = False
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -1426,9 +1435,11 @@ Public Class Ticket_impresion
                                                 abono = True
                                                 ' Cargando.ShowDialog()
                                                 'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.Show()
-                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.TopMost = True
+                                                Me.Invoke(Sub()
+                                                              Cargando.Show()
+                                                              Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                              Cargando.TopMost = True
+                                                          End Sub)
                                                 Dim comandoRecibo As SqlCommand
                                                 Dim consultarecibo As String
                                                 iniciarconexionempresa()
@@ -1627,9 +1638,11 @@ Public Class Ticket_impresion
                                             End If
                                         Else
                                             abono = False
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -2191,9 +2204,11 @@ Public Class Ticket_impresion
                                                 abono = True
                                                 ' Cargando.ShowDialog()
                                                 'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.Show()
-                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.TopMost = True
+                                                Me.Invoke(Sub()
+                                                              Cargando.Show()
+                                                              Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                              Cargando.TopMost = True
+                                                          End Sub)
                                                 Dim comandoRecibo As SqlCommand
                                                 Dim consultarecibo As String
                                                 iniciarconexionempresa()
@@ -2392,9 +2407,11 @@ Public Class Ticket_impresion
                                             End If
                                         Else
                                             abono = False
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -2848,9 +2865,11 @@ Public Class Ticket_impresion
                                                 abono = True
                                                 ' Cargando.ShowDialog()
                                                 'Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.Show()
-                                                Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                                Cargando.TopMost = True
+                                                Me.Invoke(Sub()
+                                                              Cargando.Show()
+                                                              Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                              Cargando.TopMost = True
+                                                          End Sub)
                                                 Dim comandoRecibo As SqlCommand
                                                 Dim consultarecibo As String
                                                 iniciarconexionempresa()
@@ -3041,9 +3060,11 @@ Public Class Ticket_impresion
                                             End If
                                         Else
                                             abono = False
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -3487,9 +3508,11 @@ Public Class Ticket_impresion
                                             btn_actualizar.Enabled = True
 
                                         Else
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -3717,9 +3740,11 @@ Public Class Ticket_impresion
 
 
                                         Else
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoRecibo As SqlCommand
                                             Dim consultarecibo As String
                                             iniciarconexionempresa()
@@ -4075,9 +4100,11 @@ Public Class Ticket_impresion
 
 
                                         Else
-                                            Cargando.Show()
-                                            Cargando.MonoFlat_Label1.Text = "Generando Ticket"
-                                            Cargando.TopMost = True
+                                            Me.Invoke(Sub()
+                                                          Cargando.Show()
+                                                          Cargando.MonoFlat_Label1.Text = "Generando Ticket"
+                                                          Cargando.TopMost = True
+                                                      End Sub)
                                             Dim comandoNumeroRefrendo As SqlCommand
                                             Dim consultaNumeroRefrendo As String
                                             Dim noRefrendo As String

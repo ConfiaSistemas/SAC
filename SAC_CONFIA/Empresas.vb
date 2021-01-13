@@ -1,5 +1,6 @@
 ﻿Imports System.Data.OleDb
 Imports System.Threading.Tasks
+Imports MySql.Data.MySqlClient
 
 Public Class Empresas
     Dim conectado As Boolean
@@ -97,6 +98,18 @@ Public Class Empresas
                                                     idEmpresa = reader("id")
                                                 End While
                                                 Docs()
+                                                Dim conexionLogin As MySqlConnection
+                                                conexionLogin = New MySqlConnection()
+                                                conexionLogin.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+                                                conexionLogin.Open()
+
+                                                Dim comandoEmpresaLogin As MySqlCommand
+                                                Dim consultaEmpresaLogin As String
+                                                consultaEmpresaLogin = "update Sesiones set Empresa = '" & nombreAmostrar & "' where id = '" & idSesion & "'"
+                                                comandoEmpresaLogin = New MySqlCommand
+                                                comandoEmpresaLogin.Connection = conexionLogin
+                                                comandoEmpresaLogin.CommandText = consultaEmpresaLogin
+                                                comandoEmpresaLogin.ExecuteNonQuery()
                                                 conCaja = CargarCaja()
 
                                                 conectado = True

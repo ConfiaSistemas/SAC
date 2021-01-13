@@ -30,7 +30,7 @@ MustInherit Class ThemeContainer154
     Sub New()
         SetStyle(DirectCast(139270, ControlStyles), True)
 
-        _ImageSize = Size.Empty
+        _ImageSize = System.Drawing.Size.Empty
         Font = New Font("Verdana", 8S)
 
         MeasureBitmap = New Bitmap(1, 1)
@@ -115,14 +115,14 @@ MustInherit Class ThemeContainer154
         If _StartPosition = FormStartPosition.CenterParent OrElse _StartPosition = FormStartPosition.CenterScreen Then
             Dim SB As Rectangle = Screen.PrimaryScreen.Bounds
             Dim CB As Rectangle = ParentForm.Bounds
-            ParentForm.Location = New Point(SB.Width \ 2 - CB.Width \ 2, SB.Height \ 2 - CB.Width \ 2)
+            ParentForm.Location = New System.Drawing.Point(SB.Width \ 2 - CB.Width \ 2, SB.Height \ 2 - CB.Width \ 2)
         End If
 
         HasShown = True
     End Sub
 
 
-#Region " Size Handling "
+#Region " system.drawing.size Handling "
 
     Private Frame As Rectangle
     Protected NotOverridable Overrides Sub OnSizeChanged(ByVal e As EventArgs)
@@ -217,14 +217,14 @@ MustInherit Class ThemeContainer154
             If Not _SmartBounds Then Return
 
             If IsParentMdi Then
-                CorrectBounds(New Rectangle(Point.Empty, Parent.Parent.Size))
+                CorrectBounds(New Rectangle(System.Drawing.Point.Empty, Parent.Size))
             Else
                 CorrectBounds(Screen.FromControl(Parent).WorkingArea)
             End If
         End If
     End Sub
 
-    Private GetIndexPoint As Point
+    Private GetIndexPoint As System.Drawing.Point
     Private B1, B2, B3, B4 As Boolean
     Private Function GetIndex() As Integer
         GetIndexPoint = PointToClient(MousePosition)
@@ -288,7 +288,7 @@ MustInherit Class ThemeContainer154
         If X + Parent.Width > Width Then X = Width - Parent.Width
         If Y + Parent.Height > Height Then Y = Height - Parent.Height
 
-        Parent.Location = New Point(X, Y)
+        Parent.Location = New System.Drawing.Point(X, Y)
     End Sub
 
 #End Region
@@ -328,21 +328,21 @@ MustInherit Class ThemeContainer154
         End Set
     End Property
 
-    Overrides Property MinimumSize As Size
+    Overrides Property MinimumSize As System.Drawing.Size
         Get
             Return MyBase.MinimumSize
         End Get
-        Set(ByVal value As Size)
+        Set(ByVal value As System.Drawing.Size)
             MyBase.MinimumSize = value
             If Parent IsNot Nothing Then Parent.MinimumSize = value
         End Set
     End Property
 
-    Overrides Property MaximumSize As Size
+    Overrides Property MaximumSize As System.Drawing.Size
         Get
             Return MyBase.MaximumSize
         End Get
-        Set(ByVal value As Size)
+        Set(ByVal value As System.Drawing.Size)
             MyBase.MaximumSize = value
             If Parent IsNot Nothing Then Parent.MaximumSize = value
         End Set
@@ -493,7 +493,7 @@ MustInherit Class ThemeContainer154
             Return _Image
         End Get
         Set(ByVal value As Image)
-            If value Is Nothing Then _ImageSize = Size.Empty Else _ImageSize = value.Size
+            If value Is Nothing Then _ImageSize = System.Drawing.Size.Empty Else _ImageSize = value.Size
 
             _Image = value
             Invalidate()
@@ -576,8 +576,8 @@ MustInherit Class ThemeContainer154
 
 #Region " Private Properties "
 
-    Private _ImageSize As Size
-    Protected ReadOnly Property ImageSize() As Size
+    Private _ImageSize As System.Drawing.Size
+    Protected ReadOnly Property ImageSize() As System.Drawing.Size
         Get
             Return _ImageSize
         End Get
@@ -751,15 +751,15 @@ MustInherit Class ThemeContainer154
         Return OffsetReturnRectangle
     End Function
 
-    Private OffsetReturnSize As Size
-    Protected Function Offset(ByVal s As Size, ByVal amount As Integer) As Size
-        OffsetReturnSize = New Size(s.Width + amount, s.Height + amount)
+    Private OffsetReturnSize As System.Drawing.Size
+    Protected Function Offset(ByVal s As System.Drawing.Size, ByVal amount As Integer) As System.Drawing.Size
+        OffsetReturnSize = New System.Drawing.Size(s.Width + amount, s.Height + amount)
         Return OffsetReturnSize
     End Function
 
-    Private OffsetReturnPoint As Point
-    Protected Function Offset(ByVal p As Point, ByVal amount As Integer) As Point
-        OffsetReturnPoint = New Point(p.X + amount, p.Y + amount)
+    Private OffsetReturnPoint As System.Drawing.Point
+    Protected Function Offset(ByVal p As System.Drawing.Point, ByVal amount As Integer) As System.Drawing.Point
+        OffsetReturnPoint = New System.Drawing.Point(p.X + amount, p.Y + amount)
         Return OffsetReturnPoint
     End Function
 
@@ -767,33 +767,33 @@ MustInherit Class ThemeContainer154
 
 #Region " Center "
 
-    Private CenterReturn As Point
+    Private CenterReturn As System.Drawing.Point
 
-    Protected Function Center(ByVal p As Rectangle, ByVal c As Rectangle) As Point
-        CenterReturn = New Point((p.Width \ 2 - c.Width \ 2) + p.X + c.X, (p.Height \ 2 - c.Height \ 2) + p.Y + c.Y)
+    Protected Function Center(ByVal p As Rectangle, ByVal c As Rectangle) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point((p.Width \ 2 - c.Width \ 2) + p.X + c.X, (p.Height \ 2 - c.Height \ 2) + p.Y + c.Y)
         Return CenterReturn
     End Function
-    Protected Function Center(ByVal p As Rectangle, ByVal c As Size) As Point
-        CenterReturn = New Point((p.Width \ 2 - c.Width \ 2) + p.X, (p.Height \ 2 - c.Height \ 2) + p.Y)
+    Protected Function Center(ByVal p As Rectangle, ByVal c As System.Drawing.Size) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point((p.Width \ 2 - c.Width \ 2) + p.X, (p.Height \ 2 - c.Height \ 2) + p.Y)
         Return CenterReturn
     End Function
 
-    Protected Function Center(ByVal child As Rectangle) As Point
+    Protected Function Center(ByVal child As Rectangle) As System.Drawing.Point
         Return Center(Width, Height, child.Width, child.Height)
     End Function
-    Protected Function Center(ByVal child As Size) As Point
+    Protected Function Center(ByVal child As System.Drawing.Size) As System.Drawing.Point
         Return Center(Width, Height, child.Width, child.Height)
     End Function
-    Protected Function Center(ByVal childWidth As Integer, ByVal childHeight As Integer) As Point
+    Protected Function Center(ByVal childWidth As Integer, ByVal childHeight As Integer) As System.Drawing.Point
         Return Center(Width, Height, childWidth, childHeight)
     End Function
 
-    Protected Function Center(ByVal p As Size, ByVal c As Size) As Point
+    Protected Function Center(ByVal p As System.Drawing.Size, ByVal c As System.Drawing.Size) As System.Drawing.Point
         Return Center(p.Width, p.Height, c.Width, c.Height)
     End Function
 
-    Protected Function Center(ByVal pWidth As Integer, ByVal pHeight As Integer, ByVal cWidth As Integer, ByVal cHeight As Integer) As Point
-        CenterReturn = New Point(pWidth \ 2 - cWidth \ 2, pHeight \ 2 - cHeight \ 2)
+    Protected Function Center(ByVal pWidth As Integer, ByVal pHeight As Integer, ByVal cWidth As Integer, ByVal cHeight As Integer) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point(pWidth \ 2 - cWidth \ 2, pHeight \ 2 - cHeight \ 2)
         Return CenterReturn
     End Function
 
@@ -804,12 +804,12 @@ MustInherit Class ThemeContainer154
     Private MeasureBitmap As Bitmap
     Private MeasureGraphics As Graphics
 
-    Protected Function Measure() As Size
+    Protected Function Measure() As System.Drawing.Size
         SyncLock MeasureGraphics
             Return MeasureGraphics.MeasureString(Text, Font, Width).ToSize
         End SyncLock
     End Function
-    Protected Function Measure(ByVal text As String) As Size
+    Protected Function Measure(ByVal text As String) As System.Drawing.Size
         SyncLock MeasureGraphics
             Return MeasureGraphics.MeasureString(text, Font, Width).ToSize
         End SyncLock
@@ -898,29 +898,29 @@ MustInherit Class ThemeContainer154
 
 #Region " DrawText "
 
-    Private DrawTextPoint As Point
-    Private DrawTextSize As Size
+    Private DrawTextPoint As System.Drawing.Point
+    Private DrawTextSize As System.Drawing.Size
 
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         DrawText(b1, Text, a, x, y)
     End Sub
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal text As String, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal text As String, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         If text.Length = 0 Then Return
 
         DrawTextSize = Measure(text)
-        DrawTextPoint = New Point(Width \ 2 - DrawTextSize.Width \ 2, Header \ 2 - DrawTextSize.Height \ 2)
+        DrawTextPoint = New System.Drawing.Point(Width \ 2 - DrawTextSize.Width \ 2, Header \ 2 - DrawTextSize.Height \ 2)
 
         Select Case a
-            Case HorizontalAlignment.Left
+            Case System.Windows.Forms.HorizontalAlignment.Left
                 G.DrawString(text, Font, b1, x, DrawTextPoint.Y + y)
-            Case HorizontalAlignment.Center
+            Case System.Windows.Forms.HorizontalAlignment.Center
                 G.DrawString(text, Font, b1, DrawTextPoint.X + x, DrawTextPoint.Y + y)
-            Case HorizontalAlignment.Right
+            Case System.Windows.Forms.HorizontalAlignment.Right
                 G.DrawString(text, Font, b1, Width - DrawTextSize.Width - x, DrawTextPoint.Y + y)
         End Select
     End Sub
 
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal p1 As Point)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal p1 As System.Drawing.Point)
         If Text.Length = 0 Then Return
         G.DrawString(Text, Font, b1, p1)
     End Sub
@@ -933,33 +933,33 @@ MustInherit Class ThemeContainer154
 
 #Region " DrawImage "
 
-    Private DrawImagePoint As Point
+    Private DrawImagePoint As System.Drawing.Point
 
-    Protected Sub DrawImage(ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawImage(ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         DrawImage(_Image, a, x, y)
     End Sub
-    Protected Sub DrawImage(ByVal image As Image, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawImage(ByVal image As Image, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         If image Is Nothing Then Return
-        DrawImagePoint = New Point(Width \ 2 - image.Width \ 2, Header \ 2 - image.Height \ 2)
+        DrawImagePoint = New System.Drawing.Point(Width \ 2 - image.Width \ 2, Header \ 2 - image.Height \ 2)
 
         Select Case a
-            Case HorizontalAlignment.Left
+            Case System.Windows.Forms.HorizontalAlignment.Left
                 G.DrawImage(image, x, DrawImagePoint.Y + y, image.Width, image.Height)
-            Case HorizontalAlignment.Center
+            Case System.Windows.Forms.HorizontalAlignment.Center
                 G.DrawImage(image, DrawImagePoint.X + x, DrawImagePoint.Y + y, image.Width, image.Height)
-            Case HorizontalAlignment.Right
+            Case System.Windows.Forms.HorizontalAlignment.Right
                 G.DrawImage(image, Width - image.Width - x, DrawImagePoint.Y + y, image.Width, image.Height)
         End Select
     End Sub
 
-    Protected Sub DrawImage(ByVal p1 As Point)
+    Protected Sub DrawImage(ByVal p1 As System.Drawing.Point)
         DrawImage(_Image, p1.X, p1.Y)
     End Sub
     Protected Sub DrawImage(ByVal x As Integer, ByVal y As Integer)
         DrawImage(_Image, x, y)
     End Sub
 
-    Protected Sub DrawImage(ByVal image As Image, ByVal p1 As Point)
+    Protected Sub DrawImage(ByVal image As Image, ByVal p1 As System.Drawing.Point)
         DrawImage(image, p1.X, p1.Y)
     End Sub
     Protected Sub DrawImage(ByVal image As Image, ByVal x As Integer, ByVal y As Integer)
@@ -1026,7 +1026,7 @@ MustInherit Class ThemeContainer154
         DrawRadialRectangle = New Rectangle(x, y, width, height)
         DrawRadial(blend, DrawRadialRectangle, width \ 2, height \ 2)
     End Sub
-    Sub DrawRadial(ByVal blend As ColorBlend, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal center As Point)
+    Sub DrawRadial(ByVal blend As ColorBlend, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal center As System.Drawing.Point)
         DrawRadialRectangle = New Rectangle(x, y, width, height)
         DrawRadial(blend, DrawRadialRectangle, center.X, center.Y)
     End Sub
@@ -1038,7 +1038,7 @@ MustInherit Class ThemeContainer154
     Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle)
         DrawRadial(blend, r, r.Width \ 2, r.Height \ 2)
     End Sub
-    Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal center As Point)
+    Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal center As System.Drawing.Point)
         DrawRadial(blend, r, center.X, center.Y)
     End Sub
     Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal cx As Integer, ByVal cy As Integer)
@@ -1046,7 +1046,7 @@ MustInherit Class ThemeContainer154
         DrawRadialPath.AddEllipse(r.X, r.Y, r.Width - 1, r.Height - 1)
 
         DrawRadialBrush1 = New PathGradientBrush(DrawRadialPath)
-        DrawRadialBrush1.CenterPoint = New Point(r.X + cx, r.Y + cy)
+        DrawRadialBrush1.CenterPoint = New System.Drawing.Point(r.X + cx, r.Y + cy)
         DrawRadialBrush1.InterpolationColors = blend
 
         If G.SmoothingMode = SmoothingMode.AntiAlias Then
@@ -1119,7 +1119,7 @@ MustInherit Class ThemeControl154
     Sub New()
         SetStyle(DirectCast(139270, ControlStyles), True)
 
-        _ImageSize = Size.Empty
+        _ImageSize = System.Drawing.Size.Empty
         Font = New Font("Verdana", 8S)
 
         MeasureBitmap = New Bitmap(1, 1)
@@ -1178,7 +1178,7 @@ MustInherit Class ThemeControl154
         MyBase.OnHandleDestroyed(e)
     End Sub
 
-#Region " Size Handling "
+#Region " system.drawing.size Handling "
 
     Protected NotOverridable Overrides Sub OnSizeChanged(ByVal e As EventArgs)
         If _Transparent Then
@@ -1238,7 +1238,7 @@ MustInherit Class ThemeControl154
 
 #Region " Base Properties "
 
-    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
+    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Overrides Property ForeColor() As Color
         Get
             Return Color.Empty
@@ -1246,7 +1246,7 @@ MustInherit Class ThemeControl154
         Set(ByVal value As Color)
         End Set
     End Property
-    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
+    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Overrides Property BackgroundImage() As Image
         Get
             Return Nothing
@@ -1254,7 +1254,7 @@ MustInherit Class ThemeControl154
         Set(ByVal value As Image)
         End Set
     End Property
-    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
+    <Browsable(False), EditorBrowsable(EditorBrowsableState.Never), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Overrides Property BackgroundImageLayout() As ImageLayout
         Get
             Return ImageLayout.None
@@ -1283,7 +1283,7 @@ MustInherit Class ThemeControl154
     End Property
 
     Private _BackColor As Boolean
-    <Category("Misc")> _
+    <Category("Misc")>
     Overrides Property BackColor() As Color
         Get
             Return MyBase.BackColor
@@ -1321,7 +1321,7 @@ MustInherit Class ThemeControl154
         End Get
         Set(ByVal value As Image)
             If value Is Nothing Then
-                _ImageSize = Size.Empty
+                _ImageSize = System.Drawing.Size.Empty
             Else
                 _ImageSize = value.Size
             End If
@@ -1407,8 +1407,8 @@ MustInherit Class ThemeControl154
 
 #Region " Private Properties "
 
-    Private _ImageSize As Size
-    Protected ReadOnly Property ImageSize() As Size
+    Private _ImageSize As System.Drawing.Size
+    Protected ReadOnly Property ImageSize() As System.Drawing.Size
         Get
             Return _ImageSize
         End Get
@@ -1531,15 +1531,15 @@ MustInherit Class ThemeControl154
         Return OffsetReturnRectangle
     End Function
 
-    Private OffsetReturnSize As Size
-    Protected Function Offset(ByVal s As Size, ByVal amount As Integer) As Size
-        OffsetReturnSize = New Size(s.Width + amount, s.Height + amount)
+    Private OffsetReturnSize As System.Drawing.Size
+    Protected Function Offset(ByVal s As System.Drawing.Size, ByVal amount As Integer) As System.Drawing.Size
+        OffsetReturnSize = New System.Drawing.Size(s.Width + amount, s.Height + amount)
         Return OffsetReturnSize
     End Function
 
-    Private OffsetReturnPoint As Point
-    Protected Function Offset(ByVal p As Point, ByVal amount As Integer) As Point
-        OffsetReturnPoint = New Point(p.X + amount, p.Y + amount)
+    Private OffsetReturnPoint As System.Drawing.Point
+    Protected Function Offset(ByVal p As System.Drawing.Point, ByVal amount As Integer) As System.Drawing.Point
+        OffsetReturnPoint = New System.Drawing.Point(p.X + amount, p.Y + amount)
         Return OffsetReturnPoint
     End Function
 
@@ -1547,33 +1547,33 @@ MustInherit Class ThemeControl154
 
 #Region " Center "
 
-    Private CenterReturn As Point
+    Private CenterReturn As System.Drawing.Point
 
-    Protected Function Center(ByVal p As Rectangle, ByVal c As Rectangle) As Point
-        CenterReturn = New Point((p.Width \ 2 - c.Width \ 2) + p.X + c.X, (p.Height \ 2 - c.Height \ 2) + p.Y + c.Y)
+    Protected Function Center(ByVal p As Rectangle, ByVal c As Rectangle) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point((p.Width \ 2 - c.Width \ 2) + p.X + c.X, (p.Height \ 2 - c.Height \ 2) + p.Y + c.Y)
         Return CenterReturn
     End Function
-    Protected Function Center(ByVal p As Rectangle, ByVal c As Size) As Point
-        CenterReturn = New Point((p.Width \ 2 - c.Width \ 2) + p.X, (p.Height \ 2 - c.Height \ 2) + p.Y)
+    Protected Function Center(ByVal p As Rectangle, ByVal c As System.Drawing.Size) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point((p.Width \ 2 - c.Width \ 2) + p.X, (p.Height \ 2 - c.Height \ 2) + p.Y)
         Return CenterReturn
     End Function
 
-    Protected Function Center(ByVal child As Rectangle) As Point
+    Protected Function Center(ByVal child As Rectangle) As System.Drawing.Point
         Return Center(Width, Height, child.Width, child.Height)
     End Function
-    Protected Function Center(ByVal child As Size) As Point
+    Protected Function Center(ByVal child As System.Drawing.Size) As System.Drawing.Point
         Return Center(Width, Height, child.Width, child.Height)
     End Function
-    Protected Function Center(ByVal childWidth As Integer, ByVal childHeight As Integer) As Point
+    Protected Function Center(ByVal childWidth As Integer, ByVal childHeight As Integer) As System.Drawing.Point
         Return Center(Width, Height, childWidth, childHeight)
     End Function
 
-    Protected Function Center(ByVal p As Size, ByVal c As Size) As Point
+    Protected Function Center(ByVal p As System.Drawing.Size, ByVal c As System.Drawing.Size) As System.Drawing.Point
         Return Center(p.Width, p.Height, c.Width, c.Height)
     End Function
 
-    Protected Function Center(ByVal pWidth As Integer, ByVal pHeight As Integer, ByVal cWidth As Integer, ByVal cHeight As Integer) As Point
-        CenterReturn = New Point(pWidth \ 2 - cWidth \ 2, pHeight \ 2 - cHeight \ 2)
+    Protected Function Center(ByVal pWidth As Integer, ByVal pHeight As Integer, ByVal cWidth As Integer, ByVal cHeight As Integer) As System.Drawing.Point
+        CenterReturn = New System.Drawing.Point(pWidth \ 2 - cWidth \ 2, pHeight \ 2 - cHeight \ 2)
         Return CenterReturn
     End Function
 
@@ -1584,10 +1584,10 @@ MustInherit Class ThemeControl154
     Private MeasureBitmap As Bitmap
     Private MeasureGraphics As Graphics 'TODO: Potential issues during multi-threading.
 
-    Protected Function Measure() As Size
+    Protected Function Measure() As System.Drawing.Size
         Return MeasureGraphics.MeasureString(Text, Font, Width).ToSize
     End Function
-    Protected Function Measure(ByVal text As String) As Size
+    Protected Function Measure(ByVal text As String) As System.Drawing.Size
         Return MeasureGraphics.MeasureString(text, Font, Width).ToSize
     End Function
 
@@ -1674,29 +1674,29 @@ MustInherit Class ThemeControl154
 
 #Region " DrawText "
 
-    Private DrawTextPoint As Point
-    Private DrawTextSize As Size
+    Private DrawTextPoint As System.Drawing.Point
+    Private DrawTextSize As System.Drawing.Size
 
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         DrawText(b1, Text, a, x, y)
     End Sub
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal text As String, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal text As String, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         If text.Length = 0 Then Return
 
         DrawTextSize = Measure(text)
         DrawTextPoint = Center(DrawTextSize)
 
         Select Case a
-            Case HorizontalAlignment.Left
+            Case System.Windows.Forms.HorizontalAlignment.Left
                 G.DrawString(text, Font, b1, x, DrawTextPoint.Y + y)
-            Case HorizontalAlignment.Center
+            Case System.Windows.Forms.HorizontalAlignment.Center
                 G.DrawString(text, Font, b1, DrawTextPoint.X + x, DrawTextPoint.Y + y)
-            Case HorizontalAlignment.Right
+            Case System.Windows.Forms.HorizontalAlignment.Right
                 G.DrawString(text, Font, b1, Width - DrawTextSize.Width - x, DrawTextPoint.Y + y)
         End Select
     End Sub
 
-    Protected Sub DrawText(ByVal b1 As Brush, ByVal p1 As Point)
+    Protected Sub DrawText(ByVal b1 As Brush, ByVal p1 As System.Drawing.Point)
         If Text.Length = 0 Then Return
         G.DrawString(Text, Font, b1, p1)
     End Sub
@@ -1709,33 +1709,33 @@ MustInherit Class ThemeControl154
 
 #Region " DrawImage "
 
-    Private DrawImagePoint As Point
+    Private DrawImagePoint As System.Drawing.Point
 
-    Protected Sub DrawImage(ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawImage(ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         DrawImage(_Image, a, x, y)
     End Sub
-    Protected Sub DrawImage(ByVal image As Image, ByVal a As HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
+    Protected Sub DrawImage(ByVal image As Image, ByVal a As System.Windows.Forms.HorizontalAlignment, ByVal x As Integer, ByVal y As Integer)
         If image Is Nothing Then Return
         DrawImagePoint = Center(image.Size)
 
         Select Case a
-            Case HorizontalAlignment.Left
+            Case System.Windows.Forms.HorizontalAlignment.Left
                 G.DrawImage(image, x, DrawImagePoint.Y + y, image.Width, image.Height)
-            Case HorizontalAlignment.Center
+            Case System.Windows.Forms.HorizontalAlignment.Center
                 G.DrawImage(image, DrawImagePoint.X + x, DrawImagePoint.Y + y, image.Width, image.Height)
-            Case HorizontalAlignment.Right
+            Case System.Windows.Forms.HorizontalAlignment.Right
                 G.DrawImage(image, Width - image.Width - x, DrawImagePoint.Y + y, image.Width, image.Height)
         End Select
     End Sub
 
-    Protected Sub DrawImage(ByVal p1 As Point)
+    Protected Sub DrawImage(ByVal p1 As System.Drawing.Point)
         DrawImage(_Image, p1.X, p1.Y)
     End Sub
     Protected Sub DrawImage(ByVal x As Integer, ByVal y As Integer)
         DrawImage(_Image, x, y)
     End Sub
 
-    Protected Sub DrawImage(ByVal image As Image, ByVal p1 As Point)
+    Protected Sub DrawImage(ByVal image As Image, ByVal p1 As System.Drawing.Point)
         DrawImage(image, p1.X, p1.Y)
     End Sub
     Protected Sub DrawImage(ByVal image As Image, ByVal x As Integer, ByVal y As Integer)
@@ -1802,7 +1802,7 @@ MustInherit Class ThemeControl154
         DrawRadialRectangle = New Rectangle(x, y, width, height)
         DrawRadial(blend, DrawRadialRectangle, width \ 2, height \ 2)
     End Sub
-    Sub DrawRadial(ByVal blend As ColorBlend, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal center As Point)
+    Sub DrawRadial(ByVal blend As ColorBlend, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal center As System.Drawing.Point)
         DrawRadialRectangle = New Rectangle(x, y, width, height)
         DrawRadial(blend, DrawRadialRectangle, center.X, center.Y)
     End Sub
@@ -1814,7 +1814,7 @@ MustInherit Class ThemeControl154
     Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle)
         DrawRadial(blend, r, r.Width \ 2, r.Height \ 2)
     End Sub
-    Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal center As Point)
+    Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal center As System.Drawing.Point)
         DrawRadial(blend, r, center.X, center.Y)
     End Sub
     Sub DrawRadial(ByVal blend As ColorBlend, ByVal r As Rectangle, ByVal cx As Integer, ByVal cy As Integer)
@@ -1822,7 +1822,7 @@ MustInherit Class ThemeControl154
         DrawRadialPath.AddEllipse(r.X, r.Y, r.Width - 1, r.Height - 1)
 
         DrawRadialBrush1 = New PathGradientBrush(DrawRadialPath)
-        DrawRadialBrush1.CenterPoint = New Point(r.X + cx, r.Y + cy)
+        DrawRadialBrush1.CenterPoint = New System.Drawing.Point(r.X + cx, r.Y + cy)
         DrawRadialBrush1.InterpolationColors = blend
 
         If G.SmoothingMode = SmoothingMode.AntiAlias Then
@@ -1963,9 +1963,9 @@ Structure Bloom
 
     Property ValueHex() As String
         Get
-            Return String.Concat("#", _
-            _Value.R.ToString("X2", Nothing), _
-            _Value.G.ToString("X2", Nothing), _
+            Return String.Concat("#",
+            _Value.R.ToString("X2", Nothing),
+            _Value.G.ToString("X2", Nothing),
             _Value.B.ToString("X2", Nothing))
         End Get
         Set(ByVal value As String)
@@ -2004,21 +2004,21 @@ Class PrecisionTimer
     Private Handle As IntPtr
     Private TimerCallback As TimerDelegate
 
-    <DllImport("kernel32.dll", EntryPoint:="CreateTimerQueueTimer")> _
-    Private Shared Function CreateTimerQueueTimer( _
-    ByRef handle As IntPtr, _
-    ByVal queue As IntPtr, _
-    ByVal callback As TimerDelegate, _
-    ByVal state As IntPtr, _
-    ByVal dueTime As UInteger, _
-    ByVal period As UInteger, _
+    <DllImport("kernel32.dll", EntryPoint:="CreateTimerQueueTimer")>
+    Private Shared Function CreateTimerQueueTimer(
+    ByRef handle As IntPtr,
+    ByVal queue As IntPtr,
+    ByVal callback As TimerDelegate,
+    ByVal state As IntPtr,
+    ByVal dueTime As UInteger,
+    ByVal period As UInteger,
     ByVal flags As UInteger) As Boolean
     End Function
 
-    <DllImport("kernel32.dll", EntryPoint:="DeleteTimerQueueTimer")> _
-    Private Shared Function DeleteTimerQueueTimer( _
-    ByVal queue As IntPtr, _
-    ByVal handle As IntPtr, _
+    <DllImport("kernel32.dll", EntryPoint:="DeleteTimerQueueTimer")>
+    Private Shared Function DeleteTimerQueueTimer(
+    ByVal queue As IntPtr,
+    ByVal handle As IntPtr,
     ByVal callback As IntPtr) As Boolean
     End Function
 
@@ -2080,37 +2080,37 @@ Class EvolveButton
 
     Protected Overrides Sub PaintHook()
         If State = MouseState.None Then
-            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New Point(3, 2), New Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(88, 88, 88), Color.FromArgb(47, 47, 47), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(4, 2), New Point(Width - 7, (Height / 5) * 2)))
-            G.DrawLine(New Pen(Color.FromArgb(121, 121, 121)), New Point(4, 2), New Point(Width - 5, 2))
-            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New Point(3, (Height / 5) * 2), New Point(Width - 6, Height - 16)), Color.FromArgb(43, 43, 43), Color.FromArgb(21, 21, 21), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(3, (Height / 5) * 2 + 1), New Point(Width - 6, Height - 16)))
-            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New Point(6, Height - 2), New Point(Width - 5, Height - 2))
-            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New Point(5, Height - 3), New Point(Width - 5, Height - 3))
-            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New Point(4, Height - 4), New Point(Width - 4, Height - 4))
+            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, 2), New System.Drawing.Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(88, 88, 88), Color.FromArgb(47, 47, 47), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(4, 2), New System.Drawing.Point(Width - 7, (Height / 5) * 2)))
+            G.DrawLine(New Pen(Color.FromArgb(121, 121, 121)), New System.Drawing.Point(4, 2), New System.Drawing.Point(Width - 5, 2))
+            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2), New System.Drawing.Point(Width - 6, Height - 16)), Color.FromArgb(43, 43, 43), Color.FromArgb(21, 21, 21), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2 + 1), New System.Drawing.Point(Width - 6, Height - 16)))
+            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New System.Drawing.Point(6, Height - 2), New System.Drawing.Point(Width - 5, Height - 2))
+            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New System.Drawing.Point(5, Height - 3), New System.Drawing.Point(Width - 5, Height - 3))
+            G.DrawLine(New Pen(Color.FromArgb(21, 21, 21)), New System.Drawing.Point(4, Height - 4), New System.Drawing.Point(Width - 4, Height - 4))
         ElseIf State = MouseState.Over Then
-            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New Point(3, 2), New Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(162, 72, 72), Color.FromArgb(134, 38, 38), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(4, 2), New Point(Width - 7, (Height / 5) * 2)))
-            G.DrawLine(New Pen(Color.FromArgb(179, 105, 105)), New Point(4, 2), New Point(Width - 5, 2))
-            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New Point(3, (Height / 5) * 2), New Point(Width - 6, Height - 16)), Color.FromArgb(126, 26, 26), Color.FromArgb(88, 12, 12), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(3, (Height / 5) * 2 + 1), New Point(Width - 6, Height - 16)))
-            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New Point(6, Height - 2), New Point(Width - 5, Height - 2))
-            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New Point(5, Height - 3), New Point(Width - 5, Height - 3))
-            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New Point(4, Height - 4), New Point(Width - 4, Height - 4))
+            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, 2), New System.Drawing.Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(162, 72, 72), Color.FromArgb(134, 38, 38), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(4, 2), New System.Drawing.Point(Width - 7, (Height / 5) * 2)))
+            G.DrawLine(New Pen(Color.FromArgb(179, 105, 105)), New System.Drawing.Point(4, 2), New System.Drawing.Point(Width - 5, 2))
+            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2), New System.Drawing.Point(Width - 6, Height - 16)), Color.FromArgb(126, 26, 26), Color.FromArgb(88, 12, 12), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2 + 1), New System.Drawing.Point(Width - 6, Height - 16)))
+            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New System.Drawing.Point(6, Height - 2), New System.Drawing.Point(Width - 5, Height - 2))
+            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New System.Drawing.Point(5, Height - 3), New System.Drawing.Point(Width - 5, Height - 3))
+            G.DrawLine(New Pen(Color.FromArgb(88, 12, 12)), New System.Drawing.Point(4, Height - 4), New System.Drawing.Point(Width - 4, Height - 4))
         ElseIf State = MouseState.Down Then
-            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New Point(3, 2), New Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(86, 21, 21), Color.FromArgb(136, 38, 38), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(4, 2), New Point(Width - 7, (Height / 5) * 2)))
-            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New Point(3, (Height / 5) * 2), New Point(Width - 6, Height - 16)), Color.FromArgb(114, 30, 30), Color.FromArgb(149, 64, 64), 90.0F)
-            G.FillRectangle(Gradientbrush1, New Rectangle(New Point(3, (Height / 5) * 2 + 1), New Point(Width - 6, Height - 16)))
-            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New Point(6, Height - 2), New Point(Width - 5, Height - 2))
-            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New Point(5, Height - 3), New Point(Width - 5, Height - 3))
-            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New Point(4, Height - 4), New Point(Width - 4, Height - 4))
+            Dim Gradientbrush1 As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, 2), New System.Drawing.Point(Width - 6, (Height / 5) * 2)), Color.FromArgb(86, 21, 21), Color.FromArgb(136, 38, 38), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(4, 2), New System.Drawing.Point(Width - 7, (Height / 5) * 2)))
+            Gradientbrush1 = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2), New System.Drawing.Point(Width - 6, Height - 16)), Color.FromArgb(114, 30, 30), Color.FromArgb(149, 64, 64), 90.0F)
+            G.FillRectangle(Gradientbrush1, New Rectangle(New System.Drawing.Point(3, (Height / 5) * 2 + 1), New System.Drawing.Point(Width - 6, Height - 16)))
+            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New System.Drawing.Point(6, Height - 2), New System.Drawing.Point(Width - 5, Height - 2))
+            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New System.Drawing.Point(5, Height - 3), New System.Drawing.Point(Width - 5, Height - 3))
+            G.DrawLine(New Pen(Color.FromArgb(149, 64, 64)), New System.Drawing.Point(4, Height - 4), New System.Drawing.Point(Width - 4, Height - 4))
         End If
 
-        G.DrawLine(Pens.Black, New Point(3, 3), New Point(3, Me.Height - 4))
-        G.DrawLine(Pens.Black, New Point(5, 1), New Point(Me.Width - 5, 1))
-        G.DrawLine(Pens.Black, New Point(Me.Width - 3, 3), New Point(Me.Width - 3, Me.Height - 4))
-        G.DrawLine(Pens.Black, New Point(5, Me.Height - 2), New Point(Me.Width - 5, Me.Height - 2))
+        G.DrawLine(Pens.Black, New System.Drawing.Point(3, 3), New System.Drawing.Point(3, Me.Height - 4))
+        G.DrawLine(Pens.Black, New System.Drawing.Point(5, 1), New System.Drawing.Point(Me.Width - 5, 1))
+        G.DrawLine(Pens.Black, New System.Drawing.Point(Me.Width - 3, 3), New System.Drawing.Point(Me.Width - 3, Me.Height - 4))
+        G.DrawLine(Pens.Black, New System.Drawing.Point(5, Me.Height - 2), New System.Drawing.Point(Me.Width - 5, Me.Height - 2))
         DrawPixel(Color.Black, 4, 2)
         DrawPixel(Color.Black, Me.Width - 4, 2)
         DrawPixel(Color.Black, 4, Me.Height - 3)
@@ -2178,36 +2178,36 @@ Class EvolveProgressBar
     Protected Overrides Sub PaintHook()
         G.SmoothingMode = SmoothingMode.AntiAlias
 
-        Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(6, 0), New Point(Width - 6, 10)), Color.FromArgb(10, 10, 10), Color.FromArgb(47, 47, 47), 90.0F)
-        G.FillRectangle(Gbrush, New Rectangle(New Point(6, 0), New Point(Width - 12, 10)))
-        G.FillEllipse(Gbrush, New Rectangle(New Point(0, 0), New Size(10, 10)))
-        G.FillEllipse(Gbrush, New Rectangle(New Point(Me.Width - 11, 0), New Size(10, 10)))
+        Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 6, 10)), Color.FromArgb(10, 10, 10), Color.FromArgb(47, 47, 47), 90.0F)
+        G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 12, 10)))
+        G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point(0, 0), New System.Drawing.Size(10, 10)))
+        G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point(Me.Width - 11, 0), New System.Drawing.Size(10, 10)))
         If Value < 3 Then
-            Gbrush = New LinearGradientBrush(New Rectangle(New Point(6, 0), New Point(Width - 6, 10)), Color.FromArgb(180, 80, 80), Color.FromArgb(160, 70, 70), 90.0F)
-            G.FillEllipse(Gbrush, New Rectangle(New Point((Me.Width / 100) * _Value - 7, 0), New Size(5, 6)))
-            Gbrush = New LinearGradientBrush(New Rectangle(New Point(6, 0), New Point(Width - 6, 10)), Color.FromArgb(150, 40, 40), Color.FromArgb(120, 30, 30), 90.0F)
-            G.FillEllipse(Gbrush, New Rectangle(New Point((Me.Width / 100) * _Value - 7, 4), New Size(6, 6)))
+            Gbrush = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 6, 10)), Color.FromArgb(180, 80, 80), Color.FromArgb(160, 70, 70), 90.0F)
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point((Me.Width / 100) * _Value - 7, 0), New System.Drawing.Size(5, 6)))
+            Gbrush = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 6, 10)), Color.FromArgb(150, 40, 40), Color.FromArgb(120, 30, 30), 90.0F)
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point((Me.Width / 100) * _Value - 7, 4), New System.Drawing.Size(6, 6)))
             Dim Hatch As New HatchBrush(HatchStyle.WideUpwardDiagonal, Color.FromArgb(50, Color.Black), Color.Transparent)
-            G.FillRectangle(Hatch, New Rectangle(New Point(2, 1), New Point((Me.Width / 100) * _Value - 2, 8)))
+            G.FillRectangle(Hatch, New Rectangle(New System.Drawing.Point(2, 1), New System.Drawing.Point((Me.Width / 100) * _Value - 2, 8)))
         Else
-            Gbrush = New LinearGradientBrush(New Rectangle(New Point(6, 0), New Point(Width - 6, 10)), Color.FromArgb(180, 80, 80), Color.FromArgb(160, 70, 70), 90.0F)
-            G.FillEllipse(Gbrush, New Rectangle(New Point((Me.Width / 100) * _Value - 7, 0), New Size(5, 6)))
-            G.FillEllipse(Gbrush, New Rectangle(New Point(1, 1), New Size(9, 5)))
-            G.FillRectangle(Gbrush, New Rectangle(New Point(7, 1), New Point((Me.Width / 100) * _Value - 11, 4)))
-            Gbrush = New LinearGradientBrush(New Rectangle(New Point(6, 0), New Point(Width - 6, 10)), Color.FromArgb(150, 40, 40), Color.FromArgb(120, 30, 30), 90.0F)
-            G.FillEllipse(Gbrush, New Rectangle(New Point((Me.Width / 100) * _Value - 7, 4), New Size(6, 6)))
-            G.FillEllipse(Gbrush, New Rectangle(New Point(1, 5), New Size(9, 6)))
-            G.FillRectangle(Gbrush, New Rectangle(New Point(7, 5), New Point((Me.Width / 100) * _Value - 11, 4)))
+            Gbrush = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 6, 10)), Color.FromArgb(180, 80, 80), Color.FromArgb(160, 70, 70), 90.0F)
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point((Me.Width / 100) * _Value - 7, 0), New System.Drawing.Size(5, 6)))
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Size(9, 5)))
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(7, 1), New System.Drawing.Point((Me.Width / 100) * _Value - 11, 4)))
+            Gbrush = New LinearGradientBrush(New Rectangle(New System.Drawing.Point(6, 0), New System.Drawing.Point(Width - 6, 10)), Color.FromArgb(150, 40, 40), Color.FromArgb(120, 30, 30), 90.0F)
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point((Me.Width / 100) * _Value - 7, 4), New System.Drawing.Size(6, 6)))
+            G.FillEllipse(Gbrush, New Rectangle(New System.Drawing.Point(1, 5), New System.Drawing.Size(9, 6)))
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(7, 5), New System.Drawing.Point((Me.Width / 100) * _Value - 11, 4)))
             Dim Hatch As New HatchBrush(HatchStyle.WideUpwardDiagonal, Color.FromArgb(50, Color.Black), Color.Transparent)
-            G.FillRectangle(Hatch, New Rectangle(New Point(2, 1), New Point((Me.Width / 100) * _Value - 2, 8)))
+            G.FillRectangle(Hatch, New Rectangle(New System.Drawing.Point(2, 1), New System.Drawing.Point((Me.Width / 100) * _Value - 2, 8)))
         End If
 
-        G.DrawArc(Pens.Black, New Rectangle(New Point(0, 0), New Size(10, 10)), -90, -180)
-        G.DrawLine(Pens.Black, New Point(6, 0), New Point(Me.Width - 7, 0))
-        G.DrawLine(Pens.Black, New Point(6, 10), New Point(Me.Width - 7, 10))
-        G.DrawArc(Pens.Black, New Rectangle(New Point(Me.Width - 11, 0), New Size(10, 10)), 90, -180)
-        G.DrawLine(New Pen(Color.FromArgb(72, 72, 72)), New Point(4, 11), New Point(Me.Width - 4, 11))
-        G.DrawArc(Pens.Black, New Rectangle(New Point((Me.Width / 100) * _Value - 11, 0), New Size(10, 10)), 90, -180)
+        G.DrawArc(Pens.Black, New Rectangle(New System.Drawing.Point(0, 0), New System.Drawing.Size(10, 10)), -90, -180)
+        G.DrawLine(Pens.Black, New System.Drawing.Point(6, 0), New System.Drawing.Point(Me.Width - 7, 0))
+        G.DrawLine(Pens.Black, New System.Drawing.Point(6, 10), New System.Drawing.Point(Me.Width - 7, 10))
+        G.DrawArc(Pens.Black, New Rectangle(New System.Drawing.Point(Me.Width - 11, 0), New System.Drawing.Size(10, 10)), 90, -180)
+        G.DrawLine(New Pen(Color.FromArgb(72, 72, 72)), New System.Drawing.Point(4, 11), New System.Drawing.Point(Me.Width - 4, 11))
+        G.DrawArc(Pens.Black, New Rectangle(New System.Drawing.Point((Me.Width / 100) * _Value - 11, 0), New System.Drawing.Size(10, 10)), 90, -180)
 
         DrawPixel(Color.FromArgb(47, 47, 47), 0, 0)
         DrawPixel(Color.FromArgb(47, 47, 47), 1, 0)
@@ -2269,8 +2269,8 @@ Class EvolveCheckBox
     Protected Overrides Sub PaintHook()
         G.Clear(Color.FromArgb(47, 47, 47))
         If Not Checked And State = MouseState.None Then
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(74, 74, 74), Color.FromArgb(22, 22, 22), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(74, 74, 74), Color.FromArgb(22, 22, 22), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2287,8 +2287,8 @@ Class EvolveCheckBox
             DrawPixel(Color.FromArgb(16, 16, 16), 14, 14)
             G.DrawLine(New Pen(Color.FromArgb(110, 110, 110)), 2, 1, 13, 1)
         ElseIf Not Checked And State = MouseState.Over And X < 17 Then
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(120, 51, 51), Color.FromArgb(50, 13, 13), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(120, 51, 51), Color.FromArgb(50, 13, 13), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2305,8 +2305,8 @@ Class EvolveCheckBox
             DrawPixel(Color.FromArgb(69, 9, 9), 14, 14)
             G.DrawLine(New Pen(Color.FromArgb(145, 90, 90)), 2, 1, 13, 1)
         ElseIf Checked And State = MouseState.None Then
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(161, 51, 51), Color.FromArgb(99, 13, 13), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(161, 51, 51), Color.FromArgb(99, 13, 13), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2322,11 +2322,11 @@ Class EvolveCheckBox
             DrawPixel(Color.FromArgb(69, 9, 9), 1, 14)
             DrawPixel(Color.FromArgb(69, 9, 9), 14, 14)
             G.DrawLine(New Pen(Color.FromArgb(181, 90, 90)), 2, 1, 13, 1)
-            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New Point(-3, -2))
-            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New Point(-3, -3))
+            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New System.Drawing.Point(-3, -2))
+            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New System.Drawing.Point(-3, -3))
         ElseIf Checked And State = MouseState.Over And X < 17 Then
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(180, 51, 51), Color.FromArgb(120, 20, 20), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(180, 51, 51), Color.FromArgb(120, 20, 20), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2342,11 +2342,11 @@ Class EvolveCheckBox
             DrawPixel(Color.FromArgb(69, 9, 9), 1, 14)
             DrawPixel(Color.FromArgb(69, 9, 9), 14, 14)
             G.DrawLine(New Pen(Color.FromArgb(181, 90, 90)), 2, 1, 13, 1)
-            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New Point(-3, -2))
-            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New Point(-3, -3))
+            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New System.Drawing.Point(-3, -2))
+            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New System.Drawing.Point(-3, -3))
         ElseIf Checked And State = MouseState.Over And X >= 17 Then
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(161, 51, 51), Color.FromArgb(99, 13, 13), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(161, 51, 51), Color.FromArgb(99, 13, 13), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2362,11 +2362,11 @@ Class EvolveCheckBox
             DrawPixel(Color.FromArgb(69, 9, 9), 1, 14)
             DrawPixel(Color.FromArgb(69, 9, 9), 14, 14)
             G.DrawLine(New Pen(Color.FromArgb(181, 90, 90)), 2, 1, 13, 1)
-            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New Point(-3, -2))
-            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New Point(-3, -3))
+            G.DrawString("a", New Font("Webdings", 13), New SolidBrush(Color.FromArgb(78, 12, 12)), New System.Drawing.Point(-3, -2))
+            G.DrawString("a", New Font("Webdings", 13), Brushes.White, New System.Drawing.Point(-3, -3))
         Else
-            Dim Gbrush As New LinearGradientBrush(New Rectangle(New Point(1, 1), New Point(14, 14)), Color.FromArgb(74, 74, 74), Color.FromArgb(22, 22, 22), 90.0F)
-            G.FillRectangle(Gbrush, New Rectangle(New Point(1, 1), New Point(14, 14)))
+            Dim Gbrush As New LinearGradientBrush(New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)), Color.FromArgb(74, 74, 74), Color.FromArgb(22, 22, 22), 90.0F)
+            G.FillRectangle(Gbrush, New Rectangle(New System.Drawing.Point(1, 1), New System.Drawing.Point(14, 14)))
             G.DrawLine(Pens.Black, 1, 0, 14, 0)
             G.DrawLine(Pens.Black, 0, 1, 0, 14)
             G.DrawLine(Pens.Black, 15, 1, 15, 14)
@@ -2450,7 +2450,7 @@ Class EvolveRadiobutton
     End Sub
 
     Public Sub New()
-        Me.Size = New Point(50, 14)
+        Me.Size = New System.Drawing.Point(50, 14)
     End Sub
 End Class
 
@@ -2461,7 +2461,7 @@ Class EvolveThemeControl
 
     Sub New()
         TransparencyKey = Color.Fuchsia
-        MinimumSize = New Size(80, 55)
+        MinimumSize = New System.Drawing.Size(80, 55)
         Font = New Font("Segoe UI", 9)
     End Sub
 
@@ -2473,13 +2473,13 @@ Class EvolveThemeControl
         cblend.Colors(1) = Color.FromArgb(50, 50, 50)
         cblend.Positions(0) = 0
         cblend.Positions(1) = 1
-        DrawGradient(cblend, New Rectangle(New Point(2, 2), New Size(Me.Width - 4, 22)))
-        G.DrawLine(New Pen(Color.FromArgb(30, 30, 30)), New Point(2, 24), New Point(Me.Width - 3, 24))
-        G.DrawLine(New Pen(Color.FromArgb(70, 70, 70)), New Point(2, 25), New Point(Me.Width - 3, 25))
+        DrawGradient(cblend, New Rectangle(New System.Drawing.Point(2, 2), New System.Drawing.Size(Me.Width - 4, 22)))
+        G.DrawLine(New Pen(Color.FromArgb(30, 30, 30)), New System.Drawing.Point(2, 24), New System.Drawing.Point(Me.Width - 3, 24))
+        G.DrawLine(New Pen(Color.FromArgb(70, 70, 70)), New System.Drawing.Point(2, 25), New System.Drawing.Point(Me.Width - 3, 25))
         DrawBorders(Pens.Black)
         DrawCorners(Color.Fuchsia)
-        G.DrawIcon(Me.ParentForm.Icon, New Rectangle(New Point(8, 5), New Size(16, 16)))
-        G.DrawString(Me.ParentForm.Text, Font, Brushes.White, New Point(28, 4))
+        G.DrawIcon(Me.ParentForm.Icon, New Rectangle(New System.Drawing.Point(8, 5), New System.Drawing.Size(16, 16)))
+        G.DrawString(Me.ParentForm.Text, Font, Brushes.White, New System.Drawing.Point(28, 4))
     End Sub
 End Class
 
@@ -2523,8 +2523,8 @@ Class EvolveControlBox
     End Property
 
     Sub New()
-        Size = New Size(92, 16)
-        Location = New Point(50, 2)
+        Size = New System.Drawing.Size(92, 16)
+        Location = New System.Drawing.Point(50, 2)
     End Sub
 
     Protected Overrides Sub OnMouseMove(ByVal e As System.Windows.Forms.MouseEventArgs)
@@ -2569,7 +2569,7 @@ Class EvolveControlBox
         cblend.Colors(1) = Color.FromArgb(50, 50, 50)
         cblend.Positions(0) = 0
         cblend.Positions(1) = 1
-        DrawGradient(cblend, New Rectangle(New Point(0, 0), New Size(Me.Width, Me.Height)))
+        DrawGradient(cblend, New Rectangle(New System.Drawing.Point(0, 0), New System.Drawing.Size(Me.Width, Me.Height)))
 
         If _Min And _Max Then
             If State = MouseState.Over Then
@@ -2579,7 +2579,7 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(1, 0), New Size(25, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(1, 0), New System.Drawing.Size(25, 15)))
                 End If
                 If X > 25 And X < 50 Then
                     cblend = New ColorBlend(2)
@@ -2587,7 +2587,7 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(25, 0), New Size(25, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(25, 0), New System.Drawing.Size(25, 15)))
                 End If
                 If X > 50 And X < 90 Then
                     cblend = New ColorBlend(2)
@@ -2595,23 +2595,23 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(50, 0), New Size(40, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(50, 0), New System.Drawing.Size(40, 15)))
                 End If
             End If
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(0, 0), New Point(0, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(1, 15), New Point(89, 15))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(25, 0), New Point(25, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(50, 0), New Point(50, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(90, 0), New Point(90, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(0, 0), New System.Drawing.Point(0, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(1, 15), New System.Drawing.Point(89, 15))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(25, 0), New System.Drawing.Point(25, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(50, 0), New System.Drawing.Point(50, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(90, 0), New System.Drawing.Point(90, 14))
             DrawPixel(Color.FromArgb(104, 104, 104), 1, 14)
             DrawPixel(Color.FromArgb(104, 104, 104), 89, 14)
-            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New Point(63, 2))
+            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(63, 2))
             If FindForm.WindowState = FormWindowState.Normal Then
-                G.DrawString("1", New Font("Marlett", 8), Brushes.White, New Point(32, 2))
+                G.DrawString("1", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(32, 2))
             Else
-                G.DrawString("2", New Font("Marlett", 8), Brushes.White, New Point(32, 2))
+                G.DrawString("2", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(32, 2))
             End If
-            G.DrawString("0", New Font("Marlett", 8), Brushes.White, New Point(6, 2))
+            G.DrawString("0", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(6, 2))
         ElseIf _Min Then
             If State = MouseState.Over Then
                 If X > 0 And X < 25 Then
@@ -2620,7 +2620,7 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(1, 0), New Size(25, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(1, 0), New System.Drawing.Size(25, 15)))
                 End If
                 If X > 25 And X < 65 Then
                     cblend = New ColorBlend(2)
@@ -2628,17 +2628,17 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(25, 0), New Size(40, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(25, 0), New System.Drawing.Size(40, 15)))
                 End If
             End If
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(0, 0), New Point(0, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(25, 0), New Point(25, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(65, 0), New Point(65, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(1, 15), New Point(64, 15))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(0, 0), New System.Drawing.Point(0, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(25, 0), New System.Drawing.Point(25, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(65, 0), New System.Drawing.Point(65, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(1, 15), New System.Drawing.Point(64, 15))
             DrawPixel(Color.FromArgb(104, 104, 104), 1, 14)
             DrawPixel(Color.FromArgb(104, 104, 104), 64, 14)
-            G.DrawString("0", New Font("Marlett", 8), Brushes.White, New Point(6, 2))
-            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New Point(38, 2))
+            G.DrawString("0", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(6, 2))
+            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(38, 2))
         ElseIf _Max Then
             If State = MouseState.Over Then
                 If X > 0 And X < 25 Then
@@ -2647,7 +2647,7 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(1, 0), New Size(25, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(1, 0), New System.Drawing.Size(25, 15)))
                 End If
                 If X > 25 And X < 65 Then
                     cblend = New ColorBlend(2)
@@ -2655,21 +2655,21 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(25, 0), New Size(40, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(25, 0), New System.Drawing.Size(40, 15)))
                 End If
             End If
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(0, 0), New Point(0, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(25, 0), New Point(25, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(65, 0), New Point(65, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(1, 15), New Point(64, 15))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(0, 0), New System.Drawing.Point(0, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(25, 0), New System.Drawing.Point(25, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(65, 0), New System.Drawing.Point(65, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(1, 15), New System.Drawing.Point(64, 15))
             DrawPixel(Color.FromArgb(104, 104, 104), 1, 14)
             DrawPixel(Color.FromArgb(104, 104, 104), 64, 14)
             If FindForm.WindowState = FormWindowState.Normal Then
-                G.DrawString("1", New Font("Marlett", 8), Brushes.White, New Point(6, 2))
+                G.DrawString("1", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(6, 2))
             Else
-                G.DrawString("2", New Font("Marlett", 8), Brushes.White, New Point(6, 2))
+                G.DrawString("2", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(6, 2))
             End If
-            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New Point(38, 2))
+            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(38, 2))
         Else
             If State = MouseState.Over Then
                 If X > 0 And X < 40 Then
@@ -2678,15 +2678,15 @@ Class EvolveControlBox
                     cblend.Colors(1) = Color.FromArgb(60, 60, 60)
                     cblend.Positions(0) = 0
                     cblend.Positions(1) = 1
-                    DrawGradient(cblend, New Rectangle(New Point(1, 0), New Size(40, 15)))
+                    DrawGradient(cblend, New Rectangle(New System.Drawing.Point(1, 0), New System.Drawing.Size(40, 15)))
                 End If
             End If
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(0, 0), New Point(0, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(40, 0), New Point(40, 14))
-            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New Point(1, 15), New Point(39, 15))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(0, 0), New System.Drawing.Point(0, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(40, 0), New System.Drawing.Point(40, 14))
+            G.DrawLine(New Pen(Color.FromArgb(104, 104, 104)), New System.Drawing.Point(1, 15), New System.Drawing.Point(39, 15))
             DrawPixel(Color.FromArgb(104, 104, 104), 1, 14)
             DrawPixel(Color.FromArgb(104, 104, 104), 39, 14)
-            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New Point(13, 2))
+            G.DrawString("r", New Font("Marlett", 8), Brushes.White, New System.Drawing.Point(13, 2))
         End If
     End Sub
 End Class

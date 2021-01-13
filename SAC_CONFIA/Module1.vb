@@ -56,7 +56,7 @@ Module Module1
     Public dataPermisos As DataTable
     Public TipoEquipo As String
     Public Actualizar As Boolean
-
+    Public idSesion As String
     Private WithEvents TestWorker As System.ComponentModel.BackgroundWorker
     Private Declare Function SetProcessWorkingSetSize Lib "kernel32.dll" (
 ByVal process As IntPtr,
@@ -717,7 +717,7 @@ ByVal maximumWorkingSetSize As Integer) As Integer
         pagosemana = (monto / 1000) * pcmil
 
 
-        Dim P As New PrinterClass(Impresora, Application.StartupPath, vistapreviaTicket)
+        Dim P As New PrinterClass(Impresora, System.Windows.Forms.Application.StartupPath, vistapreviaTicket)
         Select Case tipodoc
             Case 1
                 With P

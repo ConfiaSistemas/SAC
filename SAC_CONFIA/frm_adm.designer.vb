@@ -44,6 +44,10 @@ Partial Class frm_adm
         Me.TimerPermisos = New System.Windows.Forms.Timer(Me.components)
         Me.TimerActualizacion = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundActualizacion = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundNotificaciones = New System.ComponentModel.BackgroundWorker()
+        Me.TimerNotificaciones = New System.Windows.Forms.Timer(Me.components)
+        Me.BackgroundActSesion = New System.ComponentModel.BackgroundWorker()
+        Me.TimerActSesion = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         CType(Me.imgperfil, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelmenus.SuspendLayout()
@@ -95,7 +99,7 @@ Partial Class frm_adm
         Me.btn_Actualizar.OnHovercolor = System.Drawing.Color.Gray
         Me.btn_Actualizar.OnHoverTextColor = System.Drawing.Color.White
         Me.btn_Actualizar.selected = False
-        Me.btn_Actualizar.Size = New System.Drawing.Size(144, 48)
+        Me.btn_Actualizar.Size = New System.Drawing.Size(166, 48)
         Me.btn_Actualizar.TabIndex = 7
         Me.btn_Actualizar.Text = "Hay una actualización"
         Me.btn_Actualizar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -434,6 +438,22 @@ Partial Class frm_adm
         'BackgroundActualizacion
         '
         '
+        'BackgroundNotificaciones
+        '
+        '
+        'TimerNotificaciones
+        '
+        Me.TimerNotificaciones.Enabled = True
+        Me.TimerNotificaciones.Interval = 1000
+        '
+        'BackgroundActSesion
+        '
+        '
+        'TimerActSesion
+        '
+        Me.TimerActSesion.Enabled = True
+        Me.TimerActSesion.Interval = 1000
+        '
         'frm_adm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -477,4 +497,8 @@ Partial Class frm_adm
     Friend WithEvents TimerActualizacion As Timer
     Friend WithEvents BackgroundActualizacion As System.ComponentModel.BackgroundWorker
     Friend WithEvents btn_Actualizar As Bunifu.Framework.UI.BunifuFlatButton
+    Friend WithEvents BackgroundNotificaciones As System.ComponentModel.BackgroundWorker
+    Friend WithEvents TimerNotificaciones As Timer
+    Friend WithEvents BackgroundActSesion As System.ComponentModel.BackgroundWorker
+    Friend WithEvents TimerActSesion As Timer
 End Class

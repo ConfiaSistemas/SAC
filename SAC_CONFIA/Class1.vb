@@ -28,7 +28,7 @@ Namespace MonoFlat
             P.AddArc(New Rectangle(Rectangle.Width - ArcRectangleWidth + Rectangle.X, Rectangle.Y, ArcRectangleWidth, ArcRectangleWidth), -90, 90)
             P.AddArc(New Rectangle(Rectangle.Width - ArcRectangleWidth + Rectangle.X, Rectangle.Height - ArcRectangleWidth + Rectangle.Y, ArcRectangleWidth, ArcRectangleWidth), 0, 90)
             P.AddArc(New Rectangle(Rectangle.X, Rectangle.Height - ArcRectangleWidth + Rectangle.Y, ArcRectangleWidth, ArcRectangleWidth), 90, 90)
-            P.AddLine(New Point(Rectangle.X, Rectangle.Height - ArcRectangleWidth + Rectangle.Y), New Point(Rectangle.X, Curve + Rectangle.Y))
+            P.AddLine(New System.Drawing.Point(Rectangle.X, Rectangle.Height - ArcRectangleWidth + Rectangle.Y), New System.Drawing.Point(Rectangle.X, Curve + Rectangle.Y))
             Return P
         End Function
     End Module
@@ -55,7 +55,7 @@ Namespace MonoFlat
         Private HeaderRect As Rectangle
         Protected State As MouseState
         Private MoveHeight As Integer
-        Private MouseP As Point = New Point(0, 0)
+        Private MouseP As System.Drawing.Point = New System.Drawing.Point(0, 0)
         Private Cap As Boolean = False
         Private HasShown As Boolean
 
@@ -153,7 +153,7 @@ Namespace MonoFlat
                     End If
                 End If
                 Parent.BackColor = BackColor
-                '   Parent.MinimumSize = New Size(261, 65)
+                '   Parent.MinimumSize = New System.drawing.size(261, 65)
             End If
         End Sub
 
@@ -215,22 +215,23 @@ Namespace MonoFlat
             If _StartPosition = FormStartPosition.CenterParent OrElse _StartPosition = FormStartPosition.CenterScreen Then
                 Dim SB As Rectangle = Screen.PrimaryScreen.Bounds
                 Dim CB As Rectangle = ParentForm.Bounds
-                ParentForm.Location = New Point(SB.Width \ 2 - CB.Width \ 2, SB.Height \ 2 - CB.Width \ 2)
+                ParentForm.Location = New System.Drawing.Point(SB.Width \ 2 - CB.Width \ 2, SB.Height \ 2 - CB.Width \ 2)
             End If
             HasShown = True
         End Sub
 
 #End Region
-#Region " Mouse & Size "
+#Region " Mouse & System.drawing.size "
 
         Private Sub SetState(ByVal current As MouseState)
             State = current
             Invalidate()
         End Sub
 
-        Private GetIndexPoint As Point
+        Private GetIndexPoint As System.Drawing.Point
         Private B1x, B2x, B3, B4 As Boolean
         Private Function GetIndex() As Integer
+
             GetIndexPoint = PointToClient(MousePosition)
             B1x = GetIndexPoint.X < 7
             B2x = GetIndexPoint.X > Width - 7
@@ -290,7 +291,7 @@ Namespace MonoFlat
             If X + Parent.Width > Width Then X = Width - Parent.Width
             If Y + Parent.Height > Height Then Y = Height - Parent.Height
 
-            Parent.Location = New Point(X, Y)
+            Parent.Location = New System.Drawing.Point(X, Y)
         End Sub
 
         Private WM_LMBUTTONDOWN As Boolean
@@ -304,7 +305,7 @@ Namespace MonoFlat
                 If Not _SmartBounds Then Return
 
                 If IsParentMdi Then
-                    CorrectBounds(New Rectangle(Point.Empty, Parent.Parent.Size))
+                    CorrectBounds(New Rectangle(System.Drawing.Point.Empty, Parent.Size))
                 Else
                     CorrectBounds(Screen.FromControl(Parent).WorkingArea)
                 End If
@@ -401,7 +402,7 @@ Namespace MonoFlat
                 G.FillRectangle(New SolidBrush(Color.FromArgb(32, 41, 50)), Width - 3, Height - 2, 1, 1)
             End If
 
-            G.DrawString(Text, New Font("Microsoft Sans Serif", 12, FontStyle.Bold), New SolidBrush(Color.FromArgb(255, 254, 255)), New Rectangle(20, 20, Width - 1, Height), New StringFormat() With {.Alignment = StringAlignment.Near, .LineAlignment = StringAlignment.Near})
+            G.DrawString(Text, New Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold), New SolidBrush(Color.FromArgb(255, 254, 255)), New Rectangle(20, 20, Width - 1, Height), New StringFormat() With {.Alignment = StringAlignment.Near, .LineAlignment = StringAlignment.Near})
         End Sub
     End Class
 
@@ -466,7 +467,7 @@ Namespace MonoFlat
 
         Protected Overrides Sub OnResize(ByVal e As EventArgs)
             MyBase.OnResize(e)
-            Size = New Size(100, 25)
+            Size = New System.Drawing.Size(100, 25)
         End Sub
 
         Protected Overrides Sub OnMouseMove(ByVal e As MouseEventArgs)
@@ -529,7 +530,7 @@ Namespace MonoFlat
         Protected Overrides Sub OnCreateControl()
             MyBase.OnCreateControl()
             Try
-                Location = New Point(Parent.Width - 112, 15)
+                Location = New System.Drawing.Point(Parent.Width - 112, 15)
             Catch ex As Exception
             End Try
         End Sub
@@ -557,29 +558,29 @@ Namespace MonoFlat
             End If
 
             'Close
-            G.DrawString("r", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New Point(Width - 16, 8), New StringFormat With {.Alignment = StringAlignment.Center})
+            G.DrawString("r", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New System.Drawing.Point(Width - 16, 8), New StringFormat With {.Alignment = StringAlignment.Center})
 
             'Maximize
             Select Case Parent.FindForm().WindowState
                 Case FormWindowState.Maximized
                     If _EnableMaximize = True Then
-                        G.DrawString("2", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                        G.DrawString("2", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New System.Drawing.Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
                     Else
-                        G.DrawString("2", New Font("Marlett", 12), New SolidBrush(Color.LightGray), New Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                        G.DrawString("2", New Font("Marlett", 12), New SolidBrush(Color.LightGray), New System.Drawing.Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
                     End If
                 Case FormWindowState.Normal
                     If _EnableMaximize = True Then
-                        G.DrawString("1", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                        G.DrawString("1", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New System.Drawing.Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
                     Else
-                        G.DrawString("1", New Font("Marlett", 12), New SolidBrush(Color.LightGray), New Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                        G.DrawString("1", New Font("Marlett", 12), New System.Drawing.SolidBrush(Color.LightGray), New System.Drawing.Point(51, 7), New StringFormat With {.Alignment = StringAlignment.Center})
                     End If
             End Select
 
             'Minimize
             If _EnableMinimize = True Then
-                G.DrawString("0", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New Point(20, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                G.DrawString("0", New Font("Marlett", 12), New SolidBrush(Color.FromArgb(255, 254, 255)), New System.Drawing.Point(20, 7), New StringFormat With {.Alignment = StringAlignment.Center})
             Else
-                G.DrawString("0", New Font("Marlett", 12), New SolidBrush(Color.LightGray), New Point(20, 7), New StringFormat With {.Alignment = StringAlignment.Center})
+                G.DrawString("0", New Font("Marlett", 12), New SolidBrush(Color.LightGray), New System.Drawing.Point(20, 7), New StringFormat With {.Alignment = StringAlignment.Center})
             End If
         End Sub
     End Class
@@ -598,7 +599,7 @@ Namespace MonoFlat
         Private R1 As Rectangle
         Private P1, P3 As Pen
         Private _Image As Image
-        Private _ImageSize As Size
+        Private _ImageSize As System.Drawing.Size
         Private _TextAlignment As StringAlignment = StringAlignment.Center
         Private _TextColor As Color = Color.FromArgb(150, 150, 150)
         Private _ImageAlign As ContentAlignment = ContentAlignment.MiddleLeft
@@ -672,7 +673,7 @@ Namespace MonoFlat
             End Get
             Set(ByVal value As Image)
                 If value Is Nothing Then
-                    _ImageSize = Size.Empty
+                    _ImageSize = System.Drawing.Size.Empty
                 Else
                     _ImageSize = value.Size
                 End If
@@ -682,7 +683,7 @@ Namespace MonoFlat
             End Set
         End Property
 
-        Protected ReadOnly Property ImageSize() As Size
+        Protected ReadOnly Property ImageSize() As System.Drawing.Size
             Get
                 Return _ImageSize
             End Get
@@ -747,17 +748,17 @@ Namespace MonoFlat
 #End Region
 
         Sub New()
-            SetStyle(ControlStyles.AllPaintingInWmPaint Or _
-                     ControlStyles.OptimizedDoubleBuffer Or _
-                     ControlStyles.ResizeRedraw Or _
-                     ControlStyles.SupportsTransparentBackColor Or _
+            SetStyle(ControlStyles.AllPaintingInWmPaint Or
+                     ControlStyles.OptimizedDoubleBuffer Or
+                     ControlStyles.ResizeRedraw Or
+                     ControlStyles.SupportsTransparentBackColor Or
                      ControlStyles.UserPaint, True)
 
             BackColor = Color.Transparent
             DoubleBuffered = True
             Font = New Font("Segoe UI", 12)
             ForeColor = Color.FromArgb(255, 255, 255)
-            Size = New Size(146, 41)
+            Size = New System.Drawing.Size(146, 41)
             _TextAlignment = StringAlignment.Center
             P1 = New Pen(Color.FromArgb(181, 41, 42)) ' P1 = Border color
             P3 = New Pen(Color.FromArgb(165, 37, 37))  ' P3 = Border color when pressed
@@ -824,7 +825,7 @@ Namespace MonoFlat
 #Region " Variables "
 
         Private _Image As Image
-        Private _ImageSize As Size
+        Private _ImageSize As System.Drawing.Size
         Private EllipseColor As Color = Color.FromArgb(66, 76, 85)
 
 #End Region
@@ -836,7 +837,7 @@ Namespace MonoFlat
             End Get
             Set(ByVal value As Image)
                 If value Is Nothing Then
-                    _ImageSize = Size.Empty
+                    _ImageSize = System.Drawing.Size.Empty
                 Else
                     _ImageSize = value.Size
                 End If
@@ -846,7 +847,7 @@ Namespace MonoFlat
             End Set
         End Property
 
-        Protected ReadOnly Property ImageSize() As Size
+        Protected ReadOnly Property ImageSize() As System.Drawing.Size
             Get
                 Return _ImageSize
             End Get
@@ -857,7 +858,7 @@ Namespace MonoFlat
 
         Protected Overrides Sub OnResize(ByVal e As EventArgs)
             MyBase.OnResize(e)
-            Me.Size = New Size(54, 54)
+            Size = New System.Drawing.Size(54, 54)
         End Sub
 
         Protected Overrides Sub OnMouseEnter(ByVal e As EventArgs)
@@ -952,7 +953,7 @@ Namespace MonoFlat
         Inherits LinkLabel
 
         Sub New()
-            Font = New Font("Segoe UI", 9, FontStyle.Regular)
+            Font = New Font("Segoe UI", 9, System.Drawing.FontStyle.Regular)
             BackColor = Color.Transparent
             LinkColor = Color.FromArgb(181, 41, 42)
             ActiveLinkColor = Color.FromArgb(153, 34, 34)
@@ -968,7 +969,7 @@ Namespace MonoFlat
         Inherits Label
 
         Sub New()
-            Font = New Font("Segoe UI", 11, FontStyle.Bold)
+            Font = New Font("Segoe UI", 11, System.Drawing.FontStyle.Bold)
             ForeColor = Color.FromArgb(255, 255, 255)
             BackColor = Color.Transparent
         End Sub
@@ -1027,7 +1028,7 @@ Namespace MonoFlat
 
         Protected Overrides Sub OnResize(ByVal e As EventArgs)
             MyBase.OnResize(e)
-            Me.Size = New Size(76, 33)
+            Me.Size = New System.Drawing.Size(76, 33)
         End Sub
 
         Protected Overrides Sub OnMouseUp(ByVal e As System.Windows.Forms.MouseEventArgs)
@@ -1039,9 +1040,9 @@ Namespace MonoFlat
 #End Region
 
         Sub New()
-            SetStyle(ControlStyles.AllPaintingInWmPaint Or _
-                      ControlStyles.DoubleBuffer Or _
-                      ControlStyles.ResizeRedraw Or _
+            SetStyle(ControlStyles.AllPaintingInWmPaint Or
+                      ControlStyles.DoubleBuffer Or
+                      ControlStyles.ResizeRedraw Or
                       ControlStyles.UserPaint, True)
         End Sub
 
@@ -1066,42 +1067,42 @@ Namespace MonoFlat
                 GP = RoundRect(BaseRect, 4)
                 ThumbRect = New Rectangle(4, 4, 36, _Height - 8)
                 GP2 = RoundRect(ThumbRect, 4)
-                .FillPath(New SolidBrush(Color.FromArgb(66, 76, 85)), GP)
-                .FillPath(New SolidBrush(Color.FromArgb(32, 41, 50)), GP2)
+                .FillPath(New System.Drawing.SolidBrush(Color.FromArgb(66, 76, 85)), GP)
+                .FillPath(New System.Drawing.SolidBrush(Color.FromArgb(32, 41, 50)), GP2)
 
                 If _Toggled Then
                     GP = RoundRect(BaseRect, 4)
                     ThumbRect = New Rectangle(CInt(_Width \ 2) - 2, 4, 36, _Height - 8)
                     GP2 = RoundRect(ThumbRect, 4)
-                    .FillPath(New SolidBrush(Color.FromArgb(181, 41, 42)), GP)
-                    .FillPath(New SolidBrush(Color.FromArgb(32, 41, 50)), GP2)
+                    .FillPath(New System.Drawing.SolidBrush(Color.FromArgb(181, 41, 42)), GP)
+                    .FillPath(New System.Drawing.SolidBrush(Color.FromArgb(32, 41, 50)), GP2)
                 End If
 
                 ' Draw string
                 Select Case ToggleType
                     Case _Type.CheckMark
                         If Toggled Then
-                            G.DrawString("ü", New Font("Wingdings", 18, FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 19, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("ü", New Font("Wingdings", 18, System.Drawing.FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 19, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         Else
-                            G.DrawString("r", New Font("Marlett", 14, FontStyle.Regular), Brushes.DimGray, Bar.X + 59, Bar.Y + 18, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("r", New Font("Marlett", 14, System.Drawing.FontStyle.Regular), Brushes.DimGray, Bar.X + 59, Bar.Y + 18, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         End If
                     Case _Type.OnOff
                         If Toggled Then
-                            G.DrawString("ON", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("ON", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         Else
-                            G.DrawString("OFF", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.DimGray, Bar.X + 57, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("OFF", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.DimGray, Bar.X + 57, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         End If
                     Case _Type.YesNo
                         If Toggled Then
-                            G.DrawString("YES", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 19, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("YES", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 19, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         Else
-                            G.DrawString("NO", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.DimGray, Bar.X + 56, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("NO", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.DimGray, Bar.X + 56, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         End If
                     Case _Type.IO
                         If Toggled Then
-                            G.DrawString("I", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("I", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.WhiteSmoke, Bar.X + 18, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         Else
-                            G.DrawString("O", New Font("Segoe UI", 12, FontStyle.Regular), Brushes.DimGray, Bar.X + 57, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                            G.DrawString("O", New Font("Segoe UI", 12, System.Drawing.FontStyle.Regular), Brushes.DimGray, Bar.X + 57, Bar.Y + 16, New StringFormat() With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                         End If
                 End Select
             End With
@@ -1189,12 +1190,12 @@ Namespace MonoFlat
             End If
 
             If Enabled = True Then
-                If _Checked Then G.DrawString("a", New Font("Marlett", 16), New SolidBrush(Color.FromArgb(181, 41, 42)), New Point(-5, -3))
+                If _Checked Then G.DrawString("a", New System.Drawing.Font("Marlett", 16), New System.Drawing.SolidBrush(Color.FromArgb(181, 41, 42)), New System.Drawing.Point(-5, -3))
             Else
-                If _Checked Then G.DrawString("a", New Font("Marlett", 16), New SolidBrush(Color.Gray), New Point(-5, -3))
+                If _Checked Then G.DrawString("a", New System.Drawing.Font("Marlett", 16), New System.Drawing.SolidBrush(Color.Gray), New System.Drawing.Point(-5, -3))
             End If
 
-            G.DrawString(Text, Font, New SolidBrush(Color.FromArgb(116, 125, 132)), New Point(20, 0))
+            G.DrawString(Text, Font, New System.Drawing.SolidBrush(Color.FromArgb(116, 125, 132)), New System.Drawing.Point(20, 0))
         End Sub
     End Class
 #End Region
@@ -1274,13 +1275,13 @@ Namespace MonoFlat
             G.Clear(Parent.BackColor)
             G.SmoothingMode = SmoothingMode.HighQuality
 
-            G.FillEllipse(New SolidBrush(Color.FromArgb(66, 76, 85)), New Rectangle(0, 0, 16, 16))
+            G.FillEllipse(New System.Drawing.SolidBrush(Color.FromArgb(66, 76, 85)), New Rectangle(0, 0, 16, 16))
 
             If _Checked Then
-                G.DrawString("a", New Font("Marlett", 15), New SolidBrush(Color.FromArgb(181, 41, 42)), New Point(-3, -2))
+                G.DrawString("a", New Font("Marlett", 15), New SolidBrush(Color.FromArgb(181, 41, 42)), New System.Drawing.Point(-3, -2))
             End If
 
-            G.DrawString(Text, Font, New SolidBrush(Color.FromArgb(116, 125, 132)), New Point(20, 0))
+            G.DrawString(Text, Font, New System.Drawing.SolidBrush(Color.FromArgb(116, 125, 132)), New System.Drawing.Point(20, 0))
         End Sub
     End Class
 
@@ -1297,7 +1298,7 @@ Namespace MonoFlat
         Private _ReadOnly As Boolean
         Private _Multiline As Boolean
         Private _Image As Image
-        Private _ImageSize As Size
+        Private _ImageSize As System.Drawing.Size
         Private ALNType As HorizontalAlignment
         Private isPasswordMasked As Boolean = False
         Private P1 As Pen
@@ -1372,7 +1373,7 @@ Namespace MonoFlat
             End Get
             Set(ByVal value As Image)
                 If value Is Nothing Then
-                    _ImageSize = Size.Empty
+                    _ImageSize = System.Drawing.Size.Empty
                 Else
                     _ImageSize = value.Size
                 End If
@@ -1380,15 +1381,15 @@ Namespace MonoFlat
                 _Image = value
 
                 If Image Is Nothing Then
-                    MonoFlatTB.Location = New Point(8, 10)
+                    MonoFlatTB.Location = New System.Drawing.Point(8, 10)
                 Else
-                    MonoFlatTB.Location = New Point(35, 11)
+                    MonoFlatTB.Location = New System.Drawing.Point(35, 11)
                 End If
                 Invalidate()
             End Set
         End Property
 
-        Protected ReadOnly Property ImageSize() As Size
+        Protected ReadOnly Property ImageSize() As System.Drawing.Size
             Get
                 Return _ImageSize
             End Get
@@ -1507,7 +1508,7 @@ Namespace MonoFlat
 
         Sub AddTextBox()
             With MonoFlatTB
-                .Location = New Point(8, 10)
+                .Location = New System.Drawing.Point(8, 10)
                 .Text = String.Empty
                 .BorderStyle = BorderStyle.None
                 .TextAlign = HorizontalAlignment.Left
@@ -1536,7 +1537,7 @@ Namespace MonoFlat
 
             Text = Nothing
             Font = New Font("Tahoma", 11)
-            Size = New Size(135, 43)
+            Size = New System.Drawing.Size(135, 43)
             DoubleBuffered = True
         End Sub
 
@@ -1587,7 +1588,7 @@ Namespace MonoFlat
             SetStyle(ControlStyles.UserPaint, True)
 
             BackColor = Color.FromArgb(39, 51, 63)
-            Me.Size = New Size(187, 117)
+            Me.Size = New System.Drawing.Size(187, 117)
             Padding = New Padding(5, 5, 5, 5)
             DoubleBuffered = True
         End Sub
@@ -1630,7 +1631,7 @@ Namespace MonoFlat
 
         Sub New()
             SetStyle(ControlStyles.ResizeRedraw, True)
-            Me.Size = New Point(120, 10)
+            Me.Size = New System.Drawing.Point(120, 10)
         End Sub
 
         Protected Overrides Sub OnPaint(ByVal e As System.Windows.Forms.PaintEventArgs)
@@ -1661,7 +1662,7 @@ Namespace MonoFlat
         Private Cap As Boolean
         Private ValueDrawer As Integer
 
-        Private ThumbSize As Size = New Size(14, 14)
+        Private ThumbSize As System.Drawing.Size = New System.Drawing.Size(14, 14)
         Private TrackThumb As Rectangle
 
         Private _Minimum As Integer = 0
@@ -1784,13 +1785,13 @@ Namespace MonoFlat
 #End Region
 
         Sub New()
-            SetStyle(ControlStyles.AllPaintingInWmPaint Or _
-             ControlStyles.UserPaint Or _
-             ControlStyles.ResizeRedraw Or _
+            SetStyle(ControlStyles.AllPaintingInWmPaint Or
+             ControlStyles.UserPaint Or
+             ControlStyles.ResizeRedraw Or
              ControlStyles.DoubleBuffer, True)
 
-            Size = New Size(80, 22)
-            MinimumSize = New Size(47, 22)
+            Size = New System.Drawing.Size(80, 22)
+            MinimumSize = New System.Drawing.Size(47, 22)
         End Sub
 
         Protected Overrides Sub OnResize(ByVal e As EventArgs)
@@ -1848,7 +1849,7 @@ Namespace MonoFlat
         Private _RoundedCorners As Boolean
         Private _ShowCloseButton As Boolean
         Private _Image As Image
-        Private _ImageSize As Size
+        Private _ImageSize As System.Drawing.Size
 
 #End Region
 #Region " Enums "
@@ -1911,7 +1912,7 @@ Namespace MonoFlat
             End Get
             Set(ByVal value As Image)
                 If value Is Nothing Then
-                    _ImageSize = Size.Empty
+                    _ImageSize = System.Drawing.Size.Empty
                 Else
                     _ImageSize = value.Size
                 End If
@@ -1920,8 +1921,8 @@ Namespace MonoFlat
                 Invalidate()
             End Set
         End Property
-        ' Size value - returns the image size
-        Protected ReadOnly Property ImageSize() As Size
+        ' System.drawing.size value - returns the image size
+        Protected ReadOnly Property ImageSize() As System.Drawing.Size
             Get
                 Return _ImageSize
             End Get
@@ -1974,13 +1975,13 @@ Namespace MonoFlat
         End Function
 
         Sub New()
-            SetStyle(ControlStyles.AllPaintingInWmPaint Or _
-                     ControlStyles.UserPaint Or _
-                     ControlStyles.OptimizedDoubleBuffer Or _
+            SetStyle(ControlStyles.AllPaintingInWmPaint Or
+                     ControlStyles.UserPaint Or
+                     ControlStyles.OptimizedDoubleBuffer Or
                      ControlStyles.ResizeRedraw, True)
 
             Font = New Font("Tahoma", 9)
-            Me.MinimumSize = New Size(100, 40)
+            Me.MinimumSize = New System.Drawing.Size(100, 40)
             RoundCorners = False
             ShowCloseButton = True
         End Sub
@@ -1993,7 +1994,7 @@ Namespace MonoFlat
             ' Declare Color to paint the control's Text, Background and Border
             Dim ForeColor, BackgroundColor, BorderColor As Color
             ' Determine the header Notification Type font
-            Dim TypeFont As New Font(Font.FontFamily, Font.Size, FontStyle.Bold)
+            Dim TypeFont As New Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Bold)
             ' Decalre a new rectangle to draw the control inside it
             Dim MainRectangle As New Rectangle(0, 0, Width - 1, Height - 1)
             ' Declare a GraphicsPath to create a border radius
@@ -2042,11 +2043,11 @@ Namespace MonoFlat
             End Select
 
             If IsNothing(Image) Then
-                GFX.DrawString(NotificationText, TypeFont, New SolidBrush(ForeColor), New Point(10, 5))
+                GFX.DrawString(NotificationText, TypeFont, New SolidBrush(ForeColor), New System.Drawing.Point(10, 5))
                 GFX.DrawString(Text, Font, New SolidBrush(ForeColor), New Rectangle(10, 21, Width - 17, Height - 5))
             Else
                 GFX.DrawImage(_Image, 12, 4, 16, 16)
-                GFX.DrawString(NotificationText, TypeFont, New SolidBrush(ForeColor), New Point(30, 5))
+                GFX.DrawString(NotificationText, TypeFont, New SolidBrush(ForeColor), New System.Drawing.Point(30, 5))
                 GFX.DrawString(Text, Font, New SolidBrush(ForeColor), New Rectangle(10, 21, Width - 17, Height - 5))
             End If
 
@@ -2054,7 +2055,7 @@ Namespace MonoFlat
 
             If _ShowCloseButton = True Then
                 ' Draw the close button
-                GFX.DrawString("r", New Font("Marlett", 7, FontStyle.Regular), New SolidBrush(Color.FromArgb(130, 130, 130)), New Rectangle(Width - 20, 10, Width, Height), New StringFormat() With {.Alignment = StringAlignment.Near, .LineAlignment = StringAlignment.Near})
+                GFX.DrawString("r", New Font("Marlett", 7, System.Drawing.FontStyle.Regular), New System.Drawing.SolidBrush(Color.FromArgb(130, 130, 130)), New Rectangle(Width - 20, 10, Width, Height), New StringFormat() With {.Alignment = StringAlignment.Near, .LineAlignment = StringAlignment.Near})
             End If
 
             CrvBorderPath.Dispose()

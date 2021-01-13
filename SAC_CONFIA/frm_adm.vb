@@ -8,7 +8,7 @@ Public Class frm_adm
     Dim widthmenu As Integer = 0
     Dim widthmenubool As Boolean = False
     Dim widthmenuperfilbool As Boolean = False
-    Dim sizeventanas As Size
+    Dim sizeventanas As System.Drawing.Size
     Dim op As Double = 0
     Dim tipoPago As String
     Public cerrarSesion As Boolean
@@ -18,6 +18,8 @@ Public Class frm_adm
     Public mostrarpanelsecundario As Boolean = False
     Public autorizadoTicketExtra As Boolean
     Dim hayActualizacion As Boolean
+    Dim array As ArrayList = New ArrayList
+
     Friend conexionsql As MySql.Data.MySqlClient.MySqlConnection
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         Timer1.Interval = 150
@@ -84,9 +86,9 @@ Public Class frm_adm
                         'End If
                         'Next
 
-                        Dim num_controles As Integer = Application.OpenForms.Count - 1
+                        Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
                         For n As Integer = num_controles To 0 Step -1
-                            Dim ctrl As Form = Application.OpenForms.Item(n)
+                            Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
                             If ctrl.Name <> "Empresas" Or ctrl.Name <> Me.Name Then
                                 'MessageBox.Show(ctrl.Name)
                                 ctrl.Close()
@@ -133,9 +135,9 @@ Public Class frm_adm
                                 'End If
                                 'Next
 
-                                Dim num_controles As Integer = Application.OpenForms.Count - 1
+                                Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
                                 For n As Integer = num_controles To 0 Step -1
-                                    Dim ctrl As Form = Application.OpenForms.Item(n)
+                                    Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
                                     If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
                                         ctrl.Close()
                                     End If
@@ -159,7 +161,7 @@ Public Class frm_adm
                                 If MessageBox.Show("¿Está seguro que desea salir?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
                                     perfilalt.TopMost = False
 
-                                    Application.ExitThread()
+                                    System.Windows.Forms.Application.ExitThread()
 
 
 
@@ -286,12 +288,18 @@ Public Class frm_adm
         TimerActualizacion.Interval = 60000
         TimerActualizacion.Enabled = True
         TimerActualizacion.Start()
+        TimerNotificaciones.Interval = 60000
+        TimerNotificaciones.Enabled = True
+        TimerNotificaciones.Start()
+        TimerActSesion.Interval = 60000
+        TimerActSesion.Enabled = True
+        TimerActSesion.Start()
         CanCobrar = PuedeCobrar()
 
         DoubleBuffered = True
 
         Me.Text = "SAC" & " - " & nombreAmostrar
-        sizeventanas = New Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
+        sizeventanas = New System.Drawing.Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
         If imgstrusr = "" Then
             imgperfil.Image = SAC_CONFIA.My.Resources.Resources.usuario
         Else
@@ -312,7 +320,7 @@ Public Class frm_adm
         inicio.FormBorderStyle = Forms.FormBorderStyle.None
         inicio.AutoScroll = False
 
-        inicio.Location = New Point(panelmenus.Width, Panel1.Height)
+        inicio.Location = New System.Drawing.Point(panelmenus.Width, Panel1.Height)
         'inv.Height = Me.Height - Panel1.Height
         'inv.Width = Me.Width - panelmenus.Width
         'panelmenus.Width = 0
@@ -589,7 +597,7 @@ Public Class frm_adm
         'End If
 
         Timerwidthmenos.Interval = 1
-        sizeventanas = New Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
+        sizeventanas = New System.Drawing.Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
         panelmenus.Enabled = False
         panelmenus.Width = widthmenu
         If panelmenus.Width > 0 Then
@@ -609,7 +617,7 @@ Public Class frm_adm
 
     Private Sub Timerwidthmas_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timerwidthmas.Tick
         Timerwidthmas.Interval = 1
-        sizeventanas = New Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
+        sizeventanas = New System.Drawing.Size(Me.Width - panelmenus.Width - 20, Me.Height - Panel1.Height - 43)
         panelmenus.Enabled = False
 
         panelmenus.Width = widthmenu
@@ -779,7 +787,7 @@ Public Class frm_adm
 
             conexionsql.Close()
 
-            If Application.ProductVersion <> versionAct Then
+            If System.Windows.Forms.Application.ProductVersion <> versionAct Then
                 hayActualizacion = True
 
 
@@ -807,10 +815,231 @@ Public Class frm_adm
             Proceso.StartInfo.FileName = ruta
             Proceso.StartInfo.Arguments = "/S SAC /T " & TipoEquipo
             Proceso.Start()
-            Application.Exit()
+            System.Windows.Forms.Application.Exit()
         Else
             Actualizar = False
 
+        End If
+    End Sub
+
+    Private Sub BackgroundNotificaciones_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundNotificaciones.DoWork
+        Try
+
+
+
+            Dim conexionNotificaciones As MySqlConnection
+            conexionNotificaciones = New MySqlConnection()
+            conexionNotificaciones.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+            conexionNotificaciones.Open()
+
+            Dim mysqlcomando As MySqlCommand
+            Dim consulta As String
+            Dim readerNotificacion As MySqlDataReader
+
+            consulta = "select * from Notificaciones where Usuario = '" & nmusr & "' and Aplicado = 0 and idSesion='" & idSesion & "'"
+            mysqlcomando = New MySqlCommand
+            mysqlcomando.Connection = conexionNotificaciones
+            mysqlcomando.CommandText = consulta
+            readerNotificacion = mysqlcomando.ExecuteReader
+
+            While readerNotificacion.Read
+                Dim Nnotificacion As New Notificaciones
+                Nnotificacion.id = readerNotificacion("id")
+                Nnotificacion.Tipo = readerNotificacion("tipo")
+                Nnotificacion.Usuario = readerNotificacion("Usuario")
+                Nnotificacion.UsuarioDestino = readerNotificacion("usuariodestino")
+                Nnotificacion.Notificacion = readerNotificacion("notificacion")
+                Nnotificacion.Mensaje = readerNotificacion("Mensaje")
+                Array.Add(Nnotificacion)
+            End While
+            readerNotificacion.Close()
+            ' conexionNotificaciones.Close()
+
+            For a As Integer = Array.Count - 1 To 0 Step -1
+                If Array(a).Tipo = "Logout" Then
+                    Dim comandoActNotificacion As MySqlCommand
+                    Dim consultaActNotificacion As String
+                    comandoActNotificacion = New MySqlCommand
+                    consultaActNotificacion = "update Notificaciones set Aplicado = 1 where id = '" & Array(a).id & "'"
+                    comandoActNotificacion.Connection = conexionNotificaciones
+                    comandoActNotificacion.CommandText = consultaActNotificacion
+                    comandoActNotificacion.ExecuteNonQuery()
+                    If array(a).Mensaje <> "" Then
+                        Me.Invoke(Sub()
+                                      Dim nAlertas As New Alertas
+                                      nAlertas.cadena = array(a).Mensaje
+                                      nAlertas.ShowDialog()
+                                      nAlertas.TopMost = True
+                                  End Sub)
+
+
+
+
+                    End If
+                    Actualizar = True
+
+                    Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
+                    For n As Integer = num_controles To 0 Step -1
+                        Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
+                        If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
+                            ctrl.Close()
+                        End If
+
+                        'ctrl.Dispose()
+                    Next
+                    Me.Invoke(Sub()
+                                  login.Show()
+                              End Sub)
+
+
+                    Me.Close()
+                End If
+                If Array(a).Tipo = "Message" Then
+
+
+                    Me.Invoke(Sub()
+                                  Dim nAlertas As New Alertas
+                                  nAlertas.cadena = array(a).Mensaje
+                                  nAlertas.ShowDialog()
+                                  nAlertas.TopMost = True
+                              End Sub)
+
+                    Dim comandoActNotificacion As MySqlCommand
+                    Dim consultaActNotificacion As String
+                    comandoActNotificacion = New MySqlCommand
+                    consultaActNotificacion = "update Notificaciones set Aplicado = 1 where id = '" & Array(a).id & "'"
+                    comandoActNotificacion.Connection = conexionNotificaciones
+                    comandoActNotificacion.CommandText = consultaActNotificacion
+                    comandoActNotificacion.ExecuteNonQuery()
+                    Array.RemoveAt(a)
+                End If
+                If Array(a).Tipo = "CargarPermisos" Then
+                    If array(a).Mensaje <> "" Then
+
+                        Me.Invoke(Sub()
+                                      Dim nAlertas As New Alertas
+                                      nAlertas.cadena = array(a).Mensaje
+                                      nAlertas.ShowDialog()
+                                      nAlertas.TopMost = True
+                                  End Sub)
+                    End If
+                    cargarperfil()
+                    Dim comandoActNotificacion As MySqlCommand
+                    Dim consultaActNotificacion As String
+                    comandoActNotificacion = New MySqlCommand
+                    consultaActNotificacion = "update Notificaciones set Aplicado = 1 where id = '" & Array(a).id & "'"
+                    comandoActNotificacion.Connection = conexionNotificaciones
+                    comandoActNotificacion.CommandText = consultaActNotificacion
+                    comandoActNotificacion.ExecuteNonQuery()
+                    Array.RemoveAt(a)
+                End If
+                If Array(a).Tipo = "Update" Then
+                    If array(a).Mensaje <> "" Then
+
+                        Me.Invoke(Sub()
+                                      Dim nAlertas As New Alertas
+                                      nAlertas.cadena = array(a).Mensaje
+                                      nAlertas.ShowDialog()
+                                      nAlertas.TopMost = True
+                                  End Sub)
+                    End If
+
+                    Dim comandoActNotificacion As MySqlCommand
+                    Dim consultaActNotificacion As String
+                    comandoActNotificacion = New MySqlCommand
+                    consultaActNotificacion = "update Notificaciones set Aplicado = 1 where id = '" & Array(a).id & "'"
+                    comandoActNotificacion.Connection = conexionNotificaciones
+                    comandoActNotificacion.CommandText = consultaActNotificacion
+                    comandoActNotificacion.ExecuteNonQuery()
+                    Actualizar = True
+
+                    Dim ruta As String = "C:\ConfiaAdmin\Updater\Updater.exe"
+                    Dim Proceso As Process = New Process
+                    Proceso.StartInfo.FileName = ruta
+                    Proceso.StartInfo.Arguments = "/S SAC /T " & TipoEquipo
+                    Proceso.Start()
+
+                    System.Windows.Forms.Application.Exit()
+                End If
+            Next
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub TimerNotificaciones_Tick(sender As Object, e As EventArgs) Handles TimerNotificaciones.Tick
+        If BackgroundNotificaciones.IsBusy = True Then
+        Else
+            BackgroundNotificaciones.RunWorkerAsync()
+
+        End If
+    End Sub
+
+    Private Sub BackgroundActSesion_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundActSesion.DoWork
+        Try
+            Dim conexionSesion As MySqlConnection
+            conexionSesion = New MySqlConnection()
+            conexionSesion.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+            conexionSesion.Open()
+
+            Dim mysqlcomando As MySqlCommand
+            Dim consulta As String
+            Dim sesionActiva As Boolean
+
+            consulta = "select Activo from Sesiones where Usuario = '" & nmusr & "' and id='" & idSesion & "'"
+            mysqlcomando = New MySqlCommand
+            mysqlcomando.Connection = conexionSesion
+            mysqlcomando.CommandText = consulta
+            sesionActiva = mysqlcomando.ExecuteScalar
+
+            If sesionActiva Then
+                Dim comandoActSesion As MySqlCommand
+                Dim consultaActSesion As String
+                consultaActSesion = "update Sesiones set UltimoAcceso = '" & Date.Now.ToString("yyyy-MM-dd HH:mm:ss") & "' where id = '" & idSesion & "'"
+                comandoActSesion = New MySqlCommand
+                comandoActSesion.Connection = conexionSesion
+                comandoActSesion.CommandText = consultaActSesion
+                comandoActSesion.ExecuteNonQuery()
+                conexionSesion.Close()
+            Else
+
+                Me.Invoke(Sub()
+                              Dim nAlertas As New Alertas
+                              nAlertas.cadena = "Han pasado más de 5 minutos sin conexión, la sesión se cerrará"
+                              nAlertas.ShowDialog()
+                              nAlertas.TopMost = True
+                          End Sub)
+
+
+
+                Actualizar = True
+                ' login.Show()
+
+                Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
+                For n As Integer = num_controles To 0 Step -1
+                    Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
+                    If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
+                        ctrl.Close()
+                    End If
+
+                    'ctrl.Dispose()
+                Next
+                Me.Invoke(Sub()
+                              login.Show()
+                          End Sub)
+
+                Me.Close()
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub TimerActSesion_Tick(sender As Object, e As EventArgs) Handles TimerActSesion.Tick
+        If BackgroundActSesion.IsBusy = True Then
+        Else
+            BackgroundActSesion.RunWorkerAsync()
         End If
     End Sub
 End Class

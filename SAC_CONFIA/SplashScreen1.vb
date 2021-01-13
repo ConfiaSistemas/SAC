@@ -87,7 +87,7 @@ Public NotInheritable Class SplashScreen1
 
         conexionAct.Close()
 
-        If Application.ProductVersion <> versionAct Then
+        If System.Windows.Forms.Application.ProductVersion <> versionAct Then
             hayActualizaciones = True
 
 
@@ -103,7 +103,7 @@ Public NotInheritable Class SplashScreen1
                 Proceso.StartInfo.FileName = ruta
                 Proceso.StartInfo.Arguments = "/S SAC /T " & TipoEquipo
                 Proceso.Start()
-                Application.Exit()
+                System.Windows.Forms.Application.Exit()
             Else
                 Timer1.Interval = 500
                 Timer1.Enabled = True
@@ -152,7 +152,7 @@ Public NotInheritable Class SplashScreen1
 
         conexionsql.Close()
 
-        If Application.ProductVersion <> versionAct Then
+        If System.Windows.Forms.Application.ProductVersion <> versionAct Then
             hayActualizaciones = True
 
 
@@ -167,7 +167,7 @@ Public NotInheritable Class SplashScreen1
                 Proceso.StartInfo.FileName = ruta
                 Proceso.StartInfo.Arguments = "/S SAC /T " & TipoEquipo
                 Proceso.Start()
-                Application.Exit()
+                System.Windows.Forms.Application.Exit()
             Else
                 Timer1.Interval = 500
                 Timer1.Enabled = True

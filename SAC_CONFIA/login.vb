@@ -9,6 +9,7 @@ Imports MadMilkman.Ini
 Imports System.IO
 Imports System.Threading.Tasks
 Imports System.ComponentModel
+Imports MySql.Data.MySqlClient
 
 Public Class login
     Public bloqueado As Boolean
@@ -89,7 +90,23 @@ Public Class login
                                                         cargarperfil()
 
                                                         'frm_adm.Show()
+                                                        Try
+                                                            Dim conexionLogin As MySqlConnection
+                                                            conexionLogin = New MySqlConnection()
+                                                            conexionLogin.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+                                                            conexionLogin.Open()
+                                                            Dim comandoLogin As MySqlCommand
+                                                            Dim consultaLogin As String
+                                                            consultaLogin = "insert into Sesiones values(null,'" & nmusr & "','','" & Date.Now.ToString("yyyy-MM-dd") & "','" & Date.Now.ToString("HH:mm:ss") & "','1','" & Date.Now.ToString("yyyy-MM-dd HH:mm:ss") & "','SAC'); SELECT LAST_INSERT_ID();"
+                                                            comandoLogin = New MySqlCommand
+                                                            comandoLogin.Connection = conexionLogin
+                                                            comandoLogin.CommandText = consultaLogin
+                                                            idSesion = comandoLogin.ExecuteScalar
+                                                            conexionLogin.Close()
 
+                                                        Catch ex As Exception
+                                                            MessageBox.Show(ex.Message)
+                                                        End Try
 
                                                     End Sub)
                         Empresas.Show()
