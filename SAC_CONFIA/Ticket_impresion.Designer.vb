@@ -25,7 +25,7 @@ Partial Class Ticket_impresion
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ticket_impresion))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.MonoFlat_HeaderLabel1 = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
+        Me.MonoFlat_HeaderLabel1 = New MonoFlat.MonoFlat_HeaderLabel()
         Me.EvolveControlBox1 = New SAC_CONFIA.EvolveControlBox()
         Me.txtTotal = New Bunifu.Framework.UI.BunifuMaterialTextbox()
         Me.MonoFlat_HeaderLabel2 = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()

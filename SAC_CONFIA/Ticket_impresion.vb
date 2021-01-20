@@ -1086,6 +1086,17 @@ Public Class Ticket_impresion
                                                                       comandoAbonado.ExecuteNonQuery()
 
                                                                       saldo = saldo - row.Cells(7).Value
+                                                                      Dim comandoAplicaPromesa As SqlCommand
+                                                                      Dim consultaAplicaPromesa As String
+
+                                                                      consultaAplicaPromesa = "AplicarPromesa"
+                                                                      comandoAplicaPromesa = New SqlCommand
+                                                                      comandoAplicaPromesa.Connection = conexionempresa
+                                                                      comandoAplicaPromesa.CommandText = consultaAplicaPromesa
+                                                                      comandoAplicaPromesa.CommandType = CommandType.StoredProcedure
+                                                                      comandoAplicaPromesa.Parameters.AddWithValue("idPromesa", row.Cells(1).Value)
+
+                                                                      comandoAplicaPromesa.ExecuteNonQuery()
                                                                   Else
                                                                       Exit For
                                                                   End If

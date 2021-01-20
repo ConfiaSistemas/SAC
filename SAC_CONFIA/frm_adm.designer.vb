@@ -31,7 +31,7 @@ Partial Class frm_adm
         Me.BunifuFlatButton6 = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnusuarios = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnconfiguracion = New Bunifu.Framework.UI.BunifuFlatButton()
-        Me.notificaciones = New SAC_CONFIA.MonoFlat.MonoFlat_NotificationBox()
+        Me.notificaciones = New MonoFlat.MonoFlat_NotificationBox()
         Me.imgperfil = New Bunifu.Framework.UI.BunifuImageButton()
         Me.panelmenus = New System.Windows.Forms.Panel()
         Me.BunifuFlatButton5 = New Bunifu.Framework.UI.BunifuFlatButton()

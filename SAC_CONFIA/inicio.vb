@@ -173,7 +173,7 @@ Public Class inicio
             select Legales.id,Legales.Nombre,MontoConvenio as Monto, Legales.Plazo, ('0')as pagoindividual, credito.Estado,  ('0')as Interes from credito inner join Solicitud on Credito.IdSolicitud=Solicitud.id
 			inner join Legales on Legales.idSolicitud=Solicitud.id where Credito.id='" & txtid.Text & "'
             else
-            select cred.*,ISNULL((select id from PromesaDePago where idCredito = cred.id),0) as idPromesa from
+            select cred.*,ISNULL((select id from PromesaDePago where idCredito = cred.id and estado = 'A'),0) as idPromesa from
 			(Select id,nombre,monto,plazo,interes,pagoindividual,estado from credito where id = '" & txtid.Text & "')cred"
 
         Else
