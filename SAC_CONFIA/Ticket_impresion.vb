@@ -471,6 +471,29 @@ Public Class Ticket_impresion
                                             End If
                                         End Try
 
+                                        Dim comandoConsultaValorCartera As SqlCommand
+                                        Dim consultaValorCarteraCredito As String
+                                        Dim valCarteraSmultas As Double
+                                        consultaValorCarteraCredito = "Select dbo.ValCarteraSmultas('" & idCreditoRecibo & "')"
+                                        comandoConsultaValorCartera = New SqlCommand
+                                        comandoConsultaValorCartera.Connection = conexionempresa
+                                        comandoConsultaValorCartera.CommandText = consultaValorCarteraCredito
+                                        valCarteraSmultas = comandoConsultaValorCartera.ExecuteScalar
+
+                                        If valCarteraSmultas = 0 Then
+
+
+                                            Dim comandoLiquida As SqlCommand
+                                            Dim consultaLiquida As String
+                                            consultaLiquida = "Update credito set estado = 'T' where id = '" & idCreditoRecibo & "'"
+                                            comandoLiquida = New SqlCommand
+                                            comandoLiquida.Connection = conexionempresa
+                                            comandoLiquida.CommandText = consultaLiquida
+                                            comandoLiquida.ExecuteNonQuery()
+
+
+                                        End If
+
 
                                         Dim pagosemana As Double
                                         pagosemana = (montocredito / 1000) * pcmil
@@ -2600,6 +2623,31 @@ Public Class Ticket_impresion
                                         End Try
 
 
+                                        Dim comandoConsultaValorCartera As SqlCommand
+                                        Dim consultaValorCarteraCredito As String
+                                        Dim valCarteraSmultas As Double
+                                        consultaValorCarteraCredito = "Select dbo.ValCarteraSmultas('" & idCreditoRecibo & "')"
+                                        comandoConsultaValorCartera = New SqlCommand
+                                        comandoConsultaValorCartera.Connection = conexionempresa
+                                        comandoConsultaValorCartera.CommandText = consultaValorCarteraCredito
+                                        valCarteraSmultas = comandoConsultaValorCartera.ExecuteScalar
+
+                                        If valCarteraSmultas = 0 Then
+
+
+                                            Dim comandoLiquida As SqlCommand
+                                            Dim consultaLiquida As String
+                                            consultaLiquida = "Update credito set estado = 'T' where id = '" & idCreditoRecibo & "'"
+                                            comandoLiquida = New SqlCommand
+                                            comandoLiquida.Connection = conexionempresa
+                                            comandoLiquida.CommandText = consultaLiquida
+                                            comandoLiquida.ExecuteNonQuery()
+
+
+                                        End If
+
+
+
                                         Dim pagosemana As Double
                                         pagosemana = (montocredito / 1000) * pcmil
 
@@ -3241,6 +3289,30 @@ Public Class Ticket_impresion
                                                 atraso = comandoAtraso.ExecuteScalar
                                             End If
                                         End Try
+
+
+                                        Dim comandoConsultaValorCartera As SqlCommand
+                                        Dim consultaValorCarteraCredito As String
+                                        Dim valCarteraSmultas As Double
+                                        consultaValorCarteraCredito = "Select dbo.ValCarteraSmultas('" & idCreditoRecibo & "')"
+                                        comandoConsultaValorCartera = New SqlCommand
+                                        comandoConsultaValorCartera.Connection = conexionempresa
+                                        comandoConsultaValorCartera.CommandText = consultaValorCarteraCredito
+                                        valCarteraSmultas = comandoConsultaValorCartera.ExecuteScalar
+
+                                        If valCarteraSmultas = 0 Then
+
+
+                                            Dim comandoLiquida As SqlCommand
+                                            Dim consultaLiquida As String
+                                            consultaLiquida = "Update credito set estado = 'T' where id = '" & idCreditoRecibo & "'"
+                                            comandoLiquida = New SqlCommand
+                                            comandoLiquida.Connection = conexionempresa
+                                            comandoLiquida.CommandText = consultaLiquida
+                                            comandoLiquida.ExecuteNonQuery()
+
+
+                                        End If
 
 
                                         Dim pagosemana As Double
