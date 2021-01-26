@@ -35,6 +35,7 @@ Public Class Ticket_impresion
     Public abonadoEmpeño As Double
 
     Private Sub Ticket_Comision_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lblTitulo.Text = "Ticket " & nombre_credito
         txtTotal.Text = total
         txtTotalApagar.Text = total
         totalApagar = total

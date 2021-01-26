@@ -458,31 +458,33 @@ Public Class inicio
     Public Sub SubCobrar()
         If CanCobrar Then
 
-
+            Dim frmTicket As New Ticket_impresion
+            frmTicket.idCreditoRecibo = idCredito
             Dim nombredoc As String
             nombredoc = GetNombreDoc(tipoDoc)
             If nombredoc = "Liquidación Insoluto" Or nombredoc = "Renovación Insoluto" Then
-                Ticket_impresion.total = totalLiquidacion
-                Ticket_impresion.MultasLiquidacion = multasLiquidacion
-                Ticket_impresion.MontoLiquidacionSmultas = MontoliquidacionSmultas
+                frmTicket.total = totalLiquidacion
+                frmTicket.MultasLiquidacion = multasLiquidacion
+                frmTicket.MontoLiquidacionSmultas = MontoliquidacionSmultas
             Else
 
-                Ticket_impresion.total = lblpago.Text
+                frmTicket.total = lblpago.Text
 
             End If
-            Ticket_impresion.idCreditoRecibo = idCredito
 
-            Ticket_impresion.montocredito = montoCredito
-            Ticket_impresion.pcmil = interesCredito
-            Ticket_impresion.cp = plazo
-            Ticket_impresion.tipoDoc = tipoDoc
-            Ticket_impresion.convenio = convenioCredito
-            Ticket_impresion.cpConvenio = cpConvenio
-            Ticket_impresion.montoConvenio = MontoConvenio
-            Ticket_impresion.nombre_credito = nombreCredito
-            Ticket_impresion.insoluto = Insoluto
-            Ticket_impresion.Show()
-            Ticket_impresion.TopMost = True
+
+            frmTicket.montocredito = montoCredito
+            frmTicket.pcmil = interesCredito
+            frmTicket.cp = plazo
+            frmTicket.tipoDoc = tipoDoc
+            frmTicket.convenio = convenioCredito
+            frmTicket.cpConvenio = cpConvenio
+            frmTicket.montoConvenio = MontoConvenio
+            frmTicket.nombre_credito = nombreCredito
+            frmTicket.insoluto = Insoluto
+
+            frmTicket.Show()
+            frmTicket.TopMost = True
         Else
             MessageBox.Show("Has alcanzado el límite de dinero en caja, realiza un retiro para poder seguir cobrando")
         End If

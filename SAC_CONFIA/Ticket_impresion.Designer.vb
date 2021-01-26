@@ -25,7 +25,7 @@ Partial Class Ticket_impresion
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ticket_impresion))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.MonoFlat_HeaderLabel1 = New MonoFlat.MonoFlat_HeaderLabel()
+        Me.lblTitulo = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
         Me.EvolveControlBox1 = New SAC_CONFIA.EvolveControlBox()
         Me.txtTotal = New Bunifu.Framework.UI.BunifuMaterialTextbox()
         Me.MonoFlat_HeaderLabel2 = New SAC_CONFIA.MonoFlat.MonoFlat_HeaderLabel()
@@ -45,24 +45,24 @@ Partial Class Ticket_impresion
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Panel1.Controls.Add(Me.MonoFlat_HeaderLabel1)
+        Me.Panel1.Controls.Add(Me.lblTitulo)
         Me.Panel1.Controls.Add(Me.EvolveControlBox1)
         Me.Panel1.Location = New System.Drawing.Point(3, 4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(475, 36)
         Me.Panel1.TabIndex = 2
         '
-        'MonoFlat_HeaderLabel1
+        'lblTitulo
         '
-        Me.MonoFlat_HeaderLabel1.AutoSize = True
-        Me.MonoFlat_HeaderLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.MonoFlat_HeaderLabel1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.MonoFlat_HeaderLabel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MonoFlat_HeaderLabel1.Location = New System.Drawing.Point(3, 5)
-        Me.MonoFlat_HeaderLabel1.Name = "MonoFlat_HeaderLabel1"
-        Me.MonoFlat_HeaderLabel1.Size = New System.Drawing.Size(51, 20)
-        Me.MonoFlat_HeaderLabel1.TabIndex = 1
-        Me.MonoFlat_HeaderLabel1.Text = "Ticket"
+        Me.lblTitulo.AutoSize = True
+        Me.lblTitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lblTitulo.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.lblTitulo.Location = New System.Drawing.Point(3, 5)
+        Me.lblTitulo.Name = "lblTitulo"
+        Me.lblTitulo.Size = New System.Drawing.Size(51, 20)
+        Me.lblTitulo.TabIndex = 1
+        Me.lblTitulo.Text = "Ticket"
         '
         'EvolveControlBox1
         '
@@ -305,7 +305,7 @@ Partial Class Ticket_impresion
     End Sub
 
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents MonoFlat_HeaderLabel1 As MonoFlat.MonoFlat_HeaderLabel
+    Friend WithEvents lblTitulo As MonoFlat.MonoFlat_HeaderLabel
     Friend WithEvents EvolveControlBox1 As EvolveControlBox
     Friend WithEvents txtTotal As Bunifu.Framework.UI.BunifuMaterialTextbox
     Friend WithEvents MonoFlat_HeaderLabel2 As MonoFlat.MonoFlat_HeaderLabel
