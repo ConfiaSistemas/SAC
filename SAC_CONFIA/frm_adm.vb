@@ -55,133 +55,138 @@ Public Class frm_adm
     End Sub
 
     Private Sub frm_adm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Timer2.Stop()
-
-        perfilalt.Close()
-        abierto = False
         Try
+            Timer2.Stop()
+
+            perfilalt.Close()
+            abierto = False
             If Actualizar Then
             Else
-                If cerrarEmpresa Then
-                    If MessageBox.Show("¿Está seguro que desea cerrar la empresa?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
-                        perfilalt.TopMost = False
 
-                        'Application.ExitThread()
+                If cerrarSesion Then
+                    If cerrarEmpresa Then
+                        If MessageBox.Show("¿Está seguro que desea cerrar la empresa?", "SATI", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+                            perfilalt.TopMost = False
 
-                        Empresas.Show()
-                        'System.Threading.Thread.Sleep(1000)
-                        ' System.Threading.Thread.Sleep(1000)
-                        'cerrarSesion = False
-                        cerrarEmpresa = False
-                        cerrandoEmpresa = True
-                        'cerrandoSesion = True
-                        ' Dim i As Integer = 0
-                        'i = Application.OpenForms.Count
-                        ' For a As Integer = 0 To i
-                        'Dim frm As Form
-                        'frm = New Form
-                        'frm = Application.OpenForms.Item(a)
-                        'If frm.Name <> "login" And frm.Name <> Me.Name Then
-                        'frm.Close()
-                        'End If
-                        'Next
+                            'Application.ExitThread()
+                            Empresas.Show()
+                            cerrarSesion = False
+                            cerrandoSesion = True
+                            ' Dim i As Integer = 0
+                            'i = Application.OpenForms.Count
+                            ' For a As Integer = 0 To i
+                            'Dim frm As Form
+                            'frm = New Form
+                            'frm = Application.OpenForms.Item(a)
+                            'If frm.Name <> "login" And frm.Name <> Me.Name Then
+                            'frm.Close()
+                            'End If
+                            'Next
 
-                        Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
-                        For n As Integer = num_controles To 0 Step -1
-                            Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
-                            If ctrl.Name <> "Empresas" Or ctrl.Name <> Me.Name Then
-                                'MessageBox.Show(ctrl.Name)
-                                ctrl.Close()
-                            End If
-
-                            ' ctrl.Dispose()
-                        Next
-                        'MessageBox.Show("hola")
-                        Empresas.Show()
-                        Me.Close()
-
-                    Else
-                        cerrarEmpresa = False
-
-                        e.Cancel = True
-
-                    End If
-
-                Else
-                    If cerrandoEmpresa Then
-                        MessageBox.Show("hola")
-                        'Me.Close()
-
-
-                    Else
-
-                        If cerrarSesion Then
-
-                            If MessageBox.Show("¿Está seguro que desea cerrar sesión?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
-                                perfilalt.TopMost = False
-
-                                'Application.ExitThread()
-                                login.Show()
-                                cerrarSesion = False
-                                cerrandoSesion = True
-                                ' Dim i As Integer = 0
-                                'i = Application.OpenForms.Count
-                                ' For a As Integer = 0 To i
-                                'Dim frm As Form
-                                'frm = New Form
-                                'frm = Application.OpenForms.Item(a)
-                                'If frm.Name <> "login" And frm.Name <> Me.Name Then
-                                'frm.Close()
-                                'End If
-                                'Next
-
-                                Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
-                                For n As Integer = num_controles To 0 Step -1
-                                    Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
-                                    If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
-                                        ctrl.Close()
-                                    End If
-
-                                    'ctrl.Dispose()
-                                Next
-
-                                Me.Close()
-
-                            Else
-                                cerrarSesion = False
-
-                                e.Cancel = True
-
-                            End If
-                        Else
-                            If cerrandoSesion Then
-
-                            Else
-                                'MessageBox.Show("hola")
-                                If MessageBox.Show("¿Está seguro que desea salir?", "SAC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
-                                    perfilalt.TopMost = False
-
-                                    System.Windows.Forms.Application.ExitThread()
-
-
-
-                                Else
-                                    e.Cancel = True
-
+                            Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
+                            For n As Integer = num_controles To 0 Step -1
+                                Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
+                                If ctrl.Name <> "Empresas" And ctrl.Name <> Me.Name Then
+                                    ctrl.Close()
                                 End If
-                            End If
+
+                                'ctrl.Dispose()
+                            Next
+
+                            Me.Close()
+
+                        Else
+                            cerrarSesion = False
+
+                            e.Cancel = True
+
+                        End If
+                    Else
+                        If MessageBox.Show("¿Está seguro que desea cerrar sesión?", "SATI", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+                            perfilalt.TopMost = False
+                            Dim conexionSesion As MySqlConnection
+                            conexionSesion = New MySqlConnection()
+                            conexionSesion.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+                            conexionSesion.Open()
+                            Dim comandoActSesion As MySqlCommand
+                            Dim consultaActSesion As String
+                            consultaActSesion = "update Sesiones set Activo = 0 where id = '" & idSesion & "'"
+                            comandoActSesion = New MySqlCommand
+                            comandoActSesion.Connection = conexionSesion
+                            comandoActSesion.CommandText = consultaActSesion
+                            comandoActSesion.ExecuteNonQuery()
+                            conexionSesion.Close()
+                            'Application.ExitThread()
+                            login.Show()
+                            cerrarSesion = False
+                            cerrandoSesion = True
+                            ' Dim i As Integer = 0
+                            'i = Application.OpenForms.Count
+                            ' For a As Integer = 0 To i
+                            'Dim frm As Form
+                            'frm = New Form
+                            'frm = Application.OpenForms.Item(a)
+                            'If frm.Name <> "login" And frm.Name <> Me.Name Then
+                            'frm.Close()
+                            'End If
+                            'Next
+
+                            Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
+                            For n As Integer = num_controles To 0 Step -1
+                                Dim ctrl As Form = System.Windows.Forms.Application.OpenForms.Item(n)
+                                If ctrl.Name <> "login" And ctrl.Name <> Me.Name Then
+                                    ctrl.Close()
+                                End If
+
+                                'ctrl.Dispose()
+                            Next
+
+                            Me.Close()
+
+                        Else
+                            cerrarSesion = False
+
+                            e.Cancel = True
 
                         End If
                     End If
 
+                Else
+                    If cerrandoSesion Then
+                        'MessageBox.Show("hola")
+                    Else
+                        'MessageBox.Show("hola")
+                        If MessageBox.Show("¿Está seguro que desea salir?", "SATI", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+                            perfilalt.TopMost = False
+                            Dim conexionSesion As MySqlConnection
+                            conexionSesion = New MySqlConnection()
+                            conexionSesion.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+                            conexionSesion.Open()
+                            Dim comandoActSesion As MySqlCommand
+                            Dim consultaActSesion As String
+                            consultaActSesion = "update Sesiones set Activo = 0 where id = '" & idSesion & "'"
+                            comandoActSesion = New MySqlCommand
+                            comandoActSesion.Connection = conexionSesion
+                            comandoActSesion.CommandText = consultaActSesion
+                            comandoActSesion.ExecuteNonQuery()
+                            conexionSesion.Close()
+                            System.Windows.Forms.Application.ExitThread()
+
+
+
+                        Else
+                            e.Cancel = True
+
+                        End If
+                    End If
 
                 End If
             End If
 
+
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
-
 
     End Sub
 
@@ -205,6 +210,10 @@ Public Class frm_adm
                 MessageBox.Show("No fue autorizado")
             End If
 
+        End If
+        If e.KeyCode = Keys.F4 Then
+            BuscarCredito.tipoCredito = inicio.tipoCredito
+            BuscarCredito.Show()
         End If
 
         If e.KeyCode = Keys.F9 Then
@@ -240,8 +249,13 @@ Public Class frm_adm
         End If
 
         If e.KeyCode = Keys.F2 And ventana.Name = "inicio" Then
-            BuscarCredito.tipoCredito = inicio.tipoCredito
-            BuscarCredito.Show()
+            If inicio.SwitchTipo.Checked Then
+                BuscarCliente.Show()
+
+            Else
+                BuscarCredito.tipoCredito = inicio.tipoCredito
+                BuscarCredito.Show()
+            End If
         End If
 
         If e.KeyCode = Keys.F5 And ventana.Name = "inicio" Then
@@ -288,7 +302,7 @@ Public Class frm_adm
         TimerActualizacion.Interval = 60000
         TimerActualizacion.Enabled = True
         TimerActualizacion.Start()
-        TimerNotificaciones.Interval = 60000
+        TimerNotificaciones.Interval = 10000
         TimerNotificaciones.Enabled = True
         TimerNotificaciones.Start()
         TimerActSesion.Interval = 60000
@@ -763,15 +777,18 @@ Public Class frm_adm
     End Sub
 
     Private Sub TimerActualizacion_Tick(sender As Object, e As EventArgs) Handles TimerActualizacion.Tick
+        If BackgroundActualizacion.IsBusy Then
+        Else
 
-        BackgroundActualizacion.RunWorkerAsync()
+            BackgroundActualizacion.RunWorkerAsync()
 
+        End If
     End Sub
 
     Private Sub BackgroundActualizacion_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundActualizacion.DoWork
         Try
             conexionsql = New MySqlConnection()
-            conexionsql.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=Versiones"
+            conexionsql.ConnectionString = "server=www.prestamosconfia.com;user id=SACVersiones;pwd=123456;port=3306;database=Versiones"
             conexionsql.Open()
 
             Dim mysqlcomando As MySqlCommand
@@ -829,7 +846,7 @@ Public Class frm_adm
 
             Dim conexionNotificaciones As MySqlConnection
             conexionNotificaciones = New MySqlConnection()
-            conexionNotificaciones.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+            conexionNotificaciones.ConnectionString = "server=www.prestamosconfia.com;user id=SACNotificacion;pwd=123456;port=3306;database=USRS"
             conexionNotificaciones.Open()
 
             Dim mysqlcomando As MySqlCommand
@@ -854,7 +871,11 @@ Public Class frm_adm
             End While
             readerNotificacion.Close()
             ' conexionNotificaciones.Close()
+            Me.Invoke(Sub()
+                          notificaciones.Text = "Tienes " & array.Count & " notificaciones"
+                          notificaciones.Refresh()
 
+                      End Sub)
             For a As Integer = Array.Count - 1 To 0 Step -1
                 If Array(a).Tipo = "Logout" Then
                     Dim comandoActNotificacion As MySqlCommand
@@ -962,6 +983,8 @@ Public Class frm_adm
                     System.Windows.Forms.Application.Exit()
                 End If
             Next
+            conexionNotificaciones.Close()
+
         Catch ex As Exception
 
         End Try
@@ -979,7 +1002,7 @@ Public Class frm_adm
         Try
             Dim conexionSesion As MySqlConnection
             conexionSesion = New MySqlConnection()
-            conexionSesion.ConnectionString = "server=www.prestamosconfia.com;user id=ajas;pwd=123456;port=3306;database=USRS"
+            conexionSesion.ConnectionString = "server=www.prestamosconfia.com;user id=SACSesiones;pwd=123456;port=3306;database=USRS"
             conexionSesion.Open()
 
             Dim mysqlcomando As MySqlCommand
@@ -1002,7 +1025,9 @@ Public Class frm_adm
                 comandoActSesion.ExecuteNonQuery()
                 conexionSesion.Close()
             Else
+                conexionSesion.Close()
 
+                'quitar comentario
                 Me.Invoke(Sub()
                               Dim nAlertas As New Alertas
                               nAlertas.cadena = "Han pasado más de 5 minutos sin conexión, la sesión se cerrará"
@@ -1013,7 +1038,7 @@ Public Class frm_adm
 
 
                 Actualizar = True
-                ' login.Show()
+                login.Show()
 
                 Dim num_controles As Integer = System.Windows.Forms.Application.OpenForms.Count - 1
                 For n As Integer = num_controles To 0 Step -1

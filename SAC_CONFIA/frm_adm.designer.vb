@@ -31,7 +31,7 @@ Partial Class frm_adm
         Me.BunifuFlatButton6 = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnusuarios = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnconfiguracion = New Bunifu.Framework.UI.BunifuFlatButton()
-        Me.notificaciones = New MonoFlat.MonoFlat_NotificationBox()
+        Me.notificaciones = New SAC_CONFIA.MonoFlat.MonoFlat_NotificationBox()
         Me.imgperfil = New Bunifu.Framework.UI.BunifuImageButton()
         Me.panelmenus = New System.Windows.Forms.Panel()
         Me.BunifuFlatButton5 = New Bunifu.Framework.UI.BunifuFlatButton()
@@ -241,15 +241,15 @@ Partial Class frm_adm
         '
         'notificaciones
         '
-        Me.notificaciones.BorderCurve = 8
+        Me.notificaciones.BorderCurve = 30
         Me.notificaciones.Font = New System.Drawing.Font("Tahoma", 9.0!)
         Me.notificaciones.Image = Nothing
         Me.notificaciones.Location = New System.Drawing.Point(675, 6)
         Me.notificaciones.MinimumSize = New System.Drawing.Size(100, 40)
         Me.notificaciones.Name = "notificaciones"
         Me.notificaciones.NotificationType = SAC_CONFIA.MonoFlat.MonoFlat_NotificationBox.Type.Notice
-        Me.notificaciones.RoundCorners = False
-        Me.notificaciones.ShowCloseButton = True
+        Me.notificaciones.RoundCorners = True
+        Me.notificaciones.ShowCloseButton = False
         Me.notificaciones.Size = New System.Drawing.Size(157, 52)
         Me.notificaciones.TabIndex = 3
         Me.notificaciones.Text = "MonoFlat_NotificationBox1"
@@ -314,6 +314,7 @@ Partial Class frm_adm
         Me.BunifuFlatButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BunifuFlatButton5.Textcolor = System.Drawing.Color.Black
         Me.BunifuFlatButton5.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BunifuFlatButton5.Visible = False
         '
         'BunifuFlatButton3
         '

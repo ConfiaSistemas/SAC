@@ -49,6 +49,9 @@
   <PropertyGroup>
     <ApplicationIcon>SAC.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge">
       <HintPath>..\..\Ent_UsAdmin\Ent_UsAdmin\Ent_UsAdmin\bin\Debug\AForge.dll</HintPath>
@@ -110,6 +113,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Spire.Doc">
+      <HintPath>C:\Program Files (x86)\e-iceblue\Spire.Doc-FE\Bin\NET4.0\Spire.Doc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -136,6 +142,10 @@
     <Reference Include="TelerikData, Version=2018.1.116.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Words.NET, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Words.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Zeroit.Framework.Metro">
       <HintPath>C:\DLL JAIRO\Zeroit.Framework.Metro.1.0.0\lib\Zeroit.Framework.Metro.dll</HintPath>
     </Reference>
@@ -154,91 +164,108 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alertas.designer.vb">
+    <Compile Include="Acceso\Alertas.designer.vb">
       <DependentUpon>Alertas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Alertas.vb">
+    <Compile Include="Acceso\Alertas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AplicarDescuento.Designer.vb">
+    <Compile Include="Configuracion\Class3.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Creditos\AplicarDescuento.Designer.vb">
       <DependentUpon>AplicarDescuento.vb</DependentUpon>
     </Compile>
-    <Compile Include="AplicarDescuento.vb">
+    <Compile Include="Creditos\AplicarDescuento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Autorizacion.designer.vb">
+    <Compile Include="Configuracion\ApplicationEvents.vb" />
+    <Compile Include="Acceso\Autorizacion.designer.vb">
       <DependentUpon>Autorizacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Autorizacion.vb">
+    <Compile Include="Acceso\Autorizacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BuscarEmpeño.Designer.vb">
+    <Compile Include="Creditos\BuscarCliente.Designer.vb">
+      <DependentUpon>BuscarCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Creditos\BuscarCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Creditos\BuscarCreditoCliente.Designer.vb">
+      <DependentUpon>BuscarCreditoCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Creditos\BuscarCreditoCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empeños\BuscarEmpeño.Designer.vb">
       <DependentUpon>BuscarEmpeño.vb</DependentUpon>
     </Compile>
-    <Compile Include="BuscarEmpeño.vb">
+    <Compile Include="Empeños\BuscarEmpeño.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BuscarCredito.Designer.vb">
+    <Compile Include="Creditos\BuscarCredito.Designer.vb">
       <DependentUpon>BuscarCredito.vb</DependentUpon>
     </Compile>
-    <Compile Include="BuscarCredito.vb">
+    <Compile Include="Creditos\BuscarCredito.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cargando.designer.vb">
+    <Compile Include="Acceso\Cargando.designer.vb">
       <DependentUpon>Cargando.vb</DependentUpon>
     </Compile>
-    <Compile Include="Cargando.vb">
+    <Compile Include="Acceso\Cargando.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Class1.vb">
+    <Compile Include="Configuracion\Class1.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Class2.vb" />
-    <Compile Include="Class3.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CobroExtra.Designer.vb">
+    <Compile Include="Caja\CobroExtra.Designer.vb">
       <DependentUpon>CobroExtra.vb</DependentUpon>
     </Compile>
-    <Compile Include="CobroExtra.vb">
+    <Compile Include="Caja\CobroExtra.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuraciones.designer.vb">
+    <Compile Include="Creditos\ComisionEnganche.Designer.vb">
+      <DependentUpon>ComisionEnganche.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Creditos\ComisionEnganche.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuracion\Configuraciones.designer.vb">
       <DependentUpon>Configuraciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="Configuraciones.vb">
+    <Compile Include="Configuracion\Configuraciones.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Creditos_Autorizados.Designer.vb">
+    <Compile Include="Creditos\Creditos_Autorizados.Designer.vb">
       <DependentUpon>Creditos_Autorizados.vb</DependentUpon>
     </Compile>
-    <Compile Include="Creditos_Autorizados.vb">
+    <Compile Include="Creditos\Creditos_Autorizados.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DetalleCaja.Designer.vb">
+    <Compile Include="Creditos\DetalleCaja.Designer.vb">
       <DependentUpon>DetalleCaja.vb</DependentUpon>
     </Compile>
-    <Compile Include="DetalleCaja.vb">
+    <Compile Include="Creditos\DetalleCaja.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DetallePago.vb" />
-    <Compile Include="editarperfil.designer.vb">
+    <Compile Include="Creditos\DetallePago.vb" />
+    <Compile Include="Configuracion\editarperfil.designer.vb">
       <DependentUpon>editarperfil.vb</DependentUpon>
     </Compile>
-    <Compile Include="editarperfil.vb">
+    <Compile Include="Configuracion\editarperfil.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Empresas.designer.vb">
+    <Compile Include="Acceso\Empresas.designer.vb">
       <DependentUpon>Empresas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Empresas.vb">
+    <Compile Include="Acceso\Empresas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.vb">
+    <Compile Include="Acceso\Form1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
+    <Compile Include="Acceso\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -248,38 +275,38 @@
     <Compile Include="frm_adm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CobroEmpeño.designer.vb">
+    <Compile Include="Empeños\CobroEmpeño.designer.vb">
       <DependentUpon>CobroEmpeño.vb</DependentUpon>
     </Compile>
-    <Compile Include="CobroEmpeño.vb">
+    <Compile Include="Empeños\CobroEmpeño.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="inicio.designer.vb">
+    <Compile Include="Creditos\inicio.designer.vb">
       <DependentUpon>inicio.vb</DependentUpon>
     </Compile>
-    <Compile Include="inicio.vb">
+    <Compile Include="Creditos\inicio.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Liquidaciones.Designer.vb">
+    <Compile Include="Creditos\Liquidaciones.Designer.vb">
       <DependentUpon>Liquidaciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="Liquidaciones.vb">
+    <Compile Include="Creditos\Liquidaciones.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiquidacionInsoluto.Designer.vb">
+    <Compile Include="Creditos\LiquidacionInsoluto.Designer.vb">
       <DependentUpon>LiquidacionInsoluto.vb</DependentUpon>
     </Compile>
-    <Compile Include="LiquidacionInsoluto.vb">
+    <Compile Include="Creditos\LiquidacionInsoluto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="login.designer.vb">
+    <Compile Include="Acceso\login.designer.vb">
       <DependentUpon>login.vb</DependentUpon>
     </Compile>
-    <Compile Include="login.vb">
+    <Compile Include="Acceso\login.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Module1.vb" />
-    <Compile Include="modulo resize.vb" />
+    <Compile Include="Acceso\Module1.vb" />
+    <Compile Include="Configuracion\modulo resize.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -295,130 +322,145 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Notificaciones.vb" />
-    <Compile Include="NumLetra.vb" />
-    <Compile Include="OtraCantidadEmpeño.Designer.vb">
+    <Compile Include="Acceso\Notificaciones.vb" />
+    <Compile Include="Configuracion\NumLetra.vb" />
+    <Compile Include="Empeños\OtraCantidadEmpeño.Designer.vb">
       <DependentUpon>OtraCantidadEmpeño.vb</DependentUpon>
     </Compile>
-    <Compile Include="OtraCantidadEmpeño.vb">
+    <Compile Include="Empeños\OtraCantidadEmpeño.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="perfilalt.designer.vb">
+    <Compile Include="Configuracion\perfilalt.designer.vb">
       <DependentUpon>perfilalt.vb</DependentUpon>
     </Compile>
-    <Compile Include="perfilalt.vb">
+    <Compile Include="Configuracion\perfilalt.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PrintesClass.vb" />
-    <Compile Include="RealizarRetrio.Designer.vb">
+    <Compile Include="Configuracion\PrintesClass.vb" />
+    <Compile Include="Caja\RealizarRetrio.Designer.vb">
       <DependentUpon>RealizarRetrio.vb</DependentUpon>
     </Compile>
-    <Compile Include="RealizarRetrio.vb">
+    <Compile Include="Caja\RealizarRetrio.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reportes.designer.vb">
+    <Compile Include="Reportes\Reportes.designer.vb">
       <DependentUpon>Reportes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Reportes.vb">
+    <Compile Include="Reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Run.designer.vb">
+    <Compile Include="Configuracion\Run.designer.vb">
       <DependentUpon>Run.vb</DependentUpon>
     </Compile>
-    <Compile Include="Run.vb">
+    <Compile Include="Configuracion\Run.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreen1.designer.vb">
+    <Compile Include="Configuracion\SplashScreen1.designer.vb">
       <DependentUpon>SplashScreen1.vb</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreen1.vb">
+    <Compile Include="Configuracion\SplashScreen1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tickets.Designer.vb">
+    <Compile Include="Caja\Retiros.Designer.vb">
+      <DependentUpon>Retiros.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Retiros.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caja\Tickets.Designer.vb">
       <DependentUpon>Tickets.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tickets.vb">
+    <Compile Include="Caja\Tickets.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ticket_impresion.Designer.vb">
+    <Compile Include="Caja\Ticket_impresion.Designer.vb">
       <DependentUpon>Ticket_impresion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ticket_impresion.vb">
+    <Compile Include="Caja\Ticket_impresion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ticket_Comision.Designer.vb">
+    <Compile Include="Caja\Ticket_Comision.Designer.vb">
       <DependentUpon>Ticket_Comision.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ticket_Comision.vb">
+    <Compile Include="Caja\Ticket_Comision.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="webcam.designer.vb">
+    <Compile Include="Configuracion\webcam.designer.vb">
       <DependentUpon>webcam.vb</DependentUpon>
     </Compile>
-    <Compile Include="webcam.vb">
+    <Compile Include="Configuracion\webcam.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Alertas.resx">
+    <EmbeddedResource Include="Acceso\Alertas.resx">
       <DependentUpon>Alertas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AplicarDescuento.resx">
-      <DependentUpon>AplicarDescuento.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Autorizacion.resx">
-      <DependentUpon>Autorizacion.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BuscarEmpeño.resx">
-      <DependentUpon>BuscarEmpeño.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BuscarCredito.resx">
-      <DependentUpon>BuscarCredito.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cargando.resx">
-      <DependentUpon>Cargando.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Class3.resx">
+    <EmbeddedResource Include="Configuracion\Class3.resx">
       <DependentUpon>Class3.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CobroExtra.resx">
+    <EmbeddedResource Include="Creditos\AplicarDescuento.resx">
+      <DependentUpon>AplicarDescuento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Acceso\Autorizacion.resx">
+      <DependentUpon>Autorizacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Creditos\BuscarCliente.resx">
+      <DependentUpon>BuscarCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Creditos\BuscarCreditoCliente.resx">
+      <DependentUpon>BuscarCreditoCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empeños\BuscarEmpeño.resx">
+      <DependentUpon>BuscarEmpeño.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Creditos\BuscarCredito.resx">
+      <DependentUpon>BuscarCredito.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Acceso\Cargando.resx">
+      <DependentUpon>Cargando.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\CobroExtra.resx">
       <DependentUpon>CobroExtra.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuraciones.resx">
+    <EmbeddedResource Include="Creditos\ComisionEnganche.resx">
+      <DependentUpon>ComisionEnganche.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuracion\Configuraciones.resx">
       <DependentUpon>Configuraciones.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Creditos_Autorizados.resx">
+    <EmbeddedResource Include="Creditos\Creditos_Autorizados.resx">
       <DependentUpon>Creditos_Autorizados.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DetalleCaja.resx">
+    <EmbeddedResource Include="Creditos\DetalleCaja.resx">
       <DependentUpon>DetalleCaja.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="editarperfil.resx">
+    <EmbeddedResource Include="Configuracion\editarperfil.resx">
       <DependentUpon>editarperfil.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Empresas.resx">
+    <EmbeddedResource Include="Acceso\Empresas.resx">
       <DependentUpon>Empresas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Acceso\Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_adm.resx">
       <DependentUpon>frm_adm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CobroEmpeño.resx">
+    <EmbeddedResource Include="Empeños\CobroEmpeño.resx">
       <DependentUpon>CobroEmpeño.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="inicio.resx">
+    <EmbeddedResource Include="Creditos\inicio.resx">
       <DependentUpon>inicio.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Liquidaciones.resx">
+    <EmbeddedResource Include="Creditos\Liquidaciones.resx">
       <DependentUpon>Liquidaciones.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiquidacionInsoluto.resx">
+    <EmbeddedResource Include="Creditos\LiquidacionInsoluto.resx">
       <DependentUpon>LiquidacionInsoluto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="login.resx">
+    <EmbeddedResource Include="Acceso\login.resx">
       <DependentUpon>login.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
@@ -428,38 +470,42 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OtraCantidadEmpeño.resx">
+    <EmbeddedResource Include="Empeños\OtraCantidadEmpeño.resx">
       <DependentUpon>OtraCantidadEmpeño.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="perfilalt.resx">
+    <EmbeddedResource Include="Configuracion\perfilalt.resx">
       <DependentUpon>perfilalt.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RealizarRetrio.resx">
+    <EmbeddedResource Include="Caja\RealizarRetrio.resx">
       <DependentUpon>RealizarRetrio.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes.resx">
+    <EmbeddedResource Include="Reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Run.resx">
+    <EmbeddedResource Include="Configuracion\Run.resx">
       <DependentUpon>Run.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SplashScreen1.resx">
+    <EmbeddedResource Include="Configuracion\SplashScreen1.resx">
       <DependentUpon>SplashScreen1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tickets.resx">
+    <EmbeddedResource Include="Caja\Retiros.resx">
+      <DependentUpon>Retiros.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tickets.resx">
       <DependentUpon>Tickets.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ticket_impresion.resx">
+    <EmbeddedResource Include="Caja\Ticket_impresion.resx">
       <DependentUpon>Ticket_impresion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ticket_Comision.resx">
+    <EmbeddedResource Include="Caja\Ticket_Comision.resx">
       <DependentUpon>Ticket_Comision.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="webcam.resx">
+    <EmbeddedResource Include="Configuracion\webcam.resx">
       <DependentUpon>webcam.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -471,9 +517,7 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\reporte-png-3.png" />
